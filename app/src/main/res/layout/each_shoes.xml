@@ -12,7 +12,7 @@
         app:srcCompat="@mipmap/ic_launcher"/>
 
     <TextView
-        android:id="@+id/ShoesName"
+        android:id="@+id/shooseName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="shooseName"/>

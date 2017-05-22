@@ -15,6 +15,5 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.appbar);
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        toolbar.
     }
 }

@@ -3,7 +3,7 @@ package shoeping.clientapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class categoryActivity extends AppCompatActivity {
+public class CategoryActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
