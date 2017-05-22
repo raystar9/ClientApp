@@ -1,10 +1,12 @@
 package shoeping.clientapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -23,23 +25,34 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkLoginInfoCorrect();
+
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("id", getLoginId());
+
             }
         });
     }
 
-    private String checkLoginInfoCorrect() {
-
-        DatabaseManager databaseManager = DatabaseManager.getInstance();
+    private String getLoginId() {
 
         String string_id = databaseManager.getId();
         String string_pw = databaseManager.getPw();
 
-        if(string_id.equals(_editText_id.getText()) && string_pw.equals(_editText_pw.getText())) {
-                return string_id;
-        }
-        else {
+        if (checkPasswordIsCorrect(string_id, string_pw)) {
+            return string_id;
+        } else {
+            Toast.makeText(this, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
             return null;
+        }
+    }
+
+    private boolean checkPasswordIsCorrect(String id, String password) {
+        DatabaseManager databaseManager = DatabaseManager.getInstance();
+
+        if (id.equals(_editText_id.getText()) && password.equals(_editText_pw.getText())) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
