@@ -7,4 +7,21 @@
     android:layout_height="match_parent"
     tools:context="shoeping.clientapp.OrderActivity">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="구매 총액 : "
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="30dp"
+        tools:layout_editor_absoluteY="210dp"
+        tools:layout_editor_absoluteX="0dp"/>
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="결제하기"
+        tools:layout_editor_absoluteX="280dp"
+        tools:layout_editor_absoluteY="447dp"/>
 </android.support.constraint.ConstraintLayout>
