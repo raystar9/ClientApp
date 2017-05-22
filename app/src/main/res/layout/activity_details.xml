@@ -34,13 +34,13 @@
             tools:layout_editor_absoluteY="275dp">
 
             <TextView
-                android:id="@+id/detailShooseName"
+                android:id="@+id/detailShoesName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="name"/>
 
             <TextView
-                android:id="@+id/detailShoosePrice"
+                android:id="@+id/detailShoesPrice"
                 android:layout_width="326dp"
                 android:layout_height="wrap_content"
                 android:text="price"/>
