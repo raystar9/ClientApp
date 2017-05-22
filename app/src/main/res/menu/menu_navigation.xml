@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:tint="@color/button_grey"
+            android:title="구두" />
+        <item
+            android:tint="@color/button_grey"
+            android:title="운동화" />
+        <item
+            android:tint="@color/button_grey"
+            android:title="슬리퍼" />
+    </group>
+</menu>
