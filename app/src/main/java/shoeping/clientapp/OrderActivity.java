@@ -31,7 +31,7 @@ public class OrderActivity extends AppCompatActivity {
                 String phone = editText_phone.getText().toString();
                 String comment= editText_comment.getText().toString();
 
-                databaseManager.commitToDatabase(address, phone, comment);
+             //   databaseManager.commitToDatabase(address, phone, comment);
             }
         });
     }

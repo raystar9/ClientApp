@@ -26,11 +26,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("id", getLoginId());
+                if(getLoginId() != null) {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    intent.putExtra("id", getLoginId());
 
-                startActivityForResult();
-
+                    setResult(RESULT_OK);
+                    finish();
+                }
             }
         });
     }
