@@ -34,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private String getLoginId() {
+        DatabaseManager databaseManager = DatabaseManager.getInstance();
 
         String string_id = databaseManager.getId();
         String string_pw = databaseManager.getPw();
@@ -47,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean checkPasswordIsCorrect(String id, String password) {
-        DatabaseManager databaseManager = DatabaseManager.getInstance();
+
 
         if (id.equals(_editText_id.getText()) && password.equals(_editText_pw.getText())) {
             return true;
