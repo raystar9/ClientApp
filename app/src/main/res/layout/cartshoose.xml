@@ -17,20 +17,20 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/cartShooseName"
+            android:id="@+id/shooseNameInCart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="name"/>
 
         <TextView
-            android:id="@+id/cartShoosePrice"
+            android:id="@+id/ShoosePriceInCart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="price"
             />
 
         <TextView
-            android:id="@+id/cartSelectSize"
+            android:id="@+id/SelectSizeInCart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="selectSize"/>
