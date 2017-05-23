@@ -33,5 +33,8 @@ public class DatabaseManager {
     }
 
 
-
+    public ShoesDataPack pack(int species, int position) {
+        ShoesDataPack pack = new ShoesDataPack();
+        return pack;
+    }
 }

@@ -56,6 +56,7 @@ public class SlipperFragment extends Fragment {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, DetailsActivity.class);
                     intent.putExtra(DetailsActivity.EXTRA_POSITION, getAdapterPosition());
+                    intent.putExtra(DetailsActivity.EXTRA_SPECIES, R.array.slipper);
                     context.startActivity(intent);
                 }
             });

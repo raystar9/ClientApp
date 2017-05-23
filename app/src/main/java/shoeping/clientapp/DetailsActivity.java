@@ -9,6 +9,7 @@ import android.widget.ImageView;
 public class DetailsActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "position";
+    public static final String EXTRA_SPECIES = "species";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,10 +17,14 @@ public class DetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details);
 
         Resources resources = getResources();
+        DatabaseManager databaseManager = DatabaseManager.getInstance();
 
         int position = getIntent().getIntExtra(EXTRA_POSITION, 0);
+        int species = getIntent().getIntExtra(EXTRA_SPECIES, 0);
 
-        TypedArray placePictures = resources.obtainTypedArray(R.array.slipper);
+        ShoesDataPack pack = databaseManager.pack(species, position);
+
+        TypedArray placePictures = resources.obtainTypedArray(species);
         ImageView placePicutre = (ImageView) findViewById(R.id.detailImg);
         placePicutre.setImageDrawable(placePictures.getDrawable(position % placePictures.length()));
 
