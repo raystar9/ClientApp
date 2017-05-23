@@ -1,6 +1,7 @@
 package shoeping.clientapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -48,6 +49,16 @@ public class SlipperFragment extends Fragment {
             name = (TextView) itemView.findViewById(R.id.shoesName);
             price = (TextView) itemView.findViewById(R.id.shoesPrice);
             size = (TextView) itemView.findViewById(R.id.shoesSize);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, DetailsActivity.class);
+                    intent.putExtra(DetailsActivity.EXTRA_POSITION, getAdapterPosition());
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 
