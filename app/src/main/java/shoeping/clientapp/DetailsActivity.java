@@ -1,9 +1,14 @@
 package shoeping.clientapp;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 public class DetailsActivity extends AppCompatActivity {
@@ -18,11 +23,23 @@ public class DetailsActivity extends AppCompatActivity {
 
         Resources resources = getResources();
         DatabaseManager databaseManager = DatabaseManager.getInstance();
+        Button orderButton = (Button) findViewById(R.id.directOrderBtn);
+        final CoordinatorLayout container = (CoordinatorLayout) findViewById(R.id.detailLayout);
 
         int position = getIntent().getIntExtra(EXTRA_POSITION, 0);
         int species = getIntent().getIntExtra(EXTRA_SPECIES, 0);
 
-        ShoesDataPack pack = databaseManager.packShoesData(species, position);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        orderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                
+                inflater.inflate(R.layout.activity_login, container, true);
+            }
+        });
+//        ShoesDataPack pack = databaseManager.packShoesData(species, position);
 
         TypedArray placePictures = resources.obtainTypedArray(species);
         ImageView placePicutre = (ImageView) findViewById(R.id.detailImg);

@@ -1,8 +1,6 @@
 package shoeping.clientapp;
 
 import android.os.AsyncTask;
-import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,8 +12,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import static android.R.id.list;
 
 /**
  * Created by Koo on 2017-05-22.
@@ -57,7 +53,7 @@ public class DatabaseManager {
     public void setPw(String pw) {
         _pw = pw;
     }
-
+/*
     public ShoesDataPack packShoesData(int species, int position) {
         ShoesDataPack pack = new ShoesDataPack();   //drawable에 있는 resource 이용. position은 위치.
         return pack;
@@ -66,7 +62,7 @@ public class DatabaseManager {
         ShoesDataPack[] pack = new ShoesDataPack();
         return pack;
     }
-
+*/
     public void getData(String url, final String table){
         class GetDataJSON extends AsyncTask<String, Void, String> {
 

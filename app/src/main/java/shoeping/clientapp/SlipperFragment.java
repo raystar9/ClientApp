@@ -28,6 +28,7 @@ public class SlipperFragment extends Fragment {
                              Bundle savedInstanceState) {
         RecyclerView recyclerView =
                 (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
+
         ContentAdapter adapter = new ContentAdapter(recyclerView.getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
@@ -36,6 +37,7 @@ public class SlipperFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         return recyclerView;
     }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView picture;
@@ -90,8 +92,8 @@ public class SlipperFragment extends Fragment {
         public void onBindViewHolder(ViewHolder holder, int position) {
             holder.picture.setImageDrawable(slipperArray[position % slipperArray.length]);
 //            holder.name.setText(nameArray[position % nameArray.length]);
-//           holder.price.setText(priceArray[position % priceArray.length]);
-//          holder.size.setText(sizeArray[position % sizeArray.length]);
+//            holder.price.setText(priceArray[position % priceArray.length]);
+//            holder.size.setText(sizeArray[position % sizeArray.length]);
         }
 
         @Override
@@ -101,7 +103,7 @@ public class SlipperFragment extends Fragment {
 
         private void importFromDatabase() {
             DatabaseManager databaseManager = DatabaseManager.getInstance();
-            ShoesDataPack[] packs = databaseManager.packShoesData(slipper);
+//            ShoesDataPack[] packs = databaseManager.packShoesData(R.array.slipper);
         }
     }
 }
