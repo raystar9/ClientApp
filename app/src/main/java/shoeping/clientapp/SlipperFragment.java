@@ -67,6 +67,9 @@ public class SlipperFragment extends Fragment {
 
 
         private final Drawable[] slipperArray;
+        private String[] nameArray;
+        private String[] priceArray;
+        private String[] sizeArray;
 
         public ContentAdapter(Context context) {
             Resources resources = context.getResources();
@@ -86,11 +89,19 @@ public class SlipperFragment extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             holder.picture.setImageDrawable(slipperArray[position % slipperArray.length]);
+//            holder.name.setText(nameArray[position % nameArray.length]);
+//           holder.price.setText(priceArray[position % priceArray.length]);
+//          holder.size.setText(sizeArray[position % sizeArray.length]);
         }
 
         @Override
         public int getItemCount() {
             return slipperArray.length;
+        }
+
+        private void importFromDatabase() {
+            DatabaseManager databaseManager = DatabaseManager.getInstance();
+            ShoesDataPack[] packs = databaseManager.packShoesData(slipper);
         }
     }
 }

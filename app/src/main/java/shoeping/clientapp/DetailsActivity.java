@@ -22,7 +22,7 @@ public class DetailsActivity extends AppCompatActivity {
         int position = getIntent().getIntExtra(EXTRA_POSITION, 0);
         int species = getIntent().getIntExtra(EXTRA_SPECIES, 0);
 
-        ShoesDataPack pack = databaseManager.pack(species, position);
+        ShoesDataPack pack = databaseManager.packShoesData(species, position);
 
         TypedArray placePictures = resources.obtainTypedArray(species);
         ImageView placePicutre = (ImageView) findViewById(R.id.detailImg);

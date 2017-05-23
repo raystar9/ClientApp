@@ -58,10 +58,12 @@ public class DatabaseManager {
         _pw = pw;
     }
 
-
-    public ShoesDataPack pack(int species, int position)
-    {
-        ShoesDataPack pack = new ShoesDataPack();  //drawable에 있는 resource 이용. position은 위치.
+    public ShoesDataPack packShoesData(int species, int position) {
+        ShoesDataPack pack = new ShoesDataPack();   //drawable에 있는 resource 이용. position은 위치.
+        return pack;
+    }
+    public ShoesDataPack[] packShoesData(int species) {
+        ShoesDataPack[] pack = new ShoesDataPack();
         return pack;
     }
 
@@ -245,7 +247,7 @@ public class DatabaseManager {
                 hash_orders.put("recv_addr",recv_addr);
                 hash_orders.put("recv_phone",recv_phone);
                 hash_orders.put("comment",comment);
-
+                
                 hashList.add(hash_orders);
             }
             /*
@@ -262,5 +264,3 @@ public class DatabaseManager {
         }
     }
 }
-
-
