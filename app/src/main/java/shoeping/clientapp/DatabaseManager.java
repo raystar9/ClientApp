@@ -245,7 +245,7 @@ public class DatabaseManager {
                 hash_orders.put("recv_addr",recv_addr);
                 hash_orders.put("recv_phone",recv_phone);
                 hash_orders.put("comment",comment);
-                
+
                 hashList.add(hash_orders);
             }
             /*
