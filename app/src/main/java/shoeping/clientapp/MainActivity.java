@@ -3,7 +3,11 @@ package shoeping.clientapp;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +19,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,11 +42,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        TextView textView = (TextView) findViewById(R.id.textView3);
-        textView.setText("hi");
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
 
-        GridView gridView = (GridView) findViewById(R.id.homeGrv);
-        gridView.setAdapter(new ImageAdapter(this));
+//        GridView gridView = (GridView) findViewById(R.id.homeGrv);
+ //       gridView.setAdapter(new ImageAdapter(this));
     }
 
     @Override
@@ -100,6 +106,41 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    private void setupViewPager(ViewPager viewPager) {
+        Adapter adapter = new Adapter(getSupportFragmentManager());
+        adapter.addFragment(new HomeFragment(), "home");
+        viewPager.setAdapter(adapter);
+    }
+
+    static class Adapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public Adapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+
     public class ImageAdapter extends BaseAdapter {
         private Context mContext;
 
@@ -138,7 +179,11 @@ public class MainActivity extends AppCompatActivity
 
         // references to our images
         private Integer[] mThumbIds = {
-                R.drawable.cat,R.drawable.cat,R.drawable.cat,R.drawable.cat
+                R.drawable.cat, R.drawable.cat, R.drawable.cat, R.drawable.cat
         };
+
+        public void setmThumbIds(Integer[] mThumbIds) {
+            this.mThumbIds = mThumbIds;
+        }
     }
 }
