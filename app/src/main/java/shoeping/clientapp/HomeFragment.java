@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
     }
 
     private class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
-        private static final int LENGTH = 18;
+
 
         private final Drawable[] sliper;
 
@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return 0;
+            return sliper.length;
         }
     }
 }
