@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <array name="sliper">
+    <array name="slipper">
         <item>@drawable/slipper_adidas</item>
         <item>@drawable/slipper_birkenstock</item>
         <item>@drawable/slipper_crocs</item>

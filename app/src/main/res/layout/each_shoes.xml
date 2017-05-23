@@ -3,7 +3,8 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:paddingBottom="16dp">
 
     <ImageView
         android:id="@+id/pictureImv"
@@ -15,23 +16,27 @@
         android:id="@+id/shoesName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
         android:text="shoesName"/>
 
     <TextView
         android:id="@+id/shoesPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
         android:text="price"/>
 
     <TextView
         android:id="@+id/shoesSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
         android:text="size"/>
 
     <TextView
         android:id="@+id/shoesGetPoint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
         android:text="starPoint"/>
 </LinearLayout>

@@ -27,7 +27,7 @@
         </activity>
         <activity android:name=".CartActivity">
         </activity>
-        <activity android:name=".HomeFragment">
+        <activity android:name=".SlipperFragment">
         </activity>
     </application>
 

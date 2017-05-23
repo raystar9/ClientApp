@@ -14,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class HomeFragment extends Fragment {
+import static shoeping.clientapp.R.array.slipper;
+
+public class SlipperFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,8 +30,8 @@ public class HomeFragment extends Fragment {
         ContentAdapter adapter = new ContentAdapter(recyclerView.getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
-
-        recyclerView.setPadding(8, 8, 8, 8);
+        int tilePadding = getResources().getDimensionPixelSize(R.dimen.tile_padding);
+        recyclerView.setPadding(tilePadding, tilePadding, tilePadding, tilePadding);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         return recyclerView;
     }
@@ -52,14 +54,14 @@ public class HomeFragment extends Fragment {
     private class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
 
 
-        private final Drawable[] sliper;
+        private final Drawable[] slipperArray;
 
         public ContentAdapter(Context context) {
             Resources resources = context.getResources();
-            TypedArray a = resources.obtainTypedArray(R.array.sliper);
-            sliper = new Drawable[a.length()];
-            for (int i = 0; i < sliper.length; i++) {
-                sliper[i] = a.getDrawable(i);
+            TypedArray a = resources.obtainTypedArray(slipper);
+            slipperArray = new Drawable[a.length()];
+            for (int i = 0; i < slipperArray.length; i++) {
+                slipperArray[i] = a.getDrawable(i);
             }
             a.recycle();
         }
@@ -71,12 +73,12 @@ public class HomeFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.picture.setImageDrawable(sliper[position % sliper.length]);
+            holder.picture.setImageDrawable(slipperArray[position % slipperArray.length]);
         }
 
         @Override
         public int getItemCount() {
-            return sliper.length;
+            return slipperArray.length;
         }
     }
 }
