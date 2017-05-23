@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -25,7 +25,6 @@ public class DetailsActivity extends AppCompatActivity {
         Resources resources = getResources();
         DatabaseManager databaseManager = DatabaseManager.getInstance();
         Button orderButton = (Button) findViewById(R.id.directOrderBtn);
-        final CoordinatorLayout container = (CoordinatorLayout) findViewById(R.id.detailLayout);
 
         int position = getIntent().getIntExtra(EXTRA_POSITION, 0);
         int species = getIntent().getIntExtra(EXTRA_SPECIES, 0);
@@ -35,9 +34,11 @@ public class DetailsActivity extends AppCompatActivity {
         orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                ConstraintLayout container = (ConstraintLayout) findViewById(R.id.detailLayout);
 
-                inflater.inflate(R.layout.activity_login, container, true);
+                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                container = (ConstraintLayout) inflater.inflate(R.layout.activity_login, null);
+                setContentView(container);
             }
         });
 //        ShoesDataPack pack = databaseManager.packShoesData(species, position);

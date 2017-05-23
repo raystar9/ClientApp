@@ -3,11 +3,10 @@ package shoeping.clientapp;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.graphics.drawable.VectorDrawableCompat;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -49,13 +48,8 @@ public class MainActivity extends AppCompatActivity
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
-        if (supportActionBar != null) {
-            VectorDrawableCompat indicator
-                    = VectorDrawableCompat.create(getResources(), R.drawable.ic_menu, getTheme());
-            indicator.setTint(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()));
-            supportActionBar.setHomeAsUpIndicator(indicator);
-            supportActionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        tabs.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -117,7 +111,8 @@ public class MainActivity extends AppCompatActivity
 
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new SlipperFragment(), "home");
+        adapter.addFragment(new SlipperFragment(), "slipper");
+        adapter.addFragment(new DressManFragment(), "dressMan");
         viewPager.setAdapter(adapter);
     }
 

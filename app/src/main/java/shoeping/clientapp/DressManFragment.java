@@ -15,9 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import static shoeping.clientapp.R.array.slipper;
+import static shoeping.clientapp.R.array.dressShoesMan;
 
-public class SlipperFragment extends Fragment {
+public class DressManFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,7 @@ public class SlipperFragment extends Fragment {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, DetailsActivity.class);
                     intent.putExtra(DetailsActivity.EXTRA_POSITION, getAdapterPosition());
-                    intent.putExtra(DetailsActivity.EXTRA_SPECIES, R.array.slipper);
+                    intent.putExtra(DetailsActivity.EXTRA_SPECIES, R.array.dressShoesMan);
                     context.startActivity(intent);
                 }
             });
@@ -68,7 +68,7 @@ public class SlipperFragment extends Fragment {
     private class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
 
 
-        private final Drawable[] slipperArray;
+        private final Drawable[] dressShoesManArray;
         private String[] nameArray;
         private String[] priceArray;
         private String[] sizeArray;
@@ -76,10 +76,10 @@ public class SlipperFragment extends Fragment {
         public ContentAdapter(Context context) {
             importFromDatabase();
             Resources resources = context.getResources();
-            TypedArray a = resources.obtainTypedArray(slipper);
-            slipperArray = new Drawable[a.length()];
-            for (int i = 0; i < slipperArray.length; i++) {
-                slipperArray[i] = a.getDrawable(i);
+            TypedArray a = resources.obtainTypedArray(dressShoesMan);
+            dressShoesManArray = new Drawable[a.length()];
+            for (int i = 0; i < dressShoesManArray.length; i++) {
+                dressShoesManArray[i] = a.getDrawable(i);
             }
             a.recycle();
         }
@@ -91,7 +91,7 @@ public class SlipperFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.picture.setImageDrawable(slipperArray[position % slipperArray.length]);
+            holder.picture.setImageDrawable(dressShoesManArray[position % dressShoesManArray.length]);
 //            holder.name.setText(nameArray[position % nameArray.length]);
 //            holder.price.setText(priceArray[position % priceArray.length]);
 //            holder.size.setText(sizeArray[position % sizeArray.length]);
@@ -99,14 +99,14 @@ public class SlipperFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return slipperArray.length;
+            return dressShoesManArray.length;
         }
 
         private void importFromDatabase() {
             DatabaseManager databaseManager = DatabaseManager.getInstance();
             /*
-            ShoesDataPack[] packs = databaseManager.packShoesData(R.array.slipper);
-            for (int i = 0; i < slipperArray.length; i++) {
+            ShoesDataPack[] packs = databaseManager.packShoesData(R.array.dressShoesMan);
+            for (int i = 0; i < dressShoesManArray.length; i++) {
                 nameArray[i] = packs[i].getName();
                 priceArray[i] = packs[i].getPrice();
                 sizeArray[i] = packs[i].getSize();
