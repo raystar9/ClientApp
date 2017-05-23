@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="sliper">
+        <item></item>
+    </array>
+    <array name="dressShoesMan">
+        
+    </array>
+    <array name="dressShoesWoman">
+        
+    </array>
+    <array name="sportsShoesMan">
+
+    </array>
+    <array name="sportsShoesWoman">
+
+    </array>
+
+</resources>
