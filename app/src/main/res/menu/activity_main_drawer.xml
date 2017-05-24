@@ -2,19 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="none">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
             android:title="Title"/>
         <item android:title="Shoes">
             <menu>
                 <item
-                    android:id="@+id/nav_gallery"
+                    android:id="@+id/nav_women"
                     android:title="Woman Shoes"/>
                 <item
-                    android:id="@+id/nav_slideshow"
+                    android:id="@+id/nav_men"
                     android:title="Man Shoes"/>
                 <item
-                    android:id="@+id/nav_manage"
+                    android:id="@+id/nav_slipper"
                     android:title="Slipper"/>
             </menu>
         </item>
@@ -23,9 +23,9 @@
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_cart"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share"/>
+                android:title="Cart"/>
             <item
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"

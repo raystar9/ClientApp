@@ -87,19 +87,30 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            viewPager = (ViewPager) findViewById(R.id.viewpager);
-            setupViewPager(viewPager);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
 
-            TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        if (id == R.id.nav_home) {
+
+        } else if (id == R.id.nav_women) {
+
+            setupViewPager(viewPager, new DressWomanFragment()
+                    , new RunningWomanFragment(), "dressWoman", "sportsWoman");
             tabs.setupWithViewPager(viewPager);
-        } else if (id == R.id.nav_gallery) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_men) {
 
-        } else if (id == R.id.nav_manage) {
+            setupViewPager(viewPager, new DressManFragment()
+                    , new RunningManFragment(), "dressMan", "sportsman");
+            tabs.setupWithViewPager(viewPager);
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_slipper) {
+
+            Adapter adapter = new Adapter(getSupportFragmentManager());
+            adapter.addFragment(new SlipperFragment(), "slipper");
+            viewPager.setAdapter(adapter);
+
+        } else if (id == R.id.nav_cart) {
 
         } else if (id == R.id.nav_send) {
 
@@ -110,12 +121,14 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(ViewPager viewPager, Fragment fragment1
+            , Fragment fragment2, String title1, String title2) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new SlipperFragment(), "slipper");
-        adapter.addFragment(new DressManFragment(), "dressMan");
+        adapter.addFragment(fragment1, title1);
+        adapter.addFragment(fragment2, title2);
         viewPager.setAdapter(adapter);
     }
+
 
     static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
