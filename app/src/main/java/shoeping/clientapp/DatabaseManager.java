@@ -31,9 +31,6 @@ public class DatabaseManager {
 
     private static DatabaseManager _instance = new DatabaseManager();
 
-    private DatabaseManager() {
-    }
-
     public static DatabaseManager getInstance() {
         return _instance;
     }
@@ -69,8 +66,7 @@ public class DatabaseManager {
 
             @Override
             protected String doInBackground(String... params) {
-
-                String uri = params[0];
+                        String uri = params[0];
 
                 BufferedReader bufferedReader;
                 try {
@@ -84,7 +80,6 @@ public class DatabaseManager {
                     while ((json = bufferedReader.readLine()) != null) {
                         sb.append(json + "\n");
                     }
-                    distributeJSON(parseStringToJSON(sb.toString().trim()), condition);
                     return sb.toString().trim();
                 } catch (Exception e) {
                     return null;
@@ -92,12 +87,11 @@ public class DatabaseManager {
             }
 
             protected void onPostExecute(String str) {
-
+                distributeJSON(parseStringToJSON(str), condition);
             }
-
         }
         GetDataJSON g = new GetDataJSON();
-        g.execute(url);
+        g.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, url);
     }
 
     private JSONObject parseStringToJSON(String result) {
@@ -260,5 +254,9 @@ public class DatabaseManager {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private interface LoadCompleteListener {
+        public void onLoadComplete();
     }
 }

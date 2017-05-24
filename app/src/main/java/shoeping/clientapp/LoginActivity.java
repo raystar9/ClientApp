@@ -26,24 +26,21 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                requestLogIn();
 
-                try {
-                    if (getLoginId() != null) {
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.putExtra("id", getLoginId());
-
-                        setResult(RESULT_OK);
-                        finish();
-                    }
-                }
-                catch(Exception e){
-                    e.printStackTrace();
-                }
             }
         });
     }
 
-    private String getLoginId() {
+    public void login(String id){
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putExtra("id", id);
+
+        setResult(RESULT_OK);
+        finish();
+    }
+
+    private void requestLogIn() {
         DatabaseManager databaseManager = DatabaseManager.getInstance();
 
         String _id = _editText_id.getText().toString();
@@ -51,12 +48,8 @@ public class LoginActivity extends AppCompatActivity {
         String serverId = databaseManager.getId(_id, _pw);
         String serverPw = databaseManager.getPw(_id, _pw);
 
-        if (checkPasswordIsCorrect(serverId, serverPw)) {
-            return serverId;
-        }
-        else {
+        if (!checkPasswordIsCorrect(serverId, serverPw)) {
             Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
-            return null;
         }
     }
 
