@@ -46,10 +46,13 @@ public class LoginActivity extends AppCompatActivity {
     private String getLoginId() {
         DatabaseManager databaseManager = DatabaseManager.getInstance();
 
-        databaseManager.CheckIdPw();
+        String _id = _editText_id.getText().toString();
+        String _pw = _editText_pw.getText().toString();
+        String serverId = databaseManager.getId(_id, _pw);
+        String serverPw = databaseManager.getPw(_id, _pw);
 
-        if (checkPasswordIsCorrect(databaseManager.getId(), databaseManager.getPw())) {
-            return databaseManager.getId();
+        if (checkPasswordIsCorrect(serverId, serverPw)) {
+            return serverId;
         }
         else {
             Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
@@ -58,9 +61,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean checkPasswordIsCorrect(String id, String pw) {
-        String iid = _editText_id.getText().toString();
-        String ipw = _editText_pw.getText().toString();
+        String _id = _editText_id.getText().toString();
+        String _pw = _editText_pw.getText().toString();
 
-        return iid.equalsIgnoreCase(id) && ipw.equalsIgnoreCase(pw);
+        return _id.equalsIgnoreCase(id) && _pw.equalsIgnoreCase(pw);
     }
 }
