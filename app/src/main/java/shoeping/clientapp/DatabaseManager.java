@@ -16,9 +16,10 @@ import java.util.HashMap;
 public class DatabaseManager {
 
     String myJSONquery;
+    String RESULT = "result";
 
-    final String firstURL = "http://server.raystar.kro.kr/html/phpfunc/";
-    String secURL;
+    final String firstUrl = "http://server.raystar.kro.kr/html/phpfunc/";
+    String secondUrl;
 
     JSONArray jsArray = null;
 
@@ -30,16 +31,19 @@ public class DatabaseManager {
 
     private static DatabaseManager _instance = new DatabaseManager();
 
-    private DatabaseManager(){
-        _id = "hi";
-        _pw = "hi";
+    private DatabaseManager() {
     }
 
     public static DatabaseManager getInstance() {
         return _instance;
     }
 
-    public String getId() {
+    public String getId(String id, String pw) {
+        secondUrl = "login_check.php?";
+        secondUrl += "id=" + id + "&";
+        secondUrl += "pw=" + pw;
+
+        getData(firstUrl + secondUrl, "toGetIdAndPassword");
         return _id;
     }
 
@@ -47,7 +51,12 @@ public class DatabaseManager {
 
     }
 
-    public String getPw() {
+    public String getPw(String id, String pw) {
+        secondUrl = "login_check.php?";
+        secondUrl += "id=" + id + "&";
+        secondUrl += "pw=" + pw;
+
+        getData(firstUrl + secondUrl, "toGetIdAndPassword");
         return _pw;
     }
 
@@ -55,16 +64,7 @@ public class DatabaseManager {
         _pw = pw;
     }
 
-    public void CheckIdPw()
-    {
-        secURL = "login_check.php?";
-        secURL += "id=" + _id + "&";
-        secURL += "pw=" + _pw;
-
-        getData(firstURL+secURL,"login");
-    }
-
-    public void getData(String url, final String table){
+    public void getData(String url, final String condition) {
         class GetDataJSON extends AsyncTask<String, Void, String> {
 
             @Override
@@ -72,7 +72,7 @@ public class DatabaseManager {
 
                 String uri = params[0];
 
-                BufferedReader bufferedReader = null;
+                BufferedReader bufferedReader;
                 try {
                     URL url = new URL(uri);
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -81,47 +81,60 @@ public class DatabaseManager {
                     bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
                     String json;
-                    while((json = bufferedReader.readLine())!= null){
-                        sb.append(json+"\n");
+                    while ((json = bufferedReader.readLine()) != null) {
+                        sb.append(json + "\n");
                     }
+                    distributeJSON(parseStringToJSON(sb.toString().trim()), condition);
                     return sb.toString().trim();
-                }catch(Exception e){
+                } catch (Exception e) {
                     return null;
                 }
             }
-            @Override
-            protected void onPostExecute(String result){
-                myJSONquery = result;
-                switch(table)
-                {
-                    case "login":
-                        IdAndPw();
-                        break;
-                    case "orders":
-                        showOrders();
-                        break;
-                    case "customer":
-                        showCustomer();
-                        break;
-                    case "stock":
-                        showStock();
-                        break;
-                    default:
-                        break;
-                }
+
+            protected void onPostExecute(String str) {
+
             }
+
         }
         GetDataJSON g = new GetDataJSON();
         g.execute(url);
     }
 
-    protected void IdAndPw()
-    {
+    private JSONObject parseStringToJSON(String result) {
         try {
-            JSONObject jsonObj = new JSONObject(myJSONquery);
-            jsArray = jsonObj.getJSONArray("result");
+            JSONObject json = new JSONObject(result);
+            return json;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-            for(int i=0;i<jsArray.length();i++){
+    private void distributeJSON(JSONObject json, String condition) {
+
+        switch (condition) {
+            case "toGetIdAndPassword":
+                IdAndPw(json);
+                break;
+            case "orders":
+                showOrders();
+                break;
+            case "customer":
+                showCustomer();
+                break;
+            case "stock":
+                showStock();
+                break;
+            default:
+                break;
+        }
+    }
+
+    protected void IdAndPw(JSONObject json) {
+        try {
+            jsArray = json.getJSONArray(RESULT);
+
+            for (int i = 0; i < jsArray.length(); i++) {
                 JSONObject c = jsArray.getJSONObject(i);
                 String id = c.getString("id");
                 String pw = c.getString("pw");
@@ -129,26 +142,18 @@ public class DatabaseManager {
                 _id = id;
                 _pw = pw;
             }
-            /*
-            ListAdapter adapter = new SimpleAdapter(
-                    MainActivity.this, hashList, R.layout.list_item,
-                    new String[]{TAG_ID},
-                    new int[]{R.id.view_id}
-            );
-            list.setAdapter(adapter);
-            */
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    protected void showCustomer(){
+    protected void showCustomer() {
         try {
             JSONObject jsonObj = new JSONObject(myJSONquery);
-            jsArray = jsonObj.getJSONArray("result");
+            jsArray = jsonObj.getJSONArray(RESULT);
 
-            for(int i=0;i<jsArray.length();i++){
+            for (int i = 0; i < jsArray.length(); i++) {
                 JSONObject c = jsArray.getJSONObject(i);
                 String id = c.getString("id");
                 String pw = c.getString("pw");
@@ -156,104 +161,80 @@ public class DatabaseManager {
                 String phone = c.getString("phone");
                 String address = c.getString("address");
 
-                HashMap<String,String> hash_customer = new HashMap<String,String>();
+                HashMap<String, String> hash_customer = new HashMap<String, String>();
 
-                hash_customer.put("id",id);
-                hash_customer.put("pw",pw);
-                hash_customer.put("name",name);
-                hash_customer.put("phone",phone);
-                hash_customer.put("address",address);
+                hash_customer.put("id", id);
+                hash_customer.put("pw", pw);
+                hash_customer.put("name", name);
+                hash_customer.put("phone", phone);
+                hash_customer.put("address", address);
 
                 hashList.add(hash_customer);
             }
-            /*
-            ListAdapter adapter = new SimpleAdapter(
-                    MainActivity.this, hashList, R.layout.list_item,
-                    new String[]{TAG_ID},
-                    new int[]{R.id.view_id}
-            );
-            list.setAdapter(adapter);
-            */
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    protected void showShoes(){
+    protected void showShoes() {
         try {
             JSONObject jsonObj = new JSONObject(myJSONquery);
             jsArray = jsonObj.getJSONArray("result");
 
-            for(int i=0;i<jsArray.length();i++){
+            for (int i = 0; i < jsArray.length(); i++) {
                 JSONObject c = jsArray.getJSONObject(i);
                 String serial = c.getString("serial_num");
                 String shoe_name = c.getString("shoe_name");
                 String species = c.getString("shoe_species");
                 String price = c.getString("price");
 
-                HashMap<String,String> hash_shoes = new HashMap<String,String>();
+                HashMap<String, String> hash_shoes = new HashMap<String, String>();
 
-                hash_shoes.put("serial_num",serial);
-                hash_shoes.put("shoe_name",shoe_name);
-                hash_shoes.put("shoe_species",species);
-                hash_shoes.put("price",price);
+                hash_shoes.put("serial_num", serial);
+                hash_shoes.put("shoe_name", shoe_name);
+                hash_shoes.put("shoe_species", species);
+                hash_shoes.put("price", price);
 
                 hashList.add(hash_shoes);
             }
-            /*
-            ListAdapter adapter = new SimpleAdapter(
-                    MainActivity.this, hashList, R.layout.list_item,
-                    new String[]{TAG_ID},
-                    new int[]{R.id.view_id}
-            );
-            list.setAdapter(adapter);
-            */
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    protected void showStock(){
+    protected void showStock() {
         try {
             JSONObject jsonObj = new JSONObject(myJSONquery);
             jsArray = jsonObj.getJSONArray("result");
 
-            for(int i=0;i<jsArray.length();i++){
+            for (int i = 0; i < jsArray.length(); i++) {
                 JSONObject c = jsArray.getJSONObject(i);
                 String serial = c.getString("serial_num");
                 String size = c.getString("size");
                 String remain = c.getString("remain");
 
-                HashMap<String,String> hash_stock = new HashMap<String,String>();
+                HashMap<String, String> hash_stock = new HashMap<String, String>();
 
-                hash_stock.put("serial_num",serial);
-                hash_stock.put("size",size);
-                hash_stock.put("remain",remain);
+                hash_stock.put("serial_num", serial);
+                hash_stock.put("size", size);
+                hash_stock.put("remain", remain);
 
                 hashList.add(hash_stock);
             }
-            /*
-            ListAdapter adapter = new SimpleAdapter(
-                    MainActivity.this, hashList, R.layout.list_item,
-                    new String[]{TAG_ID},
-                    new int[]{R.id.view_id}
-            );
-            list.setAdapter(adapter);
-            */
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    protected void showOrders(){
+    protected void showOrders() {
         try {
             JSONObject jsonObj = new JSONObject(myJSONquery);
             jsArray = jsonObj.getJSONArray("result");
 
-            for(int i=0;i<jsArray.length();i++){
+            for (int i = 0; i < jsArray.length(); i++) {
                 JSONObject c = jsArray.getJSONObject(i);
                 String order_num = c.getString("order_num");
                 String id = c.getString("id");
@@ -263,26 +244,18 @@ public class DatabaseManager {
                 String recv_phone = c.getString("recv_phone");
                 String comment = c.getString("comment");
 
-                HashMap<String,String> hash_orders = new HashMap<String,String>();
+                HashMap<String, String> hash_orders = new HashMap<String, String>();
 
-                hash_orders.put("order_num",order_num);
-                hash_orders.put("id",id);
-                hash_orders.put("serial_num",serial);
-                hash_orders.put("recv_name",recv_name);
-                hash_orders.put("recv_addr",recv_addr);
-                hash_orders.put("recv_phone",recv_phone);
-                hash_orders.put("comment",comment);
-                
+                hash_orders.put("order_num", order_num);
+                hash_orders.put("id", id);
+                hash_orders.put("serial_num", serial);
+                hash_orders.put("recv_name", recv_name);
+                hash_orders.put("recv_addr", recv_addr);
+                hash_orders.put("recv_phone", recv_phone);
+                hash_orders.put("comment", comment);
+
                 hashList.add(hash_orders);
             }
-            /*
-            ListAdapter adapter = new SimpleAdapter(
-                    MainActivity.this, hashList, R.layout.list_item,
-                    new String[]{TAG_ID},
-                    new int[]{R.id.view_id}
-            );
-            list.setAdapter(adapter);
-            */
 
         } catch (JSONException e) {
             e.printStackTrace();
