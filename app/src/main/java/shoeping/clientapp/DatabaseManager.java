@@ -27,6 +27,7 @@ public class DatabaseManager {
     String _id;
     String _pw;
 
+
     private static DatabaseManager _instance = new DatabaseManager();
 
     private DatabaseManager(){
@@ -42,28 +43,17 @@ public class DatabaseManager {
         return _id;
     }
 
-    public void setId(String id) {
-        _id = id;
+    private void setId(String id) {
+
     }
 
     public String getPw() {
         return _pw;
     }
 
-    public void setPw(String pw) {
+    private void setPw(String pw) {
         _pw = pw;
     }
-
-    /*
-    public ShoesDataPack packShoesData(int species, int position) {
-        ShoesDataPack pack = new ShoesDataPack();   //drawable에 있는 resource 이용. position은 위치.
-        return pack;
-    }
-    public ShoesDataPack[] packShoesData(int species) {
-        ShoesDataPack[] pack = new ShoesDataPack();
-        return pack;
-    }
-    */
 
     public void CheckIdPw()
     {
