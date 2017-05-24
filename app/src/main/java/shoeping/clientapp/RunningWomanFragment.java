@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import static shoeping.clientapp.R.array.sportsShoesWoman;
+import static shoeping.clientapp.R.array.runningShoesWoman;
 
 /**
  * Created by test on 2017-05-24.
@@ -62,7 +62,7 @@ public class RunningWomanFragment extends Fragment {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, DetailsActivity.class);
                     intent.putExtra(DetailsActivity.EXTRA_POSITION, getAdapterPosition());
-                    intent.putExtra(DetailsActivity.EXTRA_SPECIES, R.array.sportsShoesWoman);
+                    intent.putExtra(DetailsActivity.EXTRA_SPECIES, runningShoesWoman);
                     context.startActivity(intent);
                 }
             });
@@ -80,7 +80,7 @@ public class RunningWomanFragment extends Fragment {
         public ContentAdapter(Context context) {
             importFromDatabase();
             Resources resources = context.getResources();
-            TypedArray a = resources.obtainTypedArray(sportsShoesWoman);
+            TypedArray a = resources.obtainTypedArray(runningShoesWoman);
             runningShoesWomanArray = new Drawable[a.length()];
             for (int i = 0; i < runningShoesWomanArray.length; i++) {
                 runningShoesWomanArray[i] = a.getDrawable(i);

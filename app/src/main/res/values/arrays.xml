@@ -50,7 +50,7 @@
         <item>@drawable/running_man_vans_oldschool</item>
 
     </array>
-    <array name="sportsShoesWoman">
+    <array name="runningShoesWoman">
         <item>@drawable/running_woman_adidas_supersta</item>
         <item>@drawable/running_woman_adidas_xplr</item>
         <item>@drawable/running_woman_ardidas_courtvantage</item>

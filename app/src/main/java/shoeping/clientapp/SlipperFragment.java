@@ -46,9 +46,7 @@ public class SlipperFragment extends Fragment {
         public TextView size;
 
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
-
             super(inflater.inflate(R.layout.each_shoes, parent, false));
-
             picture = (ImageView) itemView.findViewById(R.id.pictureImv);
             name = (TextView) itemView.findViewById(R.id.shoesName);
             price = (TextView) itemView.findViewById(R.id.shoesPrice);
