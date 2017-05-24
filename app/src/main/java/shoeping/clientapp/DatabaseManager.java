@@ -33,7 +33,10 @@ public class DatabaseManager {
 
     private static DatabaseManager _instance = new DatabaseManager();
 
-    private DatabaseManager(){}
+    private DatabaseManager(){
+        _id = "hi";
+        _pw = "hi";
+    }
 
     public static DatabaseManager getInstance() {
         return _instance;
