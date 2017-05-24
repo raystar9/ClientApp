@@ -101,6 +101,7 @@ public class DatabaseManager {
             }
             @Override
             protected void onPostExecute(String result){
+                myJSONquery = result;
                 switch(table)
                 {
                     case "login":
@@ -116,9 +117,8 @@ public class DatabaseManager {
                         showStock();
                         break;
                     default:
-                        return;
+                        break;
                 }
-                myJSONquery = result;
             }
         }
         GetDataJSON g = new GetDataJSON();
