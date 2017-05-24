@@ -137,6 +137,8 @@ public class MainActivity extends AppCompatActivity
 
         public Adapter(FragmentManager manager) {
             super(manager);
+            if (manager.getFragments() != null)
+                manager.getFragments().clear();
         }
 
         @Override
