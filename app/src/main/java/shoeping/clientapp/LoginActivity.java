@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean checkPasswordIsCorrect(String id, String pw)
     {
-        if (id.equals(_editText_id.getText()) && pw.equals(_editText_pw.getText())) {
+        if (id.equalsIgnoreCase(_editText_id.getText().toString()) && pw.equalsIgnoreCase(_editText_pw.getText().toString())) {
             return true;
         } else
         {
