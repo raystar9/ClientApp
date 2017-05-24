@@ -6,12 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
     EditText _editText_id;
     EditText _editText_pw;
+    DatabaseManager databaseManager = DatabaseManager.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,37 +26,28 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestLogIn();
-
+                requestLoginInfo();
             }
         });
+
+        databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
+            @Override
+            public void onLoadComplete() {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                //intent.putExtra("id", id);
+
+                setResult(RESULT_OK);
+                finish();
+            }
+        });
+
     }
 
-    public void login(String id){
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.putExtra("id", id);
-
-        setResult(RESULT_OK);
-        finish();
-    }
-
-    private void requestLogIn() {
-        DatabaseManager databaseManager = DatabaseManager.getInstance();
+    private void requestLoginInfo() {
 
         String _id = _editText_id.getText().toString();
         String _pw = _editText_pw.getText().toString();
-        String serverId = databaseManager.getId(_id, _pw);
-        String serverPw = databaseManager.getPw(_id, _pw);
-
-        if (!checkPasswordIsCorrect(serverId, serverPw)) {
-            Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private boolean checkPasswordIsCorrect(String id, String pw) {
-        String _id = _editText_id.getText().toString();
-        String _pw = _editText_pw.getText().toString();
-
-        return _id.equalsIgnoreCase(id) && _pw.equalsIgnoreCase(pw);
+        databaseManager.requestId(_id, _pw);
+        databaseManager.requestPw(_id, _pw);
     }
 }

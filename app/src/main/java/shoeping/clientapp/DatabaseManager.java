@@ -28,37 +28,26 @@ public class DatabaseManager {
     String _id;
     String _pw;
 
-
     private static DatabaseManager _instance = new DatabaseManager();
 
     public static DatabaseManager getInstance() {
         return _instance;
     }
 
-    public String getId(String id, String pw) {
+    public void requestId(String id, String pw) {
         secondUrl = "login_check.php?";
         secondUrl += "id=" + id + "&";
         secondUrl += "pw=" + pw;
 
         getData(firstUrl + secondUrl, "toGetIdAndPassword");
-        return _id;
     }
 
-    private void setId(String id) {
-
-    }
-
-    public String getPw(String id, String pw) {
+    public void requestPw(String id, String pw) {
         secondUrl = "login_check.php?";
         secondUrl += "id=" + id + "&";
         secondUrl += "pw=" + pw;
 
         getData(firstUrl + secondUrl, "toGetIdAndPassword");
-        return _pw;
-    }
-
-    private void setPw(String pw) {
-        _pw = pw;
     }
 
     public void getData(String url, final String condition) {
@@ -66,7 +55,7 @@ public class DatabaseManager {
 
             @Override
             protected String doInBackground(String... params) {
-                        String uri = params[0];
+                String uri = params[0];
 
                 BufferedReader bufferedReader;
                 try {
@@ -106,157 +95,180 @@ public class DatabaseManager {
 
     private void distributeJSON(JSONObject json, String condition) {
 
+        JSONConverter converter = new JSONConverter();
         switch (condition) {
             case "toGetIdAndPassword":
-                IdAndPw(json);
+                converter.IdAndPw(json);
                 break;
             case "orders":
-                showOrders();
+                converter.showOrders();
                 break;
             case "customer":
-                showCustomer();
+                converter.showCustomer();
                 break;
             case "stock":
-                showStock();
+                converter.showStock();
                 break;
             default:
                 break;
         }
     }
 
-    protected void IdAndPw(JSONObject json) {
-        try {
-            jsArray = json.getJSONArray(RESULT);
+    class JSONConverter {
 
-            for (int i = 0; i < jsArray.length(); i++) {
-                JSONObject c = jsArray.getJSONObject(i);
-                String id = c.getString("id");
-                String pw = c.getString("pw");
+        protected void IdAndPw(JSONObject json) {
+            try {
+                jsArray = json.getJSONArray(RESULT);
 
-                _id = id;
-                _pw = pw;
+                for (int i = 0; i < jsArray.length(); i++) {
+                    JSONObject c = jsArray.getJSONObject(i);
+                    String id = c.getString("id");
+                    String pw = c.getString("pw");
+
+                    _id = id;
+                    _pw = pw;
+
+                    _loadCompleteListener.onLoadComplete();
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+        }
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+        protected void showCustomer() {
+            try {
+                JSONObject jsonObj = new JSONObject(myJSONquery);
+                jsArray = jsonObj.getJSONArray(RESULT);
+
+                for (int i = 0; i < jsArray.length(); i++) {
+                    JSONObject c = jsArray.getJSONObject(i);
+                    String id = c.getString("id");
+                    String pw = c.getString("pw");
+                    String name = c.getString("name");
+                    String phone = c.getString("phone");
+                    String address = c.getString("address");
+
+                    HashMap<String, String> hash_customer = new HashMap<String, String>();
+
+                    hash_customer.put("id", id);
+                    hash_customer.put("pw", pw);
+                    hash_customer.put("name", name);
+                    hash_customer.put("phone", phone);
+                    hash_customer.put("address", address);
+
+                    hashList.add(hash_customer);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        protected void showShoes() {
+            try {
+                JSONObject jsonObj = new JSONObject(myJSONquery);
+                jsArray = jsonObj.getJSONArray("result");
+
+                for (int i = 0; i < jsArray.length(); i++) {
+                    JSONObject c = jsArray.getJSONObject(i);
+                    String serial = c.getString("serial_num");
+                    String shoe_name = c.getString("shoe_name");
+                    String species = c.getString("shoe_species");
+                    String price = c.getString("price");
+
+                    HashMap<String, String> hash_shoes = new HashMap<String, String>();
+
+                    hash_shoes.put("serial_num", serial);
+                    hash_shoes.put("shoe_name", shoe_name);
+                    hash_shoes.put("shoe_species", species);
+                    hash_shoes.put("price", price);
+
+                    hashList.add(hash_shoes);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        protected void showStock() {
+            try {
+                JSONObject jsonObj = new JSONObject(myJSONquery);
+                jsArray = jsonObj.getJSONArray("result");
+
+                for (int i = 0; i < jsArray.length(); i++) {
+                    JSONObject c = jsArray.getJSONObject(i);
+                    String serial = c.getString("serial_num");
+                    String size = c.getString("size");
+                    String remain = c.getString("remain");
+
+                    HashMap<String, String> hash_stock = new HashMap<String, String>();
+
+                    hash_stock.put("serial_num", serial);
+                    hash_stock.put("size", size);
+                    hash_stock.put("remain", remain);
+
+                    hashList.add(hash_stock);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        protected void showOrders() {
+            try {
+                JSONObject jsonObj = new JSONObject(myJSONquery);
+                jsArray = jsonObj.getJSONArray("result");
+
+                for (int i = 0; i < jsArray.length(); i++) {
+                    JSONObject c = jsArray.getJSONObject(i);
+                    String order_num = c.getString("order_num");
+                    String id = c.getString("id");
+                    String serial = c.getString("serial_num");
+                    String recv_name = c.getString("recv_name");
+                    String recv_addr = c.getString("recv_addr");
+                    String recv_phone = c.getString("recv_phone");
+                    String comment = c.getString("comment");
+
+                    HashMap<String, String> hash_orders = new HashMap<String, String>();
+
+                    hash_orders.put("order_num", order_num);
+                    hash_orders.put("id", id);
+                    hash_orders.put("serial_num", serial);
+                    hash_orders.put("recv_name", recv_name);
+                    hash_orders.put("recv_addr", recv_addr);
+                    hash_orders.put("recv_phone", recv_phone);
+                    hash_orders.put("comment", comment);
+
+                    hashList.add(hash_orders);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    protected void showCustomer() {
-        try {
-            JSONObject jsonObj = new JSONObject(myJSONquery);
-            jsArray = jsonObj.getJSONArray(RESULT);
+    LoadCompleteListener _loadCompleteListener;
+    LoadFailListener _loadFailListener;
 
-            for (int i = 0; i < jsArray.length(); i++) {
-                JSONObject c = jsArray.getJSONObject(i);
-                String id = c.getString("id");
-                String pw = c.getString("pw");
-                String name = c.getString("name");
-                String phone = c.getString("phone");
-                String address = c.getString("address");
-
-                HashMap<String, String> hash_customer = new HashMap<String, String>();
-
-                hash_customer.put("id", id);
-                hash_customer.put("pw", pw);
-                hash_customer.put("name", name);
-                hash_customer.put("phone", phone);
-                hash_customer.put("address", address);
-
-                hashList.add(hash_customer);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public interface LoadCompleteListener {
+        void onLoadComplete();
     }
 
-    protected void showShoes() {
-        try {
-            JSONObject jsonObj = new JSONObject(myJSONquery);
-            jsArray = jsonObj.getJSONArray("result");
-
-            for (int i = 0; i < jsArray.length(); i++) {
-                JSONObject c = jsArray.getJSONObject(i);
-                String serial = c.getString("serial_num");
-                String shoe_name = c.getString("shoe_name");
-                String species = c.getString("shoe_species");
-                String price = c.getString("price");
-
-                HashMap<String, String> hash_shoes = new HashMap<String, String>();
-
-                hash_shoes.put("serial_num", serial);
-                hash_shoes.put("shoe_name", shoe_name);
-                hash_shoes.put("shoe_species", species);
-                hash_shoes.put("price", price);
-
-                hashList.add(hash_shoes);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public void setLoadCompleteListener(LoadCompleteListener loadCompleteListener){
+        if(_loadCompleteListener != loadCompleteListener)
+            _loadCompleteListener = loadCompleteListener;
     }
 
-    protected void showStock() {
-        try {
-            JSONObject jsonObj = new JSONObject(myJSONquery);
-            jsArray = jsonObj.getJSONArray("result");
-
-            for (int i = 0; i < jsArray.length(); i++) {
-                JSONObject c = jsArray.getJSONObject(i);
-                String serial = c.getString("serial_num");
-                String size = c.getString("size");
-                String remain = c.getString("remain");
-
-                HashMap<String, String> hash_stock = new HashMap<String, String>();
-
-                hash_stock.put("serial_num", serial);
-                hash_stock.put("size", size);
-                hash_stock.put("remain", remain);
-
-                hashList.add(hash_stock);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public interface LoadFailListener {
+        void onLoadFail();
     }
 
-    protected void showOrders() {
-        try {
-            JSONObject jsonObj = new JSONObject(myJSONquery);
-            jsArray = jsonObj.getJSONArray("result");
-
-            for (int i = 0; i < jsArray.length(); i++) {
-                JSONObject c = jsArray.getJSONObject(i);
-                String order_num = c.getString("order_num");
-                String id = c.getString("id");
-                String serial = c.getString("serial_num");
-                String recv_name = c.getString("recv_name");
-                String recv_addr = c.getString("recv_addr");
-                String recv_phone = c.getString("recv_phone");
-                String comment = c.getString("comment");
-
-                HashMap<String, String> hash_orders = new HashMap<String, String>();
-
-                hash_orders.put("order_num", order_num);
-                hash_orders.put("id", id);
-                hash_orders.put("serial_num", serial);
-                hash_orders.put("recv_name", recv_name);
-                hash_orders.put("recv_addr", recv_addr);
-                hash_orders.put("recv_phone", recv_phone);
-                hash_orders.put("comment", comment);
-
-                hashList.add(hash_orders);
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private interface LoadCompleteListener {
-        public void onLoadComplete();
+    public void setLoadFailListener(LoadFailListener loadFailListener){
+        if(_loadFailListener != loadFailListener)
+            _loadFailListener = loadFailListener;
     }
 }
