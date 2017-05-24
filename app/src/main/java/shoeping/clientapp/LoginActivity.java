@@ -19,6 +19,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         Button loginButton = (Button) findViewById(R.id.loginBtn);
+
         _editText_id = (EditText) findViewById(R.id.idEdt);
         _editText_pw = (EditText) findViewById(R.id.passwordEdt);
 
@@ -26,12 +27,17 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(getLoginId() != null) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    intent.putExtra("id", getLoginId());
+                try {
+                    if (getLoginId() != null) {
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        intent.putExtra("id", getLoginId());
 
-                    setResult(RESULT_OK);
-                    finish();
+                        setResult(RESULT_OK);
+                        finish();
+                    }
+                }
+                catch(Exception e){
+                    e.printStackTrace();
                 }
             }
         });
@@ -40,23 +46,25 @@ public class LoginActivity extends AppCompatActivity {
     private String getLoginId() {
         DatabaseManager databaseManager = DatabaseManager.getInstance();
 
-        String string_id = databaseManager.getId();
-        String string_pw = databaseManager.getPw();
+        databaseManager.setId(_editText_id.getText().toString());
+        databaseManager.setPw(_editText_pw.getText().toString());
 
-        if (checkPasswordIsCorrect(string_id, string_pw)) {
-            return string_id;
+        databaseManager.CheckIdPw();
+
+        if (checkPasswordIsCorrect(databaseManager.getId(), databaseManager.getPw())) {
+            return databaseManager.getId();
         } else {
-            Toast.makeText(this, "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
             return null;
         }
     }
 
-    private boolean checkPasswordIsCorrect(String id, String password) {
-
-
-        if (id.equals(_editText_id.getText()) && password.equals(_editText_pw.getText())) {
+    private boolean checkPasswordIsCorrect(String id, String pw)
+    {
+        if (id.equals(_editText_id.getText()) && pw.equals(_editText_pw.getText())) {
             return true;
-        } else {
+        } else
+        {
             return false;
         }
     }

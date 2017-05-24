@@ -1,20 +1,17 @@
 package shoeping.clientapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-public class DetailsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class DetailsActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "position";
     public static final String EXTRA_SPECIES = "species";
@@ -31,17 +28,12 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
         int position = getIntent().getIntExtra(EXTRA_POSITION, 0);
         int species = getIntent().getIntExtra(EXTRA_SPECIES, 0);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
         orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConstraintLayout container = (ConstraintLayout) findViewById(R.id.detailLayout);
-
-                LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                container = (ConstraintLayout) inflater.inflate(R.layout.activity_login, null);
-                setContentView(container);
+                Context context = v.getContext();
+                Intent intent = new Intent(context, LoginActivity.class);
+                context.startActivity(intent);
             }
         });
 //        ShoesDataPack pack = databaseManager.packShoesData(species, position);
@@ -57,10 +49,5 @@ public class DetailsActivity extends AppCompatActivity implements NavigationView
     public boolean onOptionsItemSelected(MenuItem item) {
         finish();
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        return false;
     }
 }

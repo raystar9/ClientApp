@@ -13,15 +13,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by Koo on 2017-05-22.
- */
-
 public class DatabaseManager {
 
     String myJSONquery;
 
-    final String firstURL = "http://server.raystar.kro.kr/html/phpfunc";
+    final String firstURL = "http://server.raystar.kro.kr/html/phpfunc/";
     String secURL;
 
     JSONArray jsArray = null;
@@ -30,9 +26,13 @@ public class DatabaseManager {
 
     String _id;
     String _pw;
+
     private static DatabaseManager _instance = new DatabaseManager();
 
-    private DatabaseManager(){}
+    private DatabaseManager(){
+        _id = "hi";
+        _pw = "hi";
+    }
 
     public static DatabaseManager getInstance() {
         return _instance;
@@ -53,7 +53,8 @@ public class DatabaseManager {
     public void setPw(String pw) {
         _pw = pw;
     }
-/*
+
+    /*
     public ShoesDataPack packShoesData(int species, int position) {
         ShoesDataPack pack = new ShoesDataPack();   //drawable에 있는 resource 이용. position은 위치.
         return pack;
@@ -62,7 +63,17 @@ public class DatabaseManager {
         ShoesDataPack[] pack = new ShoesDataPack();
         return pack;
     }
-*/
+    */
+
+    public void CheckIdPw()
+    {
+        secURL = "login_check.php?";
+        secURL += "id=" + _id + "&";
+        secURL += "pw=" + _pw;
+
+        getData(firstURL+secURL,"login");
+    }
+
     public void getData(String url, final String table){
         class GetDataJSON extends AsyncTask<String, Void, String> {
 
@@ -92,8 +103,8 @@ public class DatabaseManager {
             protected void onPostExecute(String result){
                 switch(table)
                 {
-                    case "shoes":
-                        showShoes();
+                    case "login":
+                        IdAndPw();
                         break;
                     case "orders":
                         showOrders();
@@ -112,6 +123,34 @@ public class DatabaseManager {
         }
         GetDataJSON g = new GetDataJSON();
         g.execute(url);
+    }
+
+    protected void IdAndPw()
+    {
+        try {
+            JSONObject jsonObj = new JSONObject(myJSONquery);
+            jsArray = jsonObj.getJSONArray("result");
+
+            for(int i=0;i<jsArray.length();i++){
+                JSONObject c = jsArray.getJSONObject(i);
+                String id = c.getString("id");
+                String pw = c.getString("pw");
+
+                _id = id;
+                _pw = pw;
+            }
+            /*
+            ListAdapter adapter = new SimpleAdapter(
+                    MainActivity.this, hashList, R.layout.list_item,
+                    new String[]{TAG_ID},
+                    new int[]{R.id.view_id}
+            );
+            list.setAdapter(adapter);
+            */
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     protected void showCustomer(){
