@@ -10,70 +10,91 @@
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="81dp">
 
-    <TextView
-        android:id="@+id/inoutId"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:hint="아이디"
-        android:text="ID"
-        android:textSize="30dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="16dp"/>
-
-    <TextView
-        android:id="@+id/inputPW"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
-        android:hint="비밀번호"
-        android:text="password"
-        android:textSize="30dp"
-        app:layout_constraintLeft_toLeftOf="@+id/inoutId"
-        app:layout_constraintTop_toBottomOf="@+id/inoutId"/>
-
-    <Button
-        android:id="@+id/loginBtn"
-        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
-        android:text="로그인"
-        android:textSize="20dp"
-        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputPW"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2">
 
-    <EditText
-        android:id="@+id/idEdt"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBaseline_toBaselineOf="@+id/inoutId"
-        app:layout_constraintLeft_toLeftOf="@+id/passwordEdt"
-        app:layout_constraintRight_toRightOf="@+id/passwordEdt"
-        app:layout_constraintHorizontal_bias="0.514"/>
+        <TextView
+            android:id="@+id/inoutId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:hint="아이디"
+            android:text="ID"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/passwordEdt"
-        android:layout_width="0dp"
+        <TextView
+            android:id="@+id/inputPW"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:hint="비밀번호"
+            android:text="password"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="@+id/inoutId"
+            app:layout_constraintTop_toBottomOf="@+id/inoutId" />
+
+        <Button
+            android:id="@+id/loginBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="15dp"
+            android:text="로그인"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inputPW" />
+
+        <EditText
+            android:id="@+id/idEdt"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:textSize="20dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/inoutId"
+            app:layout_constraintLeft_toLeftOf="@+id/passwordEdt"
+            app:layout_constraintRight_toRightOf="@+id/passwordEdt" />
+
+        <EditText
+            android:id="@+id/passwordEdt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:inputType="textPassword"
+            android:textSize="20dp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/inputPW"
+            app:layout_constraintLeft_toRightOf="@+id/inputPW"
+            app:layout_constraintRight_toRightOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        app:layout_constraintBaseline_toBaselineOf="@+id/inputPW"
-        app:layout_constraintLeft_toRightOf="@+id/inputPW"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5"
+        tools:layout_editor_absoluteY="256dp"
+        tools:layout_editor_absoluteX="0dp" />
 
 </android.support.constraint.ConstraintLayout>
