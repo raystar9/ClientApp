@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="none">
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import"/>
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery"/>
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow"/>
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools"/>
+            android:title="Title"/>
+        <item android:title="Shoes">
+            <menu>
+                <item
+                    android:id="@+id/nav_gallery"
+                    android:title="Woman Shoes"/>
+                <item
+                    android:id="@+id/nav_slideshow"
+                    android:title="Man Shoes"/>
+                <item
+                    android:id="@+id/nav_manage"
+                    android:title="Slipper"/>
+            </menu>
+        </item>
     </group>
 
     <item android:title="Communicate">
