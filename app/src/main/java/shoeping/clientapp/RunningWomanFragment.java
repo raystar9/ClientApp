@@ -15,22 +15,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import static shoeping.clientapp.R.array.runningShoesMan;
+import static shoeping.clientapp.R.array.sportsShoesWoman;
 
 /**
  * Created by test on 2017-05-24.
  */
 
-public class RunningManFragment extends Fragment {
+public class RunningWomanFragment extends Fragment {
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        RecyclerView recyclerView =
+                (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
 
         ContentAdapter adapter = new ContentAdapter(recyclerView.getContext());
         recyclerView.setAdapter(adapter);
@@ -40,7 +42,6 @@ public class RunningManFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         return recyclerView;
     }
-
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView picture;
@@ -61,7 +62,7 @@ public class RunningManFragment extends Fragment {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, DetailsActivity.class);
                     intent.putExtra(DetailsActivity.EXTRA_POSITION, getAdapterPosition());
-                    intent.putExtra(DetailsActivity.EXTRA_SPECIES, runningShoesMan);
+                    intent.putExtra(DetailsActivity.EXTRA_SPECIES, sportsShoesWoman);
                     context.startActivity(intent);
                 }
             });
@@ -69,10 +70,11 @@ public class RunningManFragment extends Fragment {
     }
 
 
+
     private class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
 
 
-        private final Drawable[] runningShoesManArray;
+        private final Drawable[] runningShoesWomanArray;
         private String[] nameArray;
         private String[] priceArray;
         private String[] sizeArray;
@@ -80,10 +82,10 @@ public class RunningManFragment extends Fragment {
         public ContentAdapter(Context context) {
             importFromDatabase();
             Resources resources = context.getResources();
-            TypedArray a = resources.obtainTypedArray(runningShoesMan);
-            runningShoesManArray = new Drawable[a.length()];
-            for (int i = 0; i < runningShoesManArray.length; i++) {
-                runningShoesManArray[i] = a.getDrawable(i);
+            TypedArray a = resources.obtainTypedArray(sportsShoesWoman);
+            runningShoesWomanArray = new Drawable[a.length()];
+            for (int i = 0; i < runningShoesWomanArray.length; i++) {
+                runningShoesWomanArray[i] = a.getDrawable(i);
             }
             a.recycle();
         }
@@ -95,7 +97,7 @@ public class RunningManFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.picture.setImageDrawable(runningShoesManArray[position % runningShoesManArray.length]);
+            holder.picture.setImageDrawable(runningShoesWomanArray[position % runningShoesWomanArray.length]);
 //            holder.name.setText(nameArray[position % nameArray.length]);
 //            holder.price.setText(priceArray[position % priceArray.length]);
 //            holder.size.setText(sizeArray[position % sizeArray.length]);
@@ -103,7 +105,7 @@ public class RunningManFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            return runningShoesManArray.length;
+            return runningShoesWomanArray.length;
         }
 
         private void importFromDatabase() {
@@ -118,5 +120,4 @@ public class RunningManFragment extends Fragment {
             */
         }
     }
-
 }
