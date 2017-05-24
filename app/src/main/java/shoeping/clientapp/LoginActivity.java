@@ -2,11 +2,11 @@ package shoeping.clientapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -19,7 +19,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         Button loginButton = (Button) findViewById(R.id.loginBtn);
-
         _editText_id = (EditText) findViewById(R.id.idEdt);
         _editText_pw = (EditText) findViewById(R.id.passwordEdt);
 
@@ -46,25 +45,25 @@ public class LoginActivity extends AppCompatActivity {
     private String getLoginId() {
         DatabaseManager databaseManager = DatabaseManager.getInstance();
 
-        databaseManager.setId(_editText_id.getText().toString());
-        databaseManager.setPw(_editText_pw.getText().toString());
-
         databaseManager.CheckIdPw();
 
-        if (checkPasswordIsCorrect(databaseManager.getId(), databaseManager.getPw())) {
-            return databaseManager.getId();
+        String string_id = databaseManager.getId();
+        String string_pw = databaseManager.getPw();
+
+        if (checkPasswordIsCorrect(string_id, string_pw)) {
+            return string_id;
         } else {
-            Toast.makeText(getApplicationContext(), "로그인에 실패하였습니다.", Toast.LENGTH_SHORT).show();
             return null;
         }
     }
 
-    private boolean checkPasswordIsCorrect(String id, String pw)
-    {
-        if (id.equals(_editText_id.getText()) && pw.equals(_editText_pw.getText())) {
+    private boolean checkPasswordIsCorrect(String id, String password) {
+
+        String edtId = _editText_id.getText().toString();
+        String edtPw = _editText_pw.getText().toString();
+        if (id.equalsIgnoreCase(edtId) && password.equalsIgnoreCase(edtPw)) {
             return true;
-        } else
-        {
+        } else {
             return false;
         }
     }
