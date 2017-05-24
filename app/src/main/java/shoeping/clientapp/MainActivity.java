@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        tabs = (TabLayout) findViewById(R.id.tabs);
     }
 
     @Override
@@ -87,24 +89,18 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            viewPager = (ViewPager) findViewById(R.id.viewpager);
-            setupMenViewPager(viewPager);
-            tabs = (TabLayout) findViewById(R.id.tabs);
-            tabs.setupWithViewPager(viewPager);
-/*
+
         } else if (id == R.id.nav_women) {
-            viewPager = (ViewPager) findViewById(R.id.viewpager);
-            setupWomenViewPager(viewPager);
-            tabs = (TabLayout) findViewById(R.id.tabs);
+            setupWomanViewPager(viewPager);
             tabs.setupWithViewPager(viewPager);
 
         } else if (id == R.id.nav_men) {
-            viewPager = (ViewPager) findViewById(R.id.viewpager);
-            setupSlipperViewPager(viewPager);
-            tabs = (TabLayout) findViewById(R.id.tabs);
+            setupManViewPager(viewPager);
             tabs.setupWithViewPager(viewPager);
-*/
+
         } else if (id == R.id.nav_slipper) {
+            setupSlipperViewPager(viewPager);
+            tabs.setupWithViewPager(viewPager);
 
         } else if (id == R.id.nav_send) {
 
@@ -115,14 +111,14 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void setupMenViewPager(ViewPager viewPager) {
+    private void setupManViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-    //    adapter.addFragment(new DressManFragment(), "dressMen");
-        adapter.addFragment(new RunningWomanFragment(), "runningMen");
+        adapter.addFragment(new DressManFragment(), "dressMen");
+        adapter.addFragment(new RunningManFragment(), "runningMen");
         viewPager.setAdapter(adapter);
     }
-/*
-    private void setupWomenViewPager(ViewPager viewPager) {
+
+    private void setupWomanViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new DressWomanFragment(), "dressWomen");
         adapter.addFragment(new RunningWomanFragment(), "runningWomen");
@@ -134,7 +130,7 @@ public class MainActivity extends AppCompatActivity
         adapter.addFragment(new SlipperFragment(), "slipper");
         viewPager.setAdapter(adapter);
     }
-*/
+
     static class Adapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
         private final List<String> mFragmentTitleList = new ArrayList<>();
