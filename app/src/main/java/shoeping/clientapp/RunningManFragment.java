@@ -28,9 +28,10 @@ public class RunningManFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        RecyclerView recyclerView = (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        RecyclerView recyclerView =
+                (RecyclerView) inflater.inflate(R.layout.recycler_view, container, false);
 
         ContentAdapter adapter = new ContentAdapter(recyclerView.getContext());
         recyclerView.setAdapter(adapter);
@@ -49,7 +50,9 @@ public class RunningManFragment extends Fragment {
         public TextView size;
 
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
+
             super(inflater.inflate(R.layout.each_shoes, parent, false));
+
             picture = (ImageView) itemView.findViewById(R.id.pictureImv);
             name = (TextView) itemView.findViewById(R.id.shoesName);
             price = (TextView) itemView.findViewById(R.id.shoesPrice);
@@ -61,12 +64,13 @@ public class RunningManFragment extends Fragment {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, DetailsActivity.class);
                     intent.putExtra(DetailsActivity.EXTRA_POSITION, getAdapterPosition());
-                    intent.putExtra(DetailsActivity.EXTRA_SPECIES, runningShoesMan);
+                    intent.putExtra(DetailsActivity.EXTRA_SPECIES, R.array.runningShoesMan);
                     context.startActivity(intent);
                 }
             });
         }
     }
+
 
 
     private class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {

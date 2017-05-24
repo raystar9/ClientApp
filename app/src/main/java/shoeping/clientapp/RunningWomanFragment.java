@@ -23,7 +23,6 @@ import static shoeping.clientapp.R.array.sportsShoesWoman;
 
 public class RunningWomanFragment extends Fragment {
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +41,7 @@ public class RunningWomanFragment extends Fragment {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         return recyclerView;
     }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView picture;
@@ -62,14 +62,12 @@ public class RunningWomanFragment extends Fragment {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, DetailsActivity.class);
                     intent.putExtra(DetailsActivity.EXTRA_POSITION, getAdapterPosition());
-                    intent.putExtra(DetailsActivity.EXTRA_SPECIES, sportsShoesWoman);
+                    intent.putExtra(DetailsActivity.EXTRA_SPECIES, R.array.sportsShoesWoman);
                     context.startActivity(intent);
                 }
             });
         }
     }
-
-
 
     private class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
 
@@ -120,4 +118,5 @@ public class RunningWomanFragment extends Fragment {
             */
         }
     }
+
 }
