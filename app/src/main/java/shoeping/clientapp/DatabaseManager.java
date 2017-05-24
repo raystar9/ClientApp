@@ -13,10 +13,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by Koo on 2017-05-22.
- */
-
 public class DatabaseManager {
 
     String myJSONquery;
