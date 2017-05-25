@@ -141,6 +141,7 @@ public class DatabaseManager {
                 e.printStackTrace();
                 _loadCompleteListener.onLoadComplete(false);
             }
+
         }
 
         protected void Shoes_category(JSONObject json)
@@ -175,6 +176,87 @@ public class DatabaseManager {
                 _loadCompleteListener.onLoadComplete(false);
             }
 
+        }
+
+        protected void showCustomer() {
+            try {
+                JSONObject jsonObj = new JSONObject(myJSONquery);
+                jsArray = jsonObj.getJSONArray(RESULT);
+
+                for (int i = 0; i < jsArray.length(); i++) {
+                    JSONObject c = jsArray.getJSONObject(i);
+                    String id = c.getString("id");
+                    String pw = c.getString("pw");
+                    String name = c.getString("name");
+                    String phone = c.getString("phone");
+                    String address = c.getString("address");
+
+                    HashMap<String, String> hash_customer = new HashMap<String, String>();
+
+                    hash_customer.put("id", id);
+                    hash_customer.put("pw", pw);
+                    hash_customer.put("name", name);
+                    hash_customer.put("phone", phone);
+                    hash_customer.put("address", address);
+
+                    hashList.add(0, hash_customer);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        protected void showShoes() {
+            try {
+                JSONObject jsonObj = new JSONObject(myJSONquery);
+                jsArray = jsonObj.getJSONArray("result");
+
+                for (int i = 0; i < jsArray.length(); i++) {
+                    JSONObject c = jsArray.getJSONObject(i);
+                    String serial = c.getString("serial_num");
+                    String shoe_name = c.getString("shoe_name");
+                    String species = c.getString("shoe_species");
+                    String price = c.getString("price");
+
+                    HashMap<String, String> hash_shoes = new HashMap<String, String>();
+
+                    hash_shoes.put("serial_num", serial);
+                    hash_shoes.put("shoe_name", shoe_name);
+                    hash_shoes.put("shoe_species", species);
+                    hash_shoes.put("price", price);
+
+                    hashList.add(hash_shoes);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        protected void showStock() {
+            try {
+                JSONObject jsonObj = new JSONObject(myJSONquery);
+                jsArray = jsonObj.getJSONArray("result");
+
+                for (int i = 0; i < jsArray.length(); i++) {
+                    JSONObject c = jsArray.getJSONObject(i);
+                    String serial = c.getString("serial_num");
+                    String size = c.getString("size");
+                    String remain = c.getString("remain");
+
+                    HashMap<String, String> hash_stock = new HashMap<String, String>();
+
+                    hash_stock.put("serial_num", serial);
+                    hash_stock.put("size", size);
+                    hash_stock.put("remain", remain);
+
+                    hashList.add(hash_stock);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         protected void showOrders() {
@@ -234,7 +316,7 @@ public class DatabaseManager {
                 _loadCompleteListener.onLoadComplete(false);
             }
 
-            
+
             //TODO : 구매자의 이름, 주소, 휴대폰 번호를 불러오고 저장한 뒤 리스너호출
         }
     }
@@ -242,32 +324,8 @@ public class DatabaseManager {
         String name;
         String address;
         String phoneNo;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getAddress() {
-            return address;
-        }
-
-        public void setAddress(String address) {
-            this.address = address;
-        }
-
-        public String getPhoneNo() {
-            return phoneNo;
-        }
-
-        public void setPhoneNo(String phoneNo) {
-            this.phoneNo = phoneNo;
-        }
     }
-    
+
     public String getIdToken(){
         return _id;
     }
@@ -284,13 +342,23 @@ public class DatabaseManager {
     }
 
     private LoadCompleteListener _loadCompleteListener;
+    private WriteCompleteListener _writeCompleteListener;
 
-    public interface LoadCompleteListener {
+    interface LoadCompleteListener {
         void onLoadComplete(boolean isData);
     }
 
     public void setLoadCompleteListener(LoadCompleteListener loadCompleteListener){
         if(_loadCompleteListener != loadCompleteListener)
             _loadCompleteListener = loadCompleteListener;
+    }
+
+    interface WriteCompleteListener {
+        void onWriteComplete(boolean isData);
+    }
+
+    void setWriteCompleteListener(WriteCompleteListener writeCompleteListener){
+        if(_writeCompleteListener != writeCompleteListener)
+            _writeCompleteListener = writeCompleteListener;
     }
 }

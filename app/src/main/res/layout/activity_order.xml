@@ -67,18 +67,18 @@
                 app:layout_constraintRight_toRightOf="parent" />
 
             <TextView
-                android:id="@+id/idTxv"
+                android:id="@+id/nameTxv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
                 android:paddingBottom="0dp"
-                android:text="구매자id"
+                android:text="구매자"
                 android:textSize="20dp"
                 app:layout_constraintLeft_toLeftOf="@+id/totalPrice"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/totalPrice" />
+                app:layout_constraintTop_toBottomOf="@+id/totalPrice"/>
 
             <TextView
                 android:id="@+id/textView"
@@ -89,9 +89,9 @@
                 android:layout_marginTop="8dp"
                 android:text="전화번호"
                 android:textSize="20dp"
-                app:layout_constraintLeft_toLeftOf="@+id/idTxv"
+                app:layout_constraintLeft_toLeftOf="@+id/nameTxv"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/idTxv" />
+                app:layout_constraintTop_toBottomOf="@+id/nameTxv" />
 
             <EditText
                 android:id="@+id/phoneEdt"

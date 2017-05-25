@@ -7,8 +7,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class OrderActivity extends AppCompatActivity {
+
+    String _name;
+    String _adress;
+    String _phoneNo;
+
+    TextView textView_name;
+    EditText editText_address;
+    EditText editText_phone;
+    EditText editText_comment;
+
+    DatabaseManager databaseManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,21 +29,16 @@ public class OrderActivity extends AppCompatActivity {
 
         String idToken = getIntent().getStringExtra("idToken");
         String productToken = getIntent().getStringExtra("productToken");
-        String name;
-        String address;
-        String phoneNo;
 
         ImageView imageView = (ImageView) findViewById(R.id.orderImv);
 
-        final DatabaseManager databaseManager = DatabaseManager.getInstance();
+        databaseManager = DatabaseManager.getInstance();
 
-        TextView textView_id = (TextView) findViewById(R.id.idTxv);
-        EditText editText_address = (EditText) findViewById(R.id.addressEdt);
-        EditText editText_phone = (EditText) findViewById(R.id.phoneEdt);
-        EditText editText_comment = (EditText) findViewById(R.id.commentEdt);
+        textView_name = (TextView) findViewById(R.id.nameTxv);
+        editText_address = (EditText) findViewById(R.id.addressEdt);
+        editText_phone = (EditText) findViewById(R.id.phoneEdt);
+        editText_comment = (EditText) findViewById(R.id.commentEdt);
         Button button_order = (Button) findViewById(R.id.orderBtn);
-
-
 
         imageView.setImageResource(
                 getResources().getIdentifier(
@@ -43,16 +50,25 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onLoadComplete(boolean isData) {
                 DatabaseManager.UserInfo userInfo = databaseManager.getUserInfo();
-                name = userInfo.getName();
+                _name = userInfo.name;
+                _adress = userInfo.address;
+                _phoneNo = userInfo.phoneNo;
             }
         });
 
-      /*  textView_id.setText();
-        editText_address.setText()*/
 
         button_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                databaseManager.requestSetUserInfo()
+            }
+        });
+
+        databaseManager.setWriteCompleteListener(new DatabaseManager.WriteCompleteListener() {
+            @Override
+            public void onWriteComplete(boolean isData) {
+                Toast.makeText(OrderActivity.this, "구매완료", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }
