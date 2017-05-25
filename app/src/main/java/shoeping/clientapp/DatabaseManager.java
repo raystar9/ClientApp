@@ -49,6 +49,10 @@ public class DatabaseManager {
 
         getData(firstUrl + secondUrl, "toGetIdAndPassword");
     }
+    public String getIdToken(){
+        return _id;
+    }
+
 
     public void getShoesData(String category) {
         secondUrl = "category_search.php?";
@@ -136,10 +140,10 @@ public class DatabaseManager {
                     _pw = pw;
 
                 }
-                _loadCompleteListener.onLoadComplete();
+                _loadCompleteListener.whenLoadComplete(true);
             } catch (Exception e) {
                 e.printStackTrace();
-                _loadFailListener.onLoadFail();
+                _loadCompleteListener.whenLoadComplete(false);
             }
 
         }
@@ -167,13 +171,13 @@ public class DatabaseManager {
                     hash_shoes.put("shoe_desc", desc);
 
                     hashList.add(0, hash_shoes);
-                    _loadCompleteListener.onLoadComplete();
+                    _loadCompleteListener.whenLoadComplete(true);
                 }
             }
             catch (Exception e)
             {
                 e.printStackTrace();
-                _loadFailListener.onLoadFail();
+                _loadCompleteListener.whenLoadComplete(false);
             }
 
         }
@@ -294,23 +298,13 @@ public class DatabaseManager {
     }
 
     LoadCompleteListener _loadCompleteListener;
-    LoadFailListener _loadFailListener;
 
     public interface LoadCompleteListener {
-        void onLoadComplete();
+        void whenLoadComplete(boolean isData);
     }
 
     public void setLoadCompleteListener(LoadCompleteListener loadCompleteListener){
         if(_loadCompleteListener != loadCompleteListener)
             _loadCompleteListener = loadCompleteListener;
-    }
-
-    public interface LoadFailListener {
-        void onLoadFail();
-    }
-
-    public void setLoadFailListener(LoadFailListener loadFailListener){
-        if(_loadFailListener != loadFailListener)
-            _loadFailListener = loadFailListener;
     }
 }

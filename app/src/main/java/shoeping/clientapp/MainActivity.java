@@ -93,21 +93,21 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_women) {
             Adapter adapter = new Adapter(getSupportFragmentManager());
-            adapter.addFragment(new DressWomanFragment(), "dressWomen");
-            adapter.addFragment(new RunningWomanFragment(), "runningWomen");
+            adapter.addFragment(new CardFragments(R.array.dressShoesWoman), "dressWomen");
+            adapter.addFragment(new CardFragments(R.array.runningShoesWoman), "runningWomen");
             viewPager.setAdapter(adapter);
             tabs.setupWithViewPager(viewPager);
 
         } else if (id == R.id.nav_men) {
             Adapter adapter = new Adapter(getSupportFragmentManager());
-            adapter.addFragment(new DressManFragment(), "dressMen");
-            adapter.addFragment(new RunningManFragment(), "runningMen");
+            adapter.addFragment(new CardFragments(R.array.dressShoesMan), "dressMen");
+            adapter.addFragment(new CardFragments(R.array.runningShoesMan), "runningMen");
             viewPager.setAdapter(adapter);
             tabs.setupWithViewPager(viewPager);
 
         } else if (id == R.id.nav_slipper) {
             Adapter adapter = new Adapter(getSupportFragmentManager());
-            adapter.addFragment(new SlipperFragment(), "slipper");
+            adapter.addFragment(new CardFragments(R.array.slipper), "slipper");
             viewPager.setAdapter(adapter);
             tabs.setupWithViewPager(viewPager);
         }

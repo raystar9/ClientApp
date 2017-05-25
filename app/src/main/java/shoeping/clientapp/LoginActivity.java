@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -34,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         //
         databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
-            public void onLoadComplete() {
+            public void whenLoadComplete(boolean isData) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 //intent.putExtra("id", id);
                 
@@ -43,14 +42,6 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        databaseManager.setLoadFailListener(new DatabaseManager.LoadFailListener() {
-            @Override
-            public void onLoadFail() {
-                Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT);
-            }
-        });
-
     }
 
     private void requestLoginInfo() {
