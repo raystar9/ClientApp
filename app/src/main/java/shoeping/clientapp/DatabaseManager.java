@@ -30,6 +30,7 @@ public class DatabaseManager {
     private String _id;
     private String _pw;
     private UserInfo _userInfo;
+    private ItemInfo _mainInfo[];
 
     private static DatabaseManager _instance = new DatabaseManager();
 
@@ -104,7 +105,7 @@ public class DatabaseManager {
     }
 
     public void requestGetMainInfo() {
-        // TODO : 재고번호, 신발명, 가격, 사이즈를 itemInfo에 담음
+        // TODO : 재고번호, 신발명, 가격, 사이즈를 ItemInfo에 담음
     }
 
     public void requestSetUserInfo() {
@@ -128,7 +129,6 @@ public class DatabaseManager {
                 break;
         }
     }
-
 
     class JSONConverter {
 
@@ -326,11 +326,6 @@ public class DatabaseManager {
             //TODO : 구매자의 이름, 주소, 휴대폰 번호를 불러오고 저장한 뒤 리스너호출
         }
     }
-    public class UserInfo {
-        String name;
-        String address;
-        String phoneNo;
-    }
 
     public String getIdToken(){
         return _id;
@@ -338,6 +333,10 @@ public class DatabaseManager {
 
     public UserInfo getUserInfo(){
         return _userInfo;
+    }
+
+    public ItemInfo[] getMainInfoArray() {
+        return _mainInfo;
     }
 
     public void getShoesData(String category) {
@@ -356,5 +355,18 @@ public class DatabaseManager {
     public void setLoadCompleteListener(LoadCompleteListener loadCompleteListener){
         if(_loadCompleteListener != loadCompleteListener)
             _loadCompleteListener = loadCompleteListener;
+    }
+
+    public class UserInfo {
+        String name;
+        String address;
+        String phoneNo;
+    }
+
+    public class ItemInfo {
+        String serialNumber;
+        String shoesName;
+        String price;
+        String size;
     }
 }

@@ -28,7 +28,7 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
 
         String idToken = getIntent().getStringExtra("idToken");
-        String productToken = getIntent().getStringExtra("productToken");
+        String serialNumber = getIntent().getStringExtra("serialNumber");
 
         ImageView imageView = (ImageView) findViewById(R.id.orderImv);
 
@@ -42,7 +42,7 @@ public class OrderActivity extends AppCompatActivity {
 
         imageView.setImageResource(
                 getResources().getIdentifier(
-                        "@drawable/" + productToken, "drawable", getPackageName()));
+                        "@drawable/" + serialNumber, "drawable", getPackageName()));
 
         databaseManager.requestGetUserInfo();
 
