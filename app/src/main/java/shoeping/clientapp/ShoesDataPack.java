@@ -30,7 +30,7 @@ public class ShoesDataPack {
         return _size;
     }
 
-    public String getDescrption() {
+    public String getDescription() {
         return _description;
     }
 }

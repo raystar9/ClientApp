@@ -74,12 +74,21 @@ public class SlipperFragment extends Fragment {
         private String[] sizeArray;
 
         public ContentAdapter(Context context) {
-            importFromDatabase();
+            DatabaseManager dbManager = DatabaseManager.getInstance();
             Resources resources = context.getResources();
             TypedArray a = resources.obtainTypedArray(slipper);
+
             slipperArray = new Drawable[a.length()];
+            nameArray = new String[a.length()];
+            priceArray = new String[a.length()];
+            sizeArray = new String[a.length()];
             for (int i = 0; i < slipperArray.length; i++) {
                 slipperArray[i] = a.getDrawable(i);
+                /*
+                nameArray[i] = packs[i].getName();
+                priceArray[i] = packs[i].getPrice();
+                sizeArray[i] = packs[i].getSize();
+                */
             }
             a.recycle();
         }
@@ -100,18 +109,6 @@ public class SlipperFragment extends Fragment {
         @Override
         public int getItemCount() {
             return slipperArray.length;
-        }
-
-        private void importFromDatabase() {
-            DatabaseManager databaseManager = DatabaseManager.getInstance();
-            /*
-            ShoesDataPack[] packs = databaseManager.packShoesData(R.array.slipper);
-            for (int i = 0; i < slipperArray.length; i++) {
-                nameArray[i] = packs[i].getName();
-                priceArray[i] = packs[i].getPrice();
-                sizeArray[i] = packs[i].getSize();
-            }
-            */
         }
     }
 }

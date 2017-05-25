@@ -50,6 +50,13 @@ public class DatabaseManager {
         getData(firstUrl + secondUrl, "toGetIdAndPassword");
     }
 
+    public void getShoesData(String category) {
+        secondUrl = "category_search.php?";
+        secondUrl += "shoe_species="+category;
+
+        getData(firstUrl + secondUrl, "getCategoryShoes");
+    }
+
     public void getData(String url, final String condition) {
         class GetDataJSON extends AsyncTask<String, Void, String> {
 
@@ -100,8 +107,8 @@ public class DatabaseManager {
             case "toGetIdAndPassword":
                 converter.IdAndPw(json);
                 break;
-            case "orders":
-                converter.showOrders();
+            case "getCategoryShoes":
+                converter.Shoes_category(json);
                 break;
             case "customer":
                 converter.showCustomer();
@@ -128,12 +135,47 @@ public class DatabaseManager {
                     _id = id;
                     _pw = pw;
 
+                }
+                _loadCompleteListener.onLoadComplete();
+            } catch (Exception e) {
+                e.printStackTrace();
+                _loadFailListener.onLoadFail();
+            }
+
+        }
+
+        protected void Shoes_category(JSONObject json)
+        {
+            try
+            {
+                jsArray = json.getJSONArray(RESULT);
+
+                for (int i = 0; i < jsArray.length(); i++) {
+                    JSONObject c = jsArray.getJSONObject(i);
+                    String serial = c.getString("serial_num");
+                    String shoe_name = c.getString("shoe_name");
+                    String species = c.getString("shoe_species");
+                    String price = c.getString("shoe_price");
+                    String desc= c.getString("shoe_desc");
+
+                    HashMap<String, String> hash_shoes = new HashMap<String, String>();
+
+                    hash_shoes.put("serial_num", serial);
+                    hash_shoes.put("shoe_name", shoe_name);
+                    hash_shoes.put("shoe_species", species);
+                    hash_shoes.put("shoe_price", price);
+                    hash_shoes.put("shoe_desc", desc);
+
+                    hashList.add(0, hash_shoes);
                     _loadCompleteListener.onLoadComplete();
                 }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                _loadFailListener.onLoadFail();
+            }
+
         }
 
         protected void showCustomer() {
@@ -157,7 +199,7 @@ public class DatabaseManager {
                     hash_customer.put("phone", phone);
                     hash_customer.put("address", address);
 
-                    hashList.add(hash_customer);
+                    hashList.add(0, hash_customer);
                 }
 
             } catch (JSONException e) {
