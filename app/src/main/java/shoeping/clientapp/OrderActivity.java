@@ -18,7 +18,7 @@ public class OrderActivity extends AppCompatActivity {
         String idToken = getIntent().getStringExtra("idToken");
         String productToken = getIntent().getStringExtra("productToken");
         String name;
-        String adress;
+        String address;
         String phoneNo;
 
         ImageView imageView = (ImageView) findViewById(R.id.orderImv);
@@ -43,7 +43,7 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onLoadComplete(boolean isData) {
                 DatabaseManager.UserInfo userInfo = databaseManager.getUserInfo();
-
+                name = userInfo.getName();
             }
         });
 
