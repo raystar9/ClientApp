@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
 
         String _id = _editText_id.getText().toString();
         String _pw = _editText_pw.getText().toString();
-        databaseManager.requestId(_id, _pw);
-        databaseManager.requestPw(_id, _pw);
+        databaseManager.requestGetId(_id, _pw);
+        databaseManager.requestGetPw(_id, _pw);
     }
 }

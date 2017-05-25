@@ -80,7 +80,7 @@ public class DatabaseManager {
         }
     }
 
-    public void requestId(String id, String pw) {
+    public void requestGetId(String id, String pw) {
         secondUrl = "login_check.php?"
                 + "id=" + id
                 + "&pw=" + pw;
@@ -88,7 +88,7 @@ public class DatabaseManager {
         getData(firstUrl + secondUrl, "toGetIdAndPassword");
     }
 
-    public void requestPw(String id, String pw) {
+    public void requestGetPw(String id, String pw) {
         secondUrl = "login_check.php?"
                 + "id=" + id
                 + "&pw=" + pw;
@@ -96,11 +96,15 @@ public class DatabaseManager {
         getData(firstUrl + secondUrl, "toGetIdAndPassword");
     }
 
-    public void requestUserInfo() {
+    public void requestGetUserInfo() {
         secondUrl = "my_info.php?"+
                 "id="+id;
 
         getData(firstUrl + secondUrl, "toGetUserInfo");
+    }
+
+    public void requestSetUserInfo() {
+        // TODO : 유저인포 세터
     }
 
     private void distributeJSON(JSONObject json, String condition) {

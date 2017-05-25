@@ -44,7 +44,7 @@ public class OrderActivity extends AppCompatActivity {
                 getResources().getIdentifier(
                         "@drawable/" + productToken, "drawable", getPackageName()));
 
-        databaseManager.requestUserInfo();
+        databaseManager.requestGetUserInfo();
 
         databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
@@ -60,7 +60,7 @@ public class OrderActivity extends AppCompatActivity {
         button_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                databaseManager.requestSetUserInfo()
+                databaseManager.requestSetUserInfo();
             }
         });
 
