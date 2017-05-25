@@ -240,9 +240,6 @@ public class DatabaseManager {
                 e.printStackTrace();
                 _loadCompleteListener.onLoadComplete(false);
             }
-
-
-            //TODO : 구매자의 이름, 주소, 휴대폰 번호를 불러오고 저장한 뒤 리스너호출
         }
     }
 
