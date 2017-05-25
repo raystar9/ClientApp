@@ -13,6 +13,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static android.R.attr.id;
+
 public class DatabaseManager {
 
     private String myJSONquery;
@@ -34,6 +36,7 @@ public class DatabaseManager {
     public static DatabaseManager getInstance() {
         return _instance;
     }
+
     public void getData(String url, final String condition) {
         class GetDataJSON extends AsyncTask<String, Void, String> {
 
@@ -77,6 +80,29 @@ public class DatabaseManager {
         }
     }
 
+    public void requestId(String id, String pw) {
+        secondUrl = "login_check.php?"
+                + "id=" + id
+                + "&pw=" + pw;
+
+        getData(firstUrl + secondUrl, "toGetIdAndPassword");
+    }
+
+    public void requestPw(String id, String pw) {
+        secondUrl = "login_check.php?"
+                + "id=" + id
+                + "&pw=" + pw;
+
+        getData(firstUrl + secondUrl, "toGetIdAndPassword");
+    }
+
+    public void requestUserInfo() {
+        secondUrl = "my_info.php?"+
+                "id="+id;
+
+        getData(firstUrl + secondUrl, "toGetUserInfo");
+    }
+
     private void distributeJSON(JSONObject json, String condition) {
 
         JSONConverter converter = new JSONConverter();
@@ -101,28 +127,6 @@ public class DatabaseManager {
         }
     }
 
-    public void requestId(String id, String pw) {
-        secondUrl = "login_check.php?"
-                + "id=" + id
-                + "&pw=" + pw;
-
-        getData(firstUrl + secondUrl, "toGetIdAndPassword");
-    }
-
-    public void requestPw(String id, String pw) {
-        secondUrl = "login_check.php?"
-                + "id=" + id
-                + "&pw=" + pw;
-
-        getData(firstUrl + secondUrl, "toGetIdAndPassword");
-    }
-
-    public void requestUserInfo() {
-        // TODO : 이름, 주소, 휴대폰 번호를 DB에서 불러오는 URL명 설정
-
-        getData(firstUrl + secondUrl, "toGetUserInfo");
-    }
-
     class JSONConverter {
 
         protected void IdAndPw(JSONObject json) {
@@ -143,7 +147,6 @@ public class DatabaseManager {
                 e.printStackTrace();
                 _loadCompleteListener.onLoadComplete(false);
             }
-
         }
 
         protected void Shoes_category(JSONObject json)
