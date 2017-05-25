@@ -31,6 +31,7 @@ public class DatabaseManager {
     private String _pw;
     private UserInfo _userInfo;
     private ShoesInfo[] _shoesInfos;
+    private ItemInfo _mainInfo[];
 
     private static DatabaseManager _instance = new DatabaseManager();
 
@@ -109,7 +110,13 @@ public class DatabaseManager {
         getData(firstUrl + secondUrl, "toGetUserInfo");
     }
 
-    public void requestSetUserInfo() {}
+    public void requestGetMainInfo() {
+        // TODO : 재고번호, 신발명, 가격, 사이즈를 ItemInfo에 담음
+    }
+
+    public void requestSetUserInfo() {
+        // TODO : 유저인포를 DB에 씀
+    }
 
     private void distributeJSON(JSONObject json, String condition) {
 
@@ -212,12 +219,31 @@ public class DatabaseManager {
                 e.printStackTrace();
             }
         }
-    }
 
-    public class UserInfo {
-        String name;
-        String address;
-        String phoneNo;
+        protected void getUserInfo() {
+            _userInfo = new UserInfo();
+            try
+            {
+                JSONObject jsonObj = new JSONObject(myJSONquery);
+                jsArray = jsonObj.getJSONArray("result");
+
+                for (int i = 0; i < jsArray.length(); i++) {
+                    JSONObject c = jsArray.getJSONObject(i);
+                    _userInfo.name = c.getString("name");
+                    _userInfo.address = c.getString("addr");
+                    _userInfo.phoneNo = c.getString("phone");
+                }
+                _loadCompleteListener.onLoadComplete(true);
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+                _loadCompleteListener.onLoadComplete(false);
+            }
+
+
+            //TODO : 구매자의 이름, 주소, 휴대폰 번호를 불러오고 저장한 뒤 리스너호출
+        }
     }
 
     public class ShoesInfo {
@@ -234,8 +260,18 @@ public class DatabaseManager {
         return _userInfo;
     }
 
+    public ItemInfo[] getMainInfoArray() {
+        return _mainInfo;
+    }
+
+    public void getShoesData(String category) {
+        secondUrl = "category_search.php?";
+        secondUrl += "shoe_species="+category;
+
+        getData(firstUrl + secondUrl, "getCategoryShoes");
+    }
+
     private LoadCompleteListener _loadCompleteListener;
-    private WriteCompleteListener _writeCompleteListener;
 
     interface LoadCompleteListener {
         void onLoadComplete(boolean isData);
@@ -246,12 +282,16 @@ public class DatabaseManager {
             _loadCompleteListener = loadCompleteListener;
     }
 
-    interface WriteCompleteListener {
-        void onWriteComplete(boolean isData);
+    public class UserInfo {
+        String name;
+        String address;
+        String phoneNo;
     }
 
-    void setWriteCompleteListener(WriteCompleteListener writeCompleteListener){
-        if(_writeCompleteListener != writeCompleteListener)
-            _writeCompleteListener = writeCompleteListener;
+    public class ItemInfo {
+        String serialNumber;
+        String shoesName;
+        String price;
+        String size;
     }
 }

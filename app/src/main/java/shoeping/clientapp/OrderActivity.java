@@ -28,7 +28,7 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
 
         String idToken = getIntent().getStringExtra("idToken");
-        String productToken = getIntent().getStringExtra("productToken");
+        String serialNumber = getIntent().getStringExtra("serialNumber");
 
         ImageView imageView = (ImageView) findViewById(R.id.orderImv);
 
@@ -42,7 +42,7 @@ public class OrderActivity extends AppCompatActivity {
 
         imageView.setImageResource(
                 getResources().getIdentifier(
-                        "@drawable/" + productToken, "drawable", getPackageName()));
+                        "@drawable/" + serialNumber, "drawable", getPackageName()));
 
         databaseManager.requestGetUserInfo();
 
@@ -64,10 +64,10 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
-        databaseManager.setWriteCompleteListener(new DatabaseManager.WriteCompleteListener() {
+        databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
-            public void onWriteComplete(boolean isData) {
-                Toast.makeText(OrderActivity.this, "구매완료", Toast.LENGTH_SHORT).show();
+            public void onLoadComplete(boolean isData) {
+                Toast.makeText(OrderActivity.this, "주문 완료", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

@@ -3,7 +3,6 @@ package shoeping.clientapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -13,8 +12,7 @@ import android.widget.ImageView;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    public static final String EXTRA_POSITION = "position";
-    public static final String EXTRA_SPECIES = "species";
+    public static final String EXTRA_SERIAL_NUMBER = "serialNumber";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +23,7 @@ public class DetailsActivity extends AppCompatActivity {
         DatabaseManager databaseManager = DatabaseManager.getInstance();
         Button orderButton = (Button) findViewById(R.id.directOrderBtn);
 
-        int position = getIntent().getIntExtra(EXTRA_POSITION, 0);
-        int species = getIntent().getIntExtra(EXTRA_SPECIES, 0);
+        String serialNumber = getIntent().getStringExtra(EXTRA_SERIAL_NUMBER);
 
         orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,13 +33,11 @@ public class DetailsActivity extends AppCompatActivity {
                 context.startActivity(intent);
             }
         });
-//        ShoesDataPack pack = databaseManager.packShoesData(species, position);
 
-        TypedArray placePictures = resources.obtainTypedArray(species);
+        int picture = resources.getIdentifier(
+                "@drawable/" + serialNumber, "drawable", getPackageName());
         ImageView placePicutre = (ImageView) findViewById(R.id.detailImg);
-        placePicutre.setImageDrawable(placePictures.getDrawable(position % placePictures.length()));
-
-        placePictures.recycle();
+        placePicutre.setImageResource(picture);
     }
 
     @Override

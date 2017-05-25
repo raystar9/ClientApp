@@ -1,6 +1,5 @@
 package shoeping.clientapp;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -15,11 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +24,8 @@ public class MainActivity extends AppCompatActivity
     ViewPager viewPager;
     TabLayout tabs;
 //    String loginToken;    // TODO : 로그인토큰 추가 및 Intent로 토큰 교환
+    DatabaseManager databaseManager;
+    DatabaseManager.ItemInfo[] itemInfos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +45,16 @@ public class MainActivity extends AppCompatActivity
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabs = (TabLayout) findViewById(R.id.tabs);
+
+        databaseManager = DatabaseManager.getInstance();
+        databaseManager.requestGetMainInfo();
+
+        databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
+            @Override
+            public void onLoadComplete(boolean isData) {
+                itemInfos = databaseManager.getMainInfoArray();
+            }
+        });
     }
 
     @Override
@@ -144,52 +150,6 @@ public class MainActivity extends AppCompatActivity
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
-        }
-    }
-
-    public class ImageAdapter extends BaseAdapter {
-        private Context mContext;
-
-        public ImageAdapter(Context c) {
-            mContext = c;
-        }
-
-        public int getCount() {
-            return mThumbIds.length;
-        }
-
-        public Object getItem(int position) {
-            return null;
-        }
-
-        public long getItemId(int position) {
-            return position;
-        }
-
-        // create a new ImageView for each item referenced by the Adapter
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView imageView;
-            if (convertView == null) {
-                // if it's not recycled, initialize some attributes
-                imageView = new ImageView(mContext);
-                imageView.setLayoutParams(new GridView.LayoutParams(400, 400));
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageView.setPadding(8, 8, 8, 8);
-            } else {
-                imageView = (ImageView) convertView;
-            }
-
-            imageView.setImageResource(mThumbIds[position]);
-            return imageView;
-        }
-
-        // references to our images
-        private Integer[] mThumbIds = {
-                R.drawable.cat, R.drawable.cat, R.drawable.cat, R.drawable.cat
-        };
-
-        public void setmThumbIds(Integer[] mThumbIds) {
-            this.mThumbIds = mThumbIds;
         }
     }
 }

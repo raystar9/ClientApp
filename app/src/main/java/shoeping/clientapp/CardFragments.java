@@ -46,7 +46,6 @@ public class CardFragments extends Fragment {
         return recyclerView;
     }
 
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView picture;
         public TextView name;
@@ -65,8 +64,7 @@ public class CardFragments extends Fragment {
                 public void onClick(View v) {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, DetailsActivity.class);
-                    intent.putExtra(DetailsActivity.EXTRA_POSITION, getAdapterPosition());
-                    intent.putExtra(DetailsActivity.EXTRA_SPECIES, R.array.dressShoesWoman);
+                    intent.putExtra(DetailsActivity.EXTRA_SERIAL_NUMBER, serialNumber);
                     context.startActivity(intent);
                 }
             });
