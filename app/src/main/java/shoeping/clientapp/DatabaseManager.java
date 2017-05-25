@@ -103,14 +103,11 @@ public class DatabaseManager {
         getData(firstUrl + secondUrl, "toGetUserInfo");
     }
 
-    public void requestGetShoeList() {
-        secondUrl = "my_info.php?"+
-                "id="+id;
+    public void requestGetMainInfo(String category) {
+        secondUrl = "get_shoes_info_category.php?"+
+                "shoe_species="+category;
 
         getData(firstUrl + secondUrl, "toGetUserInfo");
-    }
-
-    public void requestGetMainInfo() {
         // TODO : 재고번호, 신발명, 가격, 사이즈를 ItemInfo에 담음
     }
 
@@ -173,12 +170,13 @@ public class DatabaseManager {
         protected void getShoeList_category(JSONObject json) {
             try {
                 jsArray = json.getJSONArray(RESULT);
-                _shoesInfos = new ShoesInfo[jsArray.length()];
+                _mainInfo = new ItemInfo[jsArray.length()];
                 for (int i = 0; i < jsArray.length(); i++) {
                     JSONObject c = jsArray.getJSONObject(i);
-                    _shoesInfos[i].name = c.getString("shoe_name");
-                    _shoesInfos[i].price = c.getString("shoe_price");
-                    _shoesInfos[i].size = c.getString("min_size")+" - "+c.getString("max_size");
+                    _mainInfo[i].serialNumber = c.getString("serial_num");
+                    _mainInfo[i].shoesName = c.getString("shoe_name");
+                    _mainInfo[i].price = c.getString("shoe_price");
+                    _mainInfo[i].size = c.getString("min_size")+" - "+c.getString("max_size");
                 }
                 _loadCompleteListener.onLoadComplete(true);
             } catch (Exception e) {
@@ -241,12 +239,6 @@ public class DatabaseManager {
                 _loadCompleteListener.onLoadComplete(false);
             }
         }
-    }
-
-    public class ShoesInfo {
-        String name;
-        String price;
-        String size;
     }
 
     public String getIdToken(){
