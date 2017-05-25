@@ -56,11 +56,14 @@ public class MainActivity extends AppCompatActivity
         DatabaseManager databaseManager = DatabaseManager.getInstance();
         databaseManager.requestGetMainInfo();
 
-
         databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
             public void onLoadComplete(boolean isData) {
-
+                for(int i = 0; i < .size; i++){
+                    _shoesNames[i] = "";
+                    _prices[i] = "";
+                    _sizes[i] = "";
+                }
             }
         });
     }

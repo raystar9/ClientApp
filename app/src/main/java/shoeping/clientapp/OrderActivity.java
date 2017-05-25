@@ -64,9 +64,9 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
-        databaseManager.setWriteCompleteListener(new DatabaseManager.WriteCompleteListener() {
+        databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
-            public void onWriteComplete(boolean isData) {
+            public void onLoadComplete(boolean isData) {
                 Toast.makeText(OrderActivity.this, "주문 완료", Toast.LENGTH_SHORT).show();
                 finish();
             }

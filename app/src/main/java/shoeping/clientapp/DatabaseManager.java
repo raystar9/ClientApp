@@ -104,7 +104,7 @@ public class DatabaseManager {
     }
 
     public void requestGetMainInfo() {
-        // TODO : 재고번호, 신발명, 가격, 사이즈를 불러옴
+        // TODO : 재고번호, 신발명, 가격, 사이즈를 itemInfo에 담음
     }
 
     public void requestSetUserInfo() {
@@ -348,7 +348,6 @@ public class DatabaseManager {
     }
 
     private LoadCompleteListener _loadCompleteListener;
-    private WriteCompleteListener _writeCompleteListener;
 
     interface LoadCompleteListener {
         void onLoadComplete(boolean isData);
@@ -357,14 +356,5 @@ public class DatabaseManager {
     public void setLoadCompleteListener(LoadCompleteListener loadCompleteListener){
         if(_loadCompleteListener != loadCompleteListener)
             _loadCompleteListener = loadCompleteListener;
-    }
-
-    interface WriteCompleteListener {
-        void onWriteComplete(boolean isData);
-    }
-
-    void setWriteCompleteListener(WriteCompleteListener writeCompleteListener){
-        if(_writeCompleteListener != writeCompleteListener)
-            _writeCompleteListener = writeCompleteListener;
     }
 }
