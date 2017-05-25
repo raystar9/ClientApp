@@ -33,10 +33,4 @@
         android:layout_marginLeft="24dp"
         android:text="size"/>
 
-    <TextView
-        android:id="@+id/shoesGetPoint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:text="starPoint"/>
 </LinearLayout>
