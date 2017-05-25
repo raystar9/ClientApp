@@ -30,8 +30,7 @@ public class DatabaseManager {
     private String _id;
     private String _pw;
     private UserInfo _userInfo;
-    private ShoesInfo[] _shoesInfos;
-    private ItemInfo _mainInfo[];
+    private ItemInfo[] _mainInfo;
 
     private static DatabaseManager _instance = new DatabaseManager();
 

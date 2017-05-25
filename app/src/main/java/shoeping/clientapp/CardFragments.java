@@ -22,9 +22,11 @@ import android.widget.TextView;
 public class CardFragments extends Fragment {
 
     int _speciesId;
+    DatabaseManager.ItemInfo[] _itemInfos;
 
-    public CardFragments(int speciesId){
+    public CardFragments(int speciesId, DatabaseManager.ItemInfo[] itemInfos){
         _speciesId = speciesId;
+        _itemInfos = itemInfos;
     }
 
     @Override

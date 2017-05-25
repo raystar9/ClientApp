@@ -99,8 +99,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_women) {
             Adapter adapter = new Adapter(getSupportFragmentManager());
-            adapter.addFragment(new CardFragments(R.array.dressShoesWoman), "dressWomen");
-            adapter.addFragment(new CardFragments(R.array.runningShoesWoman), "runningWomen");
+            adapter.addFragment(new CardFragments(R.array.dressShoesWoman, itemInfos), "dressWomen");
+            adapter.addFragment(new CardFragments(R.array.runningShoesWoman, ), "runningWomen");
             viewPager.setAdapter(adapter);
             tabs.setupWithViewPager(viewPager);
 
