@@ -3,7 +3,6 @@
     <group android:checkableBehavior="none">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
             android:title="Title"/>
         <item android:title="Shoes">
             <menu>
@@ -19,18 +18,4 @@
             </menu>
         </item>
     </group>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_cart"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Cart"/>
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send"/>
-        </menu>
-    </item>
-
 </menu>

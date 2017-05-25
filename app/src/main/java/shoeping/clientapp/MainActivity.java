@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity
 
     ViewPager viewPager;
     TabLayout tabs;
+//    String loginToken;    // TODO : 로그인토큰 추가 및 Intent로 토큰 교환
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,44 +92,28 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
 
         } else if (id == R.id.nav_women) {
-            setupWomanViewPager(viewPager);
+            Adapter adapter = new Adapter(getSupportFragmentManager());
+            adapter.addFragment(new DressWomanFragment(), "dressWomen");
+            adapter.addFragment(new RunningWomanFragment(), "runningWomen");
+            viewPager.setAdapter(adapter);
             tabs.setupWithViewPager(viewPager);
 
         } else if (id == R.id.nav_men) {
-            setupManViewPager(viewPager);
+            Adapter adapter = new Adapter(getSupportFragmentManager());
+            adapter.addFragment(new DressManFragment(), "dressMen");
+            adapter.addFragment(new RunningManFragment(), "runningMen");
+            viewPager.setAdapter(adapter);
             tabs.setupWithViewPager(viewPager);
 
         } else if (id == R.id.nav_slipper) {
-            setupSlipperViewPager(viewPager);
+            Adapter adapter = new Adapter(getSupportFragmentManager());
+            adapter.addFragment(new SlipperFragment(), "slipper");
+            viewPager.setAdapter(adapter);
             tabs.setupWithViewPager(viewPager);
-
-        } else if (id == R.id.nav_send) {
-
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private void setupManViewPager(ViewPager viewPager) {
-        Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new DressManFragment(), "dressMen");
-        adapter.addFragment(new RunningManFragment(), "runningMen");
-        viewPager.setAdapter(adapter);
-    }
-
-    private void setupWomanViewPager(ViewPager viewPager) {
-        Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new DressWomanFragment(), "dressWomen");
-        adapter.addFragment(new RunningWomanFragment(), "runningWomen");
-        viewPager.setAdapter(adapter);
-    }
-
-    private void setupSlipperViewPager(ViewPager viewPager) {
-        Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new SlipperFragment(), "slipper");
-        viewPager.setAdapter(adapter);
     }
 
     static class Adapter extends FragmentPagerAdapter {

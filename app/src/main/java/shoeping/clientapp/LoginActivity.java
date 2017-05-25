@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onLoadComplete() {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 //intent.putExtra("id", id);
+                
 
                 setResult(RESULT_OK);
                 finish();
