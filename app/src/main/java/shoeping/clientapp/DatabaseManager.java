@@ -106,7 +106,7 @@ public class DatabaseManager {
         secondUrl = "get_shoes_info_category.php?"+
                 "shoe_species="+category;
 
-        getData(firstUrl + secondUrl, "toGetUserInfo");
+        getData(firstUrl + secondUrl, "toGetCategoryShoes");
         // TODO : 재고번호, 신발명, 가격, 사이즈를 ItemInfo에 담음
     }
 

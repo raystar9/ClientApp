@@ -22,6 +22,7 @@ import android.widget.TextView;
 public class CardFragments extends Fragment {
 
     int _speciesId;
+    DatabaseManager databaseManager;
     DatabaseManager.ItemInfo[] _itemInfos;
 
     public CardFragments(int speciesId, DatabaseManager.ItemInfo[] itemInfos){
@@ -32,7 +33,11 @@ public class CardFragments extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
     }
+
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,6 +50,19 @@ public class CardFragments extends Fragment {
         int tilePadding = getResources().getDimensionPixelSize(R.dimen.tile_padding);
         recyclerView.setPadding(tilePadding, tilePadding, tilePadding, tilePadding);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+
+        databaseManager = DatabaseManager.getInstance();
+        databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener()
+        {
+            @Override
+            public void onLoadComplete(boolean isData) {
+
+            }
+        });
+
+
+
+
         return recyclerView;
     }
 
