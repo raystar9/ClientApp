@@ -32,12 +32,6 @@ public class DatabaseManager {
     private UserInfo _userInfo;
     private ItemInfo[] _mainInfo;
 
-    private static DatabaseManager _instance = new DatabaseManager();
-
-    public static DatabaseManager getInstance() {
-        return _instance;
-    }
-
     public void getData(String url, final String condition) {
         class GetDataJSON extends AsyncTask<String, Void, String> {
 
@@ -266,7 +260,7 @@ public class DatabaseManager {
         String phoneNo;
     }
 
-    public class ItemInfo {
+    public static class ItemInfo {
         String serialNumber;
         String shoesName;
         String price;

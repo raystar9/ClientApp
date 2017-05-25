@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +23,24 @@ public class MainActivity extends AppCompatActivity
 
     ViewPager viewPager;
     TabLayout tabs;
-//    String loginToken;    // TODO : 로그인토큰 추가 및 Intent로 토큰 교환
+    //    String loginToken;    // TODO : 로그인토큰 추가 및 Intent로 토큰 교환
+    DatabaseManager.ItemInfo[] dressShoesW;
+    DatabaseManager.ItemInfo[] dressShoesM;
+    DatabaseManager.ItemInfo[] sneakersW;
+    DatabaseManager.ItemInfo[] sneakersM;
+    DatabaseManager.ItemInfo[] slippers;
+    int index;
+
     DatabaseManager databaseManager;
-    DatabaseManager.ItemInfo[] itemInfos;
+    DatabaseManager databaseManager2;
+    DatabaseManager databaseManager3;
+    DatabaseManager databaseManager4;
+    DatabaseManager databaseManager5;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        index = 0;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -46,15 +57,47 @@ public class MainActivity extends AppCompatActivity
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabs = (TabLayout) findViewById(R.id.tabs);
+        databaseManager = new DatabaseManager();
+        databaseManager2 = new DatabaseManager();
+        databaseManager3 = new DatabaseManager();
+        databaseManager4 = new DatabaseManager();
+        databaseManager5 = new DatabaseManager();
 
-        databaseManager = DatabaseManager.getInstance();
-        databaseManager.requestGetMainInfo("Snickers(W)");
+
+        databaseManager.requestGetMainInfo("DressShoes(W)");
+        databaseManager2.requestGetMainInfo("Sneakers(w)");
+        databaseManager3.requestGetMainInfo("DressShoes(M)");
+        databaseManager4.requestGetMainInfo("Sneakers(W)");
+        databaseManager5.requestGetMainInfo("Slippers");
 
         databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
             public void onLoadComplete(boolean isData) {
-                itemInfos = databaseManager.getMainInfoArray();
-                Toast.makeText(MainActivity.this, "!", Toast.LENGTH_SHORT).show();
+                dressShoesW = databaseManager.getMainInfoArray();
+            }
+        });
+        databaseManager2.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
+            @Override
+            public void onLoadComplete(boolean isData) {
+                sneakersW = databaseManager2.getMainInfoArray();
+            }
+        });
+        databaseManager3.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
+            @Override
+            public void onLoadComplete(boolean isData) {
+                dressShoesM = databaseManager3.getMainInfoArray();
+            }
+        });
+        databaseManager4.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
+            @Override
+            public void onLoadComplete(boolean isData) {
+                sneakersM = databaseManager4.getMainInfoArray();
+            }
+        });
+        databaseManager5.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
+            @Override
+            public void onLoadComplete(boolean isData) {
+                slippers = databaseManager5.getMainInfoArray();
             }
         });
     }

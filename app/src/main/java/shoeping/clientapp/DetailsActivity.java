@@ -20,7 +20,7 @@ public class DetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details);
 
         Resources resources = getResources();
-        DatabaseManager databaseManager = DatabaseManager.getInstance();
+        DatabaseManager databaseManager = new DatabaseManager();
         Button orderButton = (Button) findViewById(R.id.directOrderBtn);
 
         String serialNumber = getIntent().getStringExtra(EXTRA_SERIAL_NUMBER);

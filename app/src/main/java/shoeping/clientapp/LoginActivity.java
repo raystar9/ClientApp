@@ -13,7 +13,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText _editText_id;
     EditText _editText_pw;
-    DatabaseManager databaseManager = DatabaseManager.getInstance();
+    DatabaseManager databaseManager = new DatabaseManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

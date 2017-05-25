@@ -109,7 +109,7 @@ public class HomeFragment extends Fragment {
         }
 
         private void importFromDatabase() {
-            DatabaseManager databaseManager = DatabaseManager.getInstance();
+            DatabaseManager databaseManager = new DatabaseManager();
             /*
             ShoesDataPack[] packs = databaseManager.packShoesData(R.array.dressShoesMan);
             for (int i = 0; i < dressShoesManArray.length; i++) {

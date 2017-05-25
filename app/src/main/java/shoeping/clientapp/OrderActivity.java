@@ -30,7 +30,7 @@ public class OrderActivity extends AppCompatActivity {
 
         ImageView imageView = (ImageView) findViewById(R.id.orderImv);
 
-        databaseManager = DatabaseManager.getInstance();
+        databaseManager = new DatabaseManager();
 
         textView_name = (TextView) findViewById(R.id.nameTxv);
         editText_address = (EditText) findViewById(R.id.addressEdt);

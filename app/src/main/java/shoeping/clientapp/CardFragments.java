@@ -46,7 +46,7 @@ public class CardFragments extends Fragment {
         recyclerView.setPadding(tilePadding, tilePadding, tilePadding, tilePadding);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
 
-        databaseManager = DatabaseManager.getInstance();
+        databaseManager = new DatabaseManager();
         databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener()
         {
             @Override
