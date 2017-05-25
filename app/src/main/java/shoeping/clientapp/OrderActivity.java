@@ -11,9 +11,7 @@ import android.widget.Toast;
 
 public class OrderActivity extends AppCompatActivity {
 
-    String _name;
-    String _adress;
-    String _phoneNo;
+    DatabaseManager.UserInfo userInfo;
 
     TextView textView_name;
     EditText editText_address;
@@ -49,10 +47,7 @@ public class OrderActivity extends AppCompatActivity {
         databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
             public void onLoadComplete(boolean isData) {
-                DatabaseManager.UserInfo userInfo = databaseManager.getUserInfo();
-                _name = userInfo.name;
-                _adress = userInfo.address;
-                _phoneNo = userInfo.phoneNo;
+                userInfo = databaseManager.getUserInfo();
             }
         });
 
@@ -60,7 +55,7 @@ public class OrderActivity extends AppCompatActivity {
         button_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                databaseManager.requestSetUserInfo();
+                databaseManager.requestSetToOrder(userInfo);
             }
         });
 

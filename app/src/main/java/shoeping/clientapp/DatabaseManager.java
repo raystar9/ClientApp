@@ -114,8 +114,8 @@ public class DatabaseManager {
         // TODO : 재고번호, 신발명, 가격, 사이즈를 ItemInfo에 담음
     }
 
-    public void requestSetUserInfo() {
-        // TODO : 유저인포를 DB에 씀
+    public void requestSetToOrder(UserInfo userInfo) {
+        // TODO : 유저인포를 order 테이블에 씀
     }
 
     private void distributeJSON(JSONObject json, String condition) {
