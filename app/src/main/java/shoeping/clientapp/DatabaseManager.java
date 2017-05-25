@@ -111,7 +111,7 @@ public class DatabaseManager {
     }
 
     public void requestSetToOrder(UserInfo userInfo) {
-        // TODO : 유저인포를 order 테이블에 씀
+        // TODO : 유저인포를 order 테이블에 씀. 보류
     }
 
     private void distributeJSON(JSONObject json, String condition) {
@@ -250,13 +250,6 @@ public class DatabaseManager {
 
     public ItemInfo[] getMainInfoArray() {
         return _mainInfo;
-    }
-
-    public void getShoesData(String category) {
-        secondUrl = "category_search.php?";
-        secondUrl += "shoe_species="+category;
-
-        getData(firstUrl + secondUrl, "getCategoryShoes");
     }
 
     private LoadCompleteListener _loadCompleteListener;

@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity
         tabs = (TabLayout) findViewById(R.id.tabs);
 
         databaseManager = DatabaseManager.getInstance();
-        databaseManager.requestGetMainInfo("운동화(남)"); //TODO: ...
+        databaseManager.requestGetMainInfo("운동화(남)");
 
         databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
@@ -100,20 +100,20 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_women) {
             Adapter adapter = new Adapter(getSupportFragmentManager());
             adapter.addFragment(new CardFragments(R.array.dressShoesWoman, itemInfos), "dressWomen");
-            adapter.addFragment(new CardFragments(R.array.runningShoesWoman, ), "runningWomen");
+            adapter.addFragment(new CardFragments(R.array.runningShoesWoman, itemInfos), "runningWomen");
             viewPager.setAdapter(adapter);
             tabs.setupWithViewPager(viewPager);
 
         } else if (id == R.id.nav_men) {
             Adapter adapter = new Adapter(getSupportFragmentManager());
-            adapter.addFragment(new CardFragments(R.array.dressShoesMan), "dressMen");
-            adapter.addFragment(new CardFragments(R.array.runningShoesMan), "runningMen");
+            adapter.addFragment(new CardFragments(R.array.dressShoesMan, itemInfos), "dressMen");
+            adapter.addFragment(new CardFragments(R.array.runningShoesMan, itemInfos), "runningMen");
             viewPager.setAdapter(adapter);
             tabs.setupWithViewPager(viewPager);
 
         } else if (id == R.id.nav_slipper) {
             Adapter adapter = new Adapter(getSupportFragmentManager());
-            adapter.addFragment(new CardFragments(R.array.slipper), "slipper");
+            adapter.addFragment(new CardFragments(R.array.slipper, itemInfos), "slipper");
             viewPager.setAdapter(adapter);
             tabs.setupWithViewPager(viewPager);
         }

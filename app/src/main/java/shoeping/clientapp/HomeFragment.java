@@ -62,8 +62,8 @@ public class HomeFragment extends Fragment {
                 public void onClick(View v) {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, DetailsActivity.class);
-                    intent.putExtra(DetailsActivity.EXTRA_POSITION, getAdapterPosition());
-                    intent.putExtra(DetailsActivity.EXTRA_SPECIES, R.array.dressShoesMan);
+ //                   intent.putExtra(DetailsActivity.EXTRA_POSITION, getAdapterPosition());
+ //                   intent.putExtra(DetailsActivity.EXTRA_SPECIES, R.array.dressShoesMan);
                     context.startActivity(intent);
                 }
             });
@@ -74,6 +74,7 @@ public class HomeFragment extends Fragment {
 
 
         private final Drawable[] dressShoesManArray;
+        private String[] serialArray;
         private String[] nameArray;
         private String[] priceArray;
         private String[] sizeArray;

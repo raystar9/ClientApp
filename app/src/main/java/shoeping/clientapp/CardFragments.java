@@ -53,6 +53,7 @@ public class CardFragments extends Fragment {
         public TextView name;
         public TextView price;
         public TextView size;
+        String serialNumber;
 
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.each_shoes, parent, false));
@@ -75,19 +76,24 @@ public class CardFragments extends Fragment {
 
     private class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-
         private final Drawable[] drawables;
+        private String[] serialArray;
         private String[] nameArray;
         private String[] priceArray;
         private String[] sizeArray;
 
         public ContentAdapter(Context context) {
-            importFromDatabase();
             Resources resources = context.getResources();
             TypedArray a = resources.obtainTypedArray(_speciesId);
             drawables = new Drawable[a.length()];
             for (int i = 0; i < drawables.length; i++) {
                 drawables[i] = a.getDrawable(i);
+            }
+            for (int i = 0; i < _itemInfos.length; i++) {
+                serialArray[i] = _itemInfos[i].serialNumber;
+                nameArray[i] = _itemInfos[i].shoesName;
+                priceArray[i] = _itemInfos[i].price;
+                sizeArray[i] = _itemInfos[i].size;
             }
             a.recycle();
         }
@@ -100,9 +106,9 @@ public class CardFragments extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             holder.picture.setImageDrawable(drawables[position % drawables.length]);
-//            holder.name.setText(nameArray[position % nameArray.length]);
-//            holder.price.setText(priceArray[position % priceArray.length]);
-//            holder.size.setText(sizeArray[position % sizeArray.length]);
+            holder.name.setText(nameArray[position % nameArray.length]);
+            holder.price.setText(priceArray[position % priceArray.length]);
+            holder.size.setText(sizeArray[position % sizeArray.length]);
         }
 
         @Override
@@ -110,16 +116,5 @@ public class CardFragments extends Fragment {
             return drawables.length;
         }
 
-        private void importFromDatabase() {
-            DatabaseManager databaseManager = DatabaseManager.getInstance();
-            /*
-            ShoesDataPack[] packs = databaseManager.packShoesData(R.array.dressShoesMan);
-            for (int i = 0; i < dressShoesManArray.length; i++) {
-                nameArray[i] = packs[i].getName();
-                priceArray[i] = packs[i].getPrice();
-                sizeArray[i] = packs[i].getSize();
-            }
-            */
-        }
     }
 }
