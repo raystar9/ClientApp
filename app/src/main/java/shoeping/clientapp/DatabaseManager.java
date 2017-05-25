@@ -103,8 +103,12 @@ public class DatabaseManager {
         getData(firstUrl + secondUrl, "toGetUserInfo");
     }
 
+    public void requestGetMainInfo() {
+        // TODO : 재고번호, 신발명, 가격, 사이즈를 불러옴
+    }
+
     public void requestSetUserInfo() {
-        // TODO : 유저인포 세터
+        // TODO : 유저인포를 DB에 씀
     }
 
     private void distributeJSON(JSONObject json, String condition) {
@@ -124,6 +128,7 @@ public class DatabaseManager {
                 break;
         }
     }
+
 
     class JSONConverter {
 

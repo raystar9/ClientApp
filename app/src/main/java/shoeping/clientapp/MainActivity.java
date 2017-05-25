@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity
     ViewPager viewPager;
     TabLayout tabs;
 //    String loginToken;    // TODO : 로그인토큰 추가 및 Intent로 토큰 교환
+    String[] _shoesNames;
+    String[] _prices;
+    String[] _sizes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,17 @@ public class MainActivity extends AppCompatActivity
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabs = (TabLayout) findViewById(R.id.tabs);
+
+        DatabaseManager databaseManager = DatabaseManager.getInstance();
+        databaseManager.requestGetMainInfo();
+
+
+        databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
+            @Override
+            public void onLoadComplete(boolean isData) {
+
+            }
+        });
     }
 
     @Override
