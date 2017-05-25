@@ -15,18 +15,19 @@ import java.util.HashMap;
 
 public class DatabaseManager {
 
-    String myJSONquery;
-    String RESULT = "result";
+    private String myJSONquery;
+    private String RESULT = "result";
 
-    final String firstUrl = "http://server.raystar.kro.kr/html/phpfunc/";
-    String secondUrl;
+    private final String firstUrl = "http://server.raystar.kro.kr/html/phpfunc/";
+    private String secondUrl;
 
     JSONArray jsArray = null;
 
-    ArrayList<HashMap<String, String>> hashList;
+    private ArrayList<HashMap<String, String>> hashList;
 
-    String _id;
-    String _pw;
+    private String _id;
+    private String _pw;
+    private UserInfo _userInfo;
 
     private static DatabaseManager _instance = new DatabaseManager();
 
@@ -35,22 +36,33 @@ public class DatabaseManager {
     }
 
     public void requestId(String id, String pw) {
-        secondUrl = "login_check.php?";
-        secondUrl += "id=" + id + "&";
-        secondUrl += "pw=" + pw;
+        secondUrl = "login_check.php?"
+                + "id=" + id
+                + "&pw=" + pw;
 
         getData(firstUrl + secondUrl, "toGetIdAndPassword");
     }
 
     public void requestPw(String id, String pw) {
-        secondUrl = "login_check.php?";
-        secondUrl += "id=" + id + "&";
-        secondUrl += "pw=" + pw;
+        secondUrl = "login_check.php?"
+                + "id=" + id
+                + "&pw=" + pw;
 
         getData(firstUrl + secondUrl, "toGetIdAndPassword");
     }
+
+    public void requestUserInfo() {
+        // TODO : 이름, 주소, 휴대폰 번호를 DB에서 불러오는 URL명 설정
+
+        getData(firstUrl + secondUrl, "toGetUserInfo");
+    }
+
     public String getIdToken(){
         return _id;
+    }
+    
+    public UserInfo getUserInfo(){
+        return _userInfo;
     }
 
 
@@ -120,6 +132,9 @@ public class DatabaseManager {
             case "stock":
                 converter.showStock();
                 break;
+            case "toGetUserInfo":
+                converter.getUserInfo();
+                break;
             default:
                 break;
         }
@@ -140,10 +155,10 @@ public class DatabaseManager {
                     _pw = pw;
 
                 }
-                _loadCompleteListener.whenLoadComplete(true);
+                _loadCompleteListener.onLoadComplete(true);
             } catch (Exception e) {
                 e.printStackTrace();
-                _loadCompleteListener.whenLoadComplete(false);
+                _loadCompleteListener.onLoadComplete(false);
             }
 
         }
@@ -171,13 +186,13 @@ public class DatabaseManager {
                     hash_shoes.put("shoe_desc", desc);
 
                     hashList.add(0, hash_shoes);
-                    _loadCompleteListener.whenLoadComplete(true);
+                    _loadCompleteListener.onLoadComplete(true);
                 }
             }
             catch (Exception e)
             {
                 e.printStackTrace();
-                _loadCompleteListener.whenLoadComplete(false);
+                _loadCompleteListener.onLoadComplete(false);
             }
 
         }
@@ -295,12 +310,26 @@ public class DatabaseManager {
                 e.printStackTrace();
             }
         }
+
+        protected void getUserInfo() {
+            _userInfo = new UserInfo();
+            _userInfo.name = "";
+            _userInfo.adress = "";
+            _userInfo.phoneNo = "";
+            
+            //TODO : 구매자의 이름, 주소, 휴대폰 번호를 불러오고 저장한 뒤 리스너호출
+        }
+    }
+    public class UserInfo {
+        String name;
+        String adress;
+        String phoneNo;
     }
 
-    LoadCompleteListener _loadCompleteListener;
+    private LoadCompleteListener _loadCompleteListener;
 
     public interface LoadCompleteListener {
-        void whenLoadComplete(boolean isData);
+        void onLoadComplete(boolean isData);
     }
 
     public void setLoadCompleteListener(LoadCompleteListener loadCompleteListener){

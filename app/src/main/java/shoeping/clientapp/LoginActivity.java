@@ -18,6 +18,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        String productId = getIntent().getStringExtra("productToken");
+
         Button loginButton = (Button) findViewById(R.id.loginBtn);
 
         _editText_id = (EditText) findViewById(R.id.idEdt);
@@ -33,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         //
         databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
-            public void whenLoadComplete(boolean isData) {
+            public void onLoadComplete(boolean isData) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 //intent.putExtra("id", id);
                 

@@ -15,12 +15,15 @@ public class ExampleUnitTest {
         assertEquals(4, 2 + 2);
     }
 
-
-
     @Test
-    public void ID반환() throws Exception{
-        DatabaseManager _databaseManager = DatabaseManager.getInstance();
-        String id = _databaseManager.getId("test", "test");
-        assertEquals("ljg", id);
+    public void ID반환() throws Exception {
+        final DatabaseManager databaseManager = DatabaseManager.getInstance();
+        databaseManager.requestId("test", "test");
+        databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
+            @Override
+            public void whenLoadComplete(boolean isData) {
+                assertEquals("test", databaseManager.getIdToken());
+            }
+        });
     }
 }

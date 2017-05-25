@@ -20,7 +20,7 @@
             android:layout_marginRight="10dp">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/orderImv"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginLeft="8dp"
@@ -39,7 +39,7 @@
                 android:textColor="@android:color/holo_red_light"
                 android:textSize="20sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2"/>
+                app:layout_constraintTop_toBottomOf="@+id/orderImv"/>
 
             <TextView
                 android:id="@+id/price"
