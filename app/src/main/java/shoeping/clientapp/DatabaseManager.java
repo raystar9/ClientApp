@@ -34,45 +34,6 @@ public class DatabaseManager {
     public static DatabaseManager getInstance() {
         return _instance;
     }
-
-    public void requestId(String id, String pw) {
-        secondUrl = "login_check.php?"
-                + "id=" + id
-                + "&pw=" + pw;
-
-        getData(firstUrl + secondUrl, "toGetIdAndPassword");
-    }
-
-    public void requestPw(String id, String pw) {
-        secondUrl = "login_check.php?"
-                + "id=" + id
-                + "&pw=" + pw;
-
-        getData(firstUrl + secondUrl, "toGetIdAndPassword");
-    }
-
-    public void requestUserInfo() {
-        // TODO : 이름, 주소, 휴대폰 번호를 DB에서 불러오는 URL명 설정
-
-        getData(firstUrl + secondUrl, "toGetUserInfo");
-    }
-
-    public String getIdToken(){
-        return _id;
-    }
-    
-    public UserInfo getUserInfo(){
-        return _userInfo;
-    }
-
-
-    public void getShoesData(String category) {
-        secondUrl = "category_search.php?";
-        secondUrl += "shoe_species="+category;
-
-        getData(firstUrl + secondUrl, "getCategoryShoes");
-    }
-
     public void getData(String url, final String condition) {
         class GetDataJSON extends AsyncTask<String, Void, String> {
 
@@ -138,6 +99,28 @@ public class DatabaseManager {
             default:
                 break;
         }
+    }
+
+    public void requestId(String id, String pw) {
+        secondUrl = "login_check.php?"
+                + "id=" + id
+                + "&pw=" + pw;
+
+        getData(firstUrl + secondUrl, "toGetIdAndPassword");
+    }
+
+    public void requestPw(String id, String pw) {
+        secondUrl = "login_check.php?"
+                + "id=" + id
+                + "&pw=" + pw;
+
+        getData(firstUrl + secondUrl, "toGetIdAndPassword");
+    }
+
+    public void requestUserInfo() {
+        // TODO : 이름, 주소, 휴대폰 번호를 DB에서 불러오는 URL명 설정
+
+        getData(firstUrl + secondUrl, "toGetUserInfo");
     }
 
     class JSONConverter {
@@ -324,6 +307,21 @@ public class DatabaseManager {
         String name;
         String adress;
         String phoneNo;
+    }
+    
+    public String getIdToken(){
+        return _id;
+    }
+
+    public UserInfo getUserInfo(){
+        return _userInfo;
+    }
+
+    public void getShoesData(String category) {
+        secondUrl = "category_search.php?";
+        secondUrl += "shoe_species="+category;
+
+        getData(firstUrl + secondUrl, "getCategoryShoes");
     }
 
     private LoadCompleteListener _loadCompleteListener;
