@@ -298,9 +298,6 @@ public class DatabaseManager {
 
         protected void getUserInfo() {
             _userInfo = new UserInfo();
-            _userInfo.name = "";
-            _userInfo.address = "";
-            _userInfo.phoneNo = "";
             try
             {
                 JSONObject jsonObj = new JSONObject(myJSONquery);
