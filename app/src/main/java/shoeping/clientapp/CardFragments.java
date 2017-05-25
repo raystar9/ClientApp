@@ -86,6 +86,10 @@ public class CardFragments extends Fragment {
             Resources resources = context.getResources();
             TypedArray a = resources.obtainTypedArray(_speciesId);
             drawables = new Drawable[a.length()];
+            serialArray = new String[_itemInfos.length];
+            nameArray = new String[_itemInfos.length];
+            priceArray = new String[_itemInfos.length];
+            sizeArray = new String[_itemInfos.length];
             for (int i = 0; i < drawables.length; i++) {
                 drawables[i] = a.getDrawable(i);
             }
