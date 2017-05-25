@@ -170,6 +170,7 @@ public class DatabaseManager {
                 _mainInfo = new ItemInfo[jsArray.length()];
                 for (int i = 0; i < jsArray.length(); i++) {
                     JSONObject c = jsArray.getJSONObject(i);
+                    _mainInfo[i] = new ItemInfo();
                     _mainInfo[i].serialNumber = c.getString("serial_num");
                     _mainInfo[i].shoesName = c.getString("shoe_name");
                     _mainInfo[i].price = c.getString("shoe_price");
@@ -270,5 +271,37 @@ public class DatabaseManager {
         String shoesName;
         String price;
         String size;
+
+        public String getSerialNumber() {
+            return serialNumber;
+        }
+
+        public void setSerialNumber(String serialNumber) {
+            this.serialNumber = serialNumber;
+        }
+
+        public String getShoesName() {
+            return shoesName;
+        }
+
+        public void setShoesName(String shoesName) {
+            this.shoesName = shoesName;
+        }
+
+        public String getPrice() {
+            return price;
+        }
+
+        public void setPrice(String price) {
+            this.price = price;
+        }
+
+        public String getSize() {
+            return size;
+        }
+
+        public void setSize(String size) {
+            this.size = size;
+        }
     }
 }

@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onLoadComplete(boolean isData) {
                 itemInfos = databaseManager.getMainInfoArray();
+                Toast.makeText(MainActivity.this, "!", Toast.LENGTH_SHORT).show();
             }
         });
     }
