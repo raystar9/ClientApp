@@ -1,11 +1,13 @@
 package shoeping.clientapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -36,12 +38,17 @@ public class LoginActivity extends AppCompatActivity {
         databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
             public void onLoadComplete(boolean isData) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                //intent.putExtra("id", id);
-                
 
-                setResult(RESULT_OK);
-                finish();
+                if(databaseManager.getIdToken() == null) {
+                    Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Context context = getApplicationContext();
+                    Intent intent = new Intent(context, OrderActivity.class);
+//                    intent.putExtra(DetailsActivity.EXTRA_SERIAL_NUMBER, serialNumber);
+                    context.startActivity(intent);
+                    finish();
+                }
             }
         });
     }
@@ -51,6 +58,6 @@ public class LoginActivity extends AppCompatActivity {
         String _id = _editText_id.getText().toString();
         String _pw = _editText_pw.getText().toString();
         databaseManager.requestGetId(_id, _pw);
-        databaseManager.requestGetPw(_id, _pw);
+        //databaseManager.requestGetPw(_id, _pw);
     }
 }

@@ -144,7 +144,6 @@ public class DatabaseManager {
                 _loadCompleteListener.onLoadComplete(true);
             } catch (Exception e) {
                 e.printStackTrace();
-                _loadCompleteListener.onLoadComplete(false);
             }
         }
 
@@ -162,7 +161,6 @@ public class DatabaseManager {
                 _loadCompleteListener.onLoadComplete(true);
             } catch (Exception e) {
                 e.printStackTrace();
-                _loadCompleteListener.onLoadComplete(false);
             }
         }
 
@@ -180,7 +178,6 @@ public class DatabaseManager {
                 _loadCompleteListener.onLoadComplete(true);
             } catch (Exception e) {
                 e.printStackTrace();
-                _loadCompleteListener.onLoadComplete(false);
             }
         }
 
@@ -235,7 +232,6 @@ public class DatabaseManager {
             catch(Exception e)
             {
                 e.printStackTrace();
-                _loadCompleteListener.onLoadComplete(false);
             }
         }
     }

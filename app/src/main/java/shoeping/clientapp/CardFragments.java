@@ -25,19 +25,14 @@ public class CardFragments extends Fragment {
     DatabaseManager databaseManager;
     DatabaseManager.ItemInfo[] _itemInfos;
 
-    public CardFragments(int speciesId, DatabaseManager.ItemInfo[] itemInfos){
+    public CardFragments(int speciesId) {
         _speciesId = speciesId;
-        _itemInfos = itemInfos;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
-
-
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,15 +56,16 @@ public class CardFragments extends Fragment {
         });
 
 
+
+
         return recyclerView;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView picture;
         public TextView name;
         public TextView price;
         public TextView size;
-        String serialNumber;
 
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.each_shoes, parent, false));
@@ -83,7 +79,7 @@ public class CardFragments extends Fragment {
                 public void onClick(View v) {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, DetailsActivity.class);
-                    intent.putExtra(DetailsActivity.EXTRA_SERIAL_NUMBER, serialNumber);
+//                    intent.putExtra(DetailsActivity.EXTRA_SERIAL_NUMBER, serialNumber);
                     context.startActivity(intent);
                 }
             });
@@ -92,8 +88,8 @@ public class CardFragments extends Fragment {
 
     private class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
 
+
         private final Drawable[] drawables;
-        private String[] serialArray;
         private String[] nameArray;
         private String[] priceArray;
         private String[] sizeArray;
@@ -102,18 +98,8 @@ public class CardFragments extends Fragment {
             Resources resources = context.getResources();
             TypedArray a = resources.obtainTypedArray(_speciesId);
             drawables = new Drawable[a.length()];
-            serialArray = new String[_itemInfos.length];
-            nameArray = new String[_itemInfos.length];
-            priceArray = new String[_itemInfos.length];
-            sizeArray = new String[_itemInfos.length];
             for (int i = 0; i < drawables.length; i++) {
                 drawables[i] = a.getDrawable(i);
-            }
-            for (int i = 0; i < _itemInfos.length; i++) {
-                serialArray[i] = _itemInfos[i].serialNumber;
-                nameArray[i] = _itemInfos[i].shoesName;
-                priceArray[i] = _itemInfos[i].price;
-                sizeArray[i] = _itemInfos[i].size;
             }
             a.recycle();
         }
@@ -126,9 +112,9 @@ public class CardFragments extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             holder.picture.setImageDrawable(drawables[position % drawables.length]);
-            holder.name.setText(nameArray[position % nameArray.length]);
-            holder.price.setText(priceArray[position % priceArray.length]);
-            holder.size.setText(sizeArray[position % sizeArray.length]);
+//            holder.name.setText(nameArray[position % nameArray.length]);
+ //           holder.price.setText(priceArray[position % priceArray.length]);
+  //          holder.size.setText(sizeArray[position % sizeArray.length]);
         }
 
         @Override
