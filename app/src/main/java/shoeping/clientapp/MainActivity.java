@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity
         tabs = (TabLayout) findViewById(R.id.tabs);
 
         databaseManager = DatabaseManager.getInstance();
-//        databaseManager.requestGetMainInfo();
+        databaseManager.requestGetMainInfo("Snickers(W)");
 
         databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override

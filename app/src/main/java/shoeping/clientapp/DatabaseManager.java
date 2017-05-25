@@ -120,7 +120,7 @@ public class DatabaseManager {
         switch (condition) {
             case "toGetIdAndPassword":
                 converter.getIdAndPw(json); break;
-            case "toGetMyInfo":
+            case "toGetUserInfo":
                 converter.getMyInfo(json); break;
             case "toGetCategoryShoes":
                 converter.getShoeList_category(json); break;

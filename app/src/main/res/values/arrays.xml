@@ -1,66 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="slipper">
-        <item>@drawable/slipper_adidas</item>
-        <item>@drawable/slipper_birkenstock</item>
-        <item>@drawable/slipper_crocs</item>
-        <item>@drawable/slipper_fitflop</item>
-        <item>@drawable/slipper_hermes</item>
-        <item>@drawable/slipper_maya</item>
-        <item>@drawable/slipper_nike</item>
+        <item>@drawable/ba8775</item>
+        <item>@drawable/s60463</item>
+        <item>@drawable/s201831</item>
+        <item>@drawable/s359_097</item>
+        <item>@drawable/ae124489</item>
+        <item>@drawable/s071061</item>
+        <item>@drawable/s343880_090</item>
 
     </array>
 
     <array name="dressShoesMan">
-        <item>@drawable/dress_man_drmartens</item>
-        <item>@drawable/dress_man_esquier</item>
-        <item>@drawable/dress_man_geox</item>
-        <item>@drawable/dress_man_misope</item>
-        <item>@drawable/dress_man_mook</item>
-        <item>@drawable/dress_man_renoma</item>
-        <item>@drawable/dress_man_soda</item>
-        <item>@drawable/dress_man_rockport</item>
-        <item>@drawable/dress_man_tandy</item>
-        <item>@drawable/dress_man_thorogood</item>
+        <item>@drawable/s21858001</item>
+        <item>@drawable/eq61108</item>
+        <item>@drawable/m1s41zb6f11</item>
+        <item>@drawable/s021711005</item>
+        <item>@drawable/s507417016wa</item>
+        <item>@drawable/mex1706fg17</item>
+        <item>@drawable/abm722kp10</item>
+        <item>@drawable/m76440</item>
+        <item>@drawable/c_161</item>
+        <item>@drawable/s834_6041</item>
 
     </array>
     <array name="dressShoesWoman">
-        <item>@drawable/derss_woman_salvatore_ferragamo</item>
-        <item>@drawable/dress_woman_aldo</item>
-        <item>@drawable/dress_woman_christian_louboutin</item>
-        <item>@drawable/dress_woman_christian_louboutin2</item>
-        <item>@drawable/dress_woman_fendi</item>
-        <item>@drawable/dress_woman_valentino</item>
-        <item>@drawable/dress_woman_gucci</item>
+        <item>@drawable/s01m763_672528</item>
+        <item>@drawable/s7773514</item>
+        <item>@drawable/s3170560m914</item>
+        <item>@drawable/s3160781m514</item>
+        <item>@drawable/s816376zuhfo4n1</item>
+        <item>@drawable/vbh_w34</item>
+        <item>@drawable/cqxm0_1061</item>
         <item>@drawable/dress_woman_moschino</item>
-        <item>@drawable/dress_woman_jimmychoo</item>
-        <item>@drawable/dress_woman_repetto</item>
+        <item>@drawable/romy100cgf_s</item>
+        <item>@drawable/v1413v_210</item>
 
     </array>
     <array name="runningShoesMan">
-        <item>@drawable/running_man_adias_equipment</item>
-        <item>@drawable/running_man_adidas_newyork</item>
-        <item>@drawable/running_man_adidas_stan</item>
-        <item>@drawable/running_man_newbal_574</item>
-        <item>@drawable/running_man_nike_freerun</item>
-        <item>@drawable/running_man_nike_hearache</item>
-        <item>@drawable/running_man_nike_kobe</item>
-        <item>@drawable/running_man_nike_roshe</item>
-        <item>@drawable/running_man_prospecs_smartgride</item>
-        <item>@drawable/running_man_vans_oldschool</item>
+        <item>@drawable/bb8326</item>
+        <item>@drawable/bb1190</item>
+        <item>@drawable/m20324</item>
+        <item>@drawable/w574</item>
+        <item>@drawable/n880845</item>
+        <item>@drawable/n833147</item>
+        <item>@drawable/n852425</item>
+        <item>@drawable/n511881</item>
+        <item>@drawable/promr17s302</item>
+        <item>@drawable/vn000d3hy281</item>
 
     </array>
     <array name="runningShoesWoman">
-        <item>@drawable/running_woman_adidas_supersta</item>
-        <item>@drawable/running_woman_adidas_xplr</item>
-        <item>@drawable/running_woman_ardidas_courtvantage</item>
-        <item>@drawable/running_woman_newbal_m1300cl</item>
-        <item>@drawable/running_woman_nike_airforce</item>
-        <item>@drawable/running_woman_nike_plex</item>
-        <item>@drawable/running_woman_nike_sequent</item>
-        <item>@drawable/running_woman_nike_tr7</item>
-        <item>@drawable/running_woman_prospecs_mach</item>
-        <item>@drawable/running_woman_vans_slipon</item>
+        <item>@drawable/bb2121</item>
+        <item>@drawable/bb1107</item>
+        <item>@drawable/bb0134</item>
+        <item>@drawable/m1300cl</item>
+        <item>@drawable/n845128</item>
+        <item>@drawable/n881863</item>
+        <item>@drawable/n852465</item>
+        <item>@drawable/n904651</item>
+        <item>@drawable/prour17s101</item>
+        <item>@drawable/vn00ee3</item>
 
     </array>
 
