@@ -30,6 +30,7 @@ public class DatabaseManager {
     private String _id;
     private String _pw;
     private UserInfo _userInfo;
+    private ShoesInfo[] _shoesInfos;
 
     private static DatabaseManager _instance = new DatabaseManager();
 
@@ -90,36 +91,36 @@ public class DatabaseManager {
 
     public void requestGetPw(String id, String pw) {
         secondUrl = "login_check.php?"
-                + "id=" + id
-                + "&pw=" + pw;
+                + "id=" + id + "&pw=" + pw;
 
         getData(firstUrl + secondUrl, "toGetIdAndPassword");
     }
 
     public void requestGetUserInfo() {
+        secondUrl = "my_info.php?id="+id;
+
+        getData(firstUrl + secondUrl, "toGetUserInfo");
+    }
+
+    public void requestGetShoeList() {
         secondUrl = "my_info.php?"+
                 "id="+id;
 
         getData(firstUrl + secondUrl, "toGetUserInfo");
     }
 
-    public void requestSetUserInfo() {
-        // TODO : 유저인포 세터
-    }
+    public void requestSetUserInfo() {}
 
     private void distributeJSON(JSONObject json, String condition) {
 
         JSONConverter converter = new JSONConverter();
         switch (condition) {
             case "toGetIdAndPassword":
-                converter.IdAndPw(json);
-                break;
-            case "toGetUserInfo":
-                converter.getUserInfo();
-                break;
+                converter.getIdAndPw(json); break;
+            case "toGetMyInfo":
+                converter.getMyInfo(json); break;
             case "toGetCategoryShoes":
-                converter.Shoes_category(json);
-                break;
+                converter.getShoeList_category(json); break;
             default:
                 break;
         }
@@ -127,139 +128,55 @@ public class DatabaseManager {
 
     class JSONConverter {
 
-        protected void IdAndPw(JSONObject json) {
+        protected void getIdAndPw(JSONObject json) {
             try {
                 jsArray = json.getJSONArray(RESULT);
-
                 for (int i = 0; i < jsArray.length(); i++) {
                     JSONObject c = jsArray.getJSONObject(i);
                     String id = c.getString("id");
                     String pw = c.getString("pw");
-
                     _id = id;
                     _pw = pw;
-
                 }
                 _loadCompleteListener.onLoadComplete(true);
             } catch (Exception e) {
                 e.printStackTrace();
                 _loadCompleteListener.onLoadComplete(false);
             }
-
         }
 
-        protected void Shoes_category(JSONObject json)
-        {
-            try
-            {
+        protected void getMyInfo(JSONObject json) {
+            _userInfo = new UserInfo();
+            try {
                 jsArray = json.getJSONArray(RESULT);
 
                 for (int i = 0; i < jsArray.length(); i++) {
                     JSONObject c = jsArray.getJSONObject(i);
-                    String serial = c.getString("serial_num");
-                    String shoe_name = c.getString("shoe_name");
-                    String species = c.getString("shoe_species");
-                    String price = c.getString("shoe_price");
-                    String desc= c.getString("shoe_desc");
-
-                    HashMap<String, String> hash_shoes = new HashMap<String, String>();
-
-                    hash_shoes.put("serial_num", serial);
-                    hash_shoes.put("shoe_name", shoe_name);
-                    hash_shoes.put("shoe_species", species);
-                    hash_shoes.put("shoe_price", price);
-                    hash_shoes.put("shoe_desc", desc);
-
-                    hashList.add(0, hash_shoes);
-                    _loadCompleteListener.onLoadComplete(true);
+                    _userInfo.name = c.getString("name");
+                    _userInfo.address = c.getString("addr");
+                    _userInfo.phoneNo = c.getString("phone");
                 }
-            }
-            catch (Exception e)
-            {
+                _loadCompleteListener.onLoadComplete(true);
+            } catch (Exception e) {
                 e.printStackTrace();
                 _loadCompleteListener.onLoadComplete(false);
             }
-
         }
 
-        protected void showCustomer() {
+        protected void getShoeList_category(JSONObject json) {
             try {
-                JSONObject jsonObj = new JSONObject(myJSONquery);
-                jsArray = jsonObj.getJSONArray(RESULT);
-
+                jsArray = json.getJSONArray(RESULT);
+                _shoesInfos = new ShoesInfo[jsArray.length()];
                 for (int i = 0; i < jsArray.length(); i++) {
                     JSONObject c = jsArray.getJSONObject(i);
-                    String id = c.getString("id");
-                    String pw = c.getString("pw");
-                    String name = c.getString("name");
-                    String phone = c.getString("phone");
-                    String address = c.getString("address");
-
-                    HashMap<String, String> hash_customer = new HashMap<String, String>();
-
-                    hash_customer.put("id", id);
-                    hash_customer.put("pw", pw);
-                    hash_customer.put("name", name);
-                    hash_customer.put("phone", phone);
-                    hash_customer.put("address", address);
-
-                    hashList.add(0, hash_customer);
+                    _shoesInfos[i].name = c.getString("shoe_name");
+                    _shoesInfos[i].price = c.getString("shoe_price");
+                    _shoesInfos[i].size = c.getString("min_size")+" - "+c.getString("max_size");
                 }
-
-            } catch (JSONException e) {
+                _loadCompleteListener.onLoadComplete(true);
+            } catch (Exception e) {
                 e.printStackTrace();
-            }
-        }
-
-        protected void showShoes() {
-            try {
-                JSONObject jsonObj = new JSONObject(myJSONquery);
-                jsArray = jsonObj.getJSONArray("result");
-
-                for (int i = 0; i < jsArray.length(); i++) {
-                    JSONObject c = jsArray.getJSONObject(i);
-                    String serial = c.getString("serial_num");
-                    String shoe_name = c.getString("shoe_name");
-                    String species = c.getString("shoe_species");
-                    String price = c.getString("price");
-
-                    HashMap<String, String> hash_shoes = new HashMap<String, String>();
-
-                    hash_shoes.put("serial_num", serial);
-                    hash_shoes.put("shoe_name", shoe_name);
-                    hash_shoes.put("shoe_species", species);
-                    hash_shoes.put("price", price);
-
-                    hashList.add(hash_shoes);
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        protected void showStock() {
-            try {
-                JSONObject jsonObj = new JSONObject(myJSONquery);
-                jsArray = jsonObj.getJSONArray("result");
-
-                for (int i = 0; i < jsArray.length(); i++) {
-                    JSONObject c = jsArray.getJSONObject(i);
-                    String serial = c.getString("serial_num");
-                    String size = c.getString("size");
-                    String remain = c.getString("remain");
-
-                    HashMap<String, String> hash_stock = new HashMap<String, String>();
-
-                    hash_stock.put("serial_num", serial);
-                    hash_stock.put("size", size);
-                    hash_stock.put("remain", remain);
-
-                    hashList.add(hash_stock);
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
+                _loadCompleteListener.onLoadComplete(false);
             }
         }
 
@@ -295,39 +212,18 @@ public class DatabaseManager {
                 e.printStackTrace();
             }
         }
-
-        protected void getUserInfo() {
-            _userInfo = new UserInfo();
-            _userInfo.name = "";
-            _userInfo.address = "";
-            _userInfo.phoneNo = "";
-            try
-            {
-                JSONObject jsonObj = new JSONObject(myJSONquery);
-                jsArray = jsonObj.getJSONArray("result");
-
-                for (int i = 0; i < jsArray.length(); i++) {
-                    JSONObject c = jsArray.getJSONObject(i);
-                    _userInfo.name = c.getString("name");
-                    _userInfo.address = c.getString("addr");
-                    _userInfo.phoneNo = c.getString("phone");
-                }
-                _loadCompleteListener.onLoadComplete(true);
-            }
-            catch(Exception e)
-            {
-                e.printStackTrace();
-                _loadCompleteListener.onLoadComplete(false);
-            }
-
-
-            //TODO : 구매자의 이름, 주소, 휴대폰 번호를 불러오고 저장한 뒤 리스너호출
-        }
     }
+
     public class UserInfo {
         String name;
         String address;
         String phoneNo;
+    }
+
+    public class ShoesInfo {
+        String name;
+        String price;
+        String size;
     }
 
     public String getIdToken(){
@@ -336,13 +232,6 @@ public class DatabaseManager {
 
     public UserInfo getUserInfo(){
         return _userInfo;
-    }
-
-    public void getShoesData(String category) {
-        secondUrl = "category_search.php?";
-        secondUrl += "shoe_species="+category;
-
-        getData(firstUrl + secondUrl, "getCategoryShoes");
     }
 
     private LoadCompleteListener _loadCompleteListener;
