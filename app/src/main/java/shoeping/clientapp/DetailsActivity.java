@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class DetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -29,8 +28,6 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
 
     DatabaseManager databaseManager;
 
-    String size;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,11 +42,9 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
         spinner = (Spinner) findViewById(R.id.selectSize);
         spinner.setPrompt("사이즈 선택");
 
-        list = new ArrayAdapter<String> (this, android.R.layout.simple_spinner_item, sizeList);
+        list = new ArrayAdapter<String> (this, android.R.layout.simple_spinner_item, blank);
         spinner.setAdapter(list);
         spinner.setOnItemSelectedListener(this);
-
-        size = null;
 
         databaseManager.requestGetAvailableSize(serialNumber);
 
@@ -58,6 +53,7 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
         orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String size = spinner.getSelectedItem().toString();
                 if(size!=null)
                 {
                     Context context = v.getContext();
@@ -75,8 +71,7 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
 
         databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
-            public void onLoadComplete(boolean isData) {
-                // TODO: list에 넣을 값을 DBManager로 받아옴
+            public void onLoadComplete() {
                 newAdapter();
             }
 
@@ -94,10 +89,9 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
 
     public void newAdapter()
     {
-        sizeList = null;
-        sizeList = new String[databaseManager.getSizeInfo().length];
-        sizeList = databaseManager.getSizeInfo();
-        list = new ArrayAdapter<String> (this, android.R.layout.simple_spinner_item, sizeList);
+        blank = new String[databaseManager.getSizeInfo().length];
+        blank = databaseManager.getSizeInfo();
+        list = new ArrayAdapter<> (this, android.R.layout.simple_spinner_item, blank);
         spinner.setAdapter(list);
     }
 
@@ -109,16 +103,7 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        try
-        {
-            TextView tv = (TextView)view;
-            size = tv.getText().toString();
-        }
-        catch(Exception e)
-        {
-            size = "";
-            e.printStackTrace();
-        }
+
     }
 
     @Override
