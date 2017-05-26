@@ -55,9 +55,11 @@ public class OrderActivity extends AppCompatActivity {
             @Override
             public void onLoadComplete(boolean isData) {
                 userInfo = getManager.getUserInfo();
+                textView_name.setText(userInfo.name);
+                editText_address.setText(userInfo.address);
+                editText_phone.setText(userInfo.phoneNo);
             }
         });
-
 
         button_order.setOnClickListener(new View.OnClickListener() {
             @Override

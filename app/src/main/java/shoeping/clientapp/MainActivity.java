@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onLoadComplete(boolean isData) {
                 dressShoesW = databaseManager.getMainInfoArray();
-                databaseManager2.requestGetMainInfo("Sneakers(w)");
+                databaseManager2.requestGetMainInfo("Sneakers(W)");
             }
         });
         databaseManager2.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onLoadComplete(boolean isData) {
                 dressShoesM = databaseManager3.getMainInfoArray();
-                databaseManager4.requestGetMainInfo("Sneakers(W)");
+                databaseManager4.requestGetMainInfo("Sneakers(M)");
             }
         });
         databaseManager4.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
