@@ -119,8 +119,8 @@ public class DatabaseManager {
     }
 
     public void requestSetToOrder(String id, String serial, String shoe_size, String recv_name, String recv_addr, String recv_phone, String comment) {
-        secondUrl = "get_orders.php?id=" + id + "shoe_size=" + shoe_size + "serial_num=" + serial +
-                "recv_name=" + recv_name + "recv_addr=" + recv_addr + "recv_phone=" + recv_phone + "comment=" + comment;
+        secondUrl = "get_orders.php?id=" + id + "&shoe_size=" + shoe_size + "&serial_num=" + serial +
+                "&recv_name=" + recv_name + "&recv_addr=" + recv_addr + "&recv_phone=" + recv_phone + "&comment=" + comment;
 
         getData(firstUrl + secondUrl, "toExecuteMyOrder");
     }
