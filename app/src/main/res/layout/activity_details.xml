@@ -16,7 +16,7 @@
         tools:context="shoeping.clientapp.DetailsActivity">
 
         <ScrollView
-            android:layout_width="match_parent"
+            android:layout_width="368dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:layout_constraintLeft_toLeftOf="@+id/detailImg"
@@ -102,6 +102,15 @@
                         android:layout_weight="1"
                         android:text="사이즈"
                         android:textColor="@android:color/holo_blue_bright"
+                        android:textSize="20dp"/>
+
+                    <TextView
+                        android:id="@+id/chosenSize"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="0"
+                        android:textColor="@android:color/holo_blue_dark"
                         android:textSize="20dp"/>
 
                     <Spinner

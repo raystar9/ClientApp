@@ -31,6 +31,7 @@ public class DatabaseManager {
     private String _pw;
     private UserInfo _userInfo;
     private ItemInfo[] _mainInfo;
+    private String[] _sizeInfo;
 
     public void getData(String url, final String condition) {
         class GetDataJSON extends AsyncTask<String, Void, String> {
@@ -104,6 +105,13 @@ public class DatabaseManager {
         // TODO : 재고번호, 신발명, 가격, 사이즈를 ItemInfo에 담음
     }
 
+    public void requestGetAvailableSize(String serial) {
+        secondUrl = "get_available_size.php?serial_num="+serial;
+
+        getData(firstUrl + secondUrl, "toGetAvailableSizes");
+        // 해당 신발 구입 시 '현재' 구입 가능한 사이즈를 콤보박스로 출력 시 필요한 값을 받아옴
+    }
+
     public void requestSetToOrder(String id, String serial, String shoe_size, String recv_name, String recv_addr, String recv_phone, String comment) {
         secondUrl = "get_orders.php?id="+id+"shoe_size="+shoe_size+"serial_num="+serial+
                 "recv_name="+recv_name+"recv_addr="+recv_addr+"recv_phone="+recv_phone+"comment="+comment;
@@ -121,6 +129,8 @@ public class DatabaseManager {
                 converter.getMyInfo(json); break;
             case "toGetCategoryShoes":
                 converter.getShoeList_category(json); break;
+            case "toGetAvailableSizes":
+                converter.getShoeSize(json); break;
             case "toExecuteMyOrder":
                 converter.executeMyOrder(); break;
             default:
@@ -181,6 +191,21 @@ public class DatabaseManager {
             }
         }
 
+        protected void getShoeSize(JSONObject json) {
+            try {
+                jsArray = json.getJSONArray(RESULT);
+                _sizeInfo = new String[jsArray.length()];
+                for (int i = 0; i < jsArray.length(); i++) {
+                    JSONObject c = jsArray.getJSONObject(i);
+                    _sizeInfo[i] = c.getString("size");
+                }
+                _loadCompleteListener.onLoadComplete(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+                _loadCompleteListener.onLoadComplete(false);
+            }
+        }
+
         protected void executeMyOrder() {
             _loadCompleteListener.onLoadComplete(true);
         }
@@ -238,6 +263,11 @@ public class DatabaseManager {
                 e.printStackTrace();
             }
         }
+    }
+
+    public String[] getSizeInfo()
+    {
+        return _sizeInfo;
     }
 
     public String getIdToken(){
