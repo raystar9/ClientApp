@@ -73,9 +73,14 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
 
         databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
-            public void onLoadComplete(boolean isData) {
-                // TODO: list에 넣을 값을 DBManager로 받아옴
+            public void onLoadComplete() {
+
                 newAdapter();
+            }
+
+            @Override
+            public void onLoadFail() {
+
             }
         });
 
@@ -90,7 +95,7 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
         blank = null;
         blank = new String[databaseManager.getSizeInfo().length];
         blank = databaseManager.getSizeInfo();
-        list = new ArrayAdapter<String> (this, android.R.layout.simple_spinner_item, blank);
+        list = new ArrayAdapter<> (this, android.R.layout.simple_spinner_item, blank);
         spinner.setAdapter(list);
     }
 

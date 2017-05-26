@@ -55,7 +55,7 @@ public class DatabaseManager {
                     }
                     return sb.toString().trim();
                 } catch (Exception e) {
-                    return null;
+                    return "ERROR";
                 }
             }
 
@@ -166,7 +166,7 @@ public class DatabaseManager {
                     _id = id;
                     _pw = pw;
                 }
-                _loadCompleteListener.onLoadComplete(true);
+                _loadCompleteListener.onLoadComplete();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -183,9 +183,10 @@ public class DatabaseManager {
                     _userInfo.address = c.getString("addr");
                     _userInfo.phoneNo = c.getString("phone");
                 }
-                _loadCompleteListener.onLoadComplete(true);
+                _loadCompleteListener.onLoadComplete();
             } catch (Exception e) {
                 e.printStackTrace();
+                _loadCompleteListener.onLoadFail();
             }
         }
 
@@ -201,9 +202,10 @@ public class DatabaseManager {
                     _mainInfo[i].price = c.getString("shoe_price");
                     _mainInfo[i].size = c.getString("min_size") + " - " + c.getString("max_size");
                 }
-                _loadCompleteListener.onLoadComplete(true);
+                _loadCompleteListener.onLoadComplete();
             } catch (Exception e) {
                 e.printStackTrace();
+                _loadCompleteListener.onLoadFail();
             }
         }
 
@@ -216,15 +218,15 @@ public class DatabaseManager {
                     _sizeInfo[i] = new String();
                     _sizeInfo[i] = c.getString("size");
                 }
-                _loadCompleteListener.onLoadComplete(true);
+                _loadCompleteListener.onLoadComplete();
             } catch (Exception e) {
                 e.printStackTrace();
-                _loadCompleteListener.onLoadComplete(false);
+                _loadCompleteListener.onLoadFail();
             }
         }
 
         protected void executeMyOrder() {
-            _loadCompleteListener.onLoadComplete(true);
+            _loadCompleteListener.onLoadComplete();
         }
 
         protected void showOrders() {
@@ -257,6 +259,7 @@ public class DatabaseManager {
 
             } catch (JSONException e) {
                 e.printStackTrace();
+                _loadCompleteListener.onLoadFail();
             }
         }
 
@@ -272,9 +275,9 @@ public class DatabaseManager {
                     _userInfo.address = c.getString("addr");
                     _userInfo.phoneNo = c.getString("phone");
                 }
-                _loadCompleteListener.onLoadComplete(true);
+                _loadCompleteListener.onLoadComplete();
             } catch (Exception e) {
-                e.printStackTrace();
+                _loadCompleteListener.onLoadFail();
             }
         }
 
@@ -286,9 +289,9 @@ public class DatabaseManager {
                     String shoePrice = c.getString("shoe_price");
                     _shoe_price = shoePrice;
                 }
-                _loadCompleteListener.onLoadComplete(true);
+                _loadCompleteListener.onLoadComplete();
             } catch (Exception e) {
-                e.printStackTrace();
+                _loadCompleteListener.onLoadFail();
             }
         }
 
@@ -318,7 +321,8 @@ public class DatabaseManager {
     private LoadCompleteListener _loadCompleteListener;
 
     interface LoadCompleteListener {
-        void onLoadComplete(boolean isData);
+        void onLoadComplete();
+        void onLoadFail();
     }
 
     public void setLoadCompleteListener(LoadCompleteListener loadCompleteListener) {

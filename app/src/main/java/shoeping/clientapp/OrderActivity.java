@@ -53,11 +53,15 @@ public class OrderActivity extends AppCompatActivity {
 
         getManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
-            public void onLoadComplete(boolean isData) {
+            public void onLoadComplete() {
                 userInfo = getManager.getUserInfo();
                 textView_name.setText(userInfo.name);
                 editText_address.setText(userInfo.address);
                 editText_phone.setText(userInfo.phoneNo);
+            }
+            @Override
+            public void onLoadFail() {
+
             }
         });
 
@@ -74,9 +78,13 @@ public class OrderActivity extends AppCompatActivity {
 
         setManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
-            public void onLoadComplete(boolean isData) {
+            public void onLoadComplete() {
                 Toast.makeText(OrderActivity.this, "주문 완료", Toast.LENGTH_SHORT).show();
                 finish();
+            }
+            @Override
+            public void onLoadFail() {
+
             }
         });
     }

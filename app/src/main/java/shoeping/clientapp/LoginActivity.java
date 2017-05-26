@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         //
         databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
-            public void onLoadComplete(boolean isData) {
+            public void onLoadComplete() {
 
                 if(databaseManager.getIdToken() == null) {
                     Toast.makeText(LoginActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
@@ -49,6 +49,10 @@ public class LoginActivity extends AppCompatActivity {
                     context.startActivity(intent);
                     finish();
                 }
+            }
+            @Override
+            public void onLoadFail() {
+
             }
         });
     }
