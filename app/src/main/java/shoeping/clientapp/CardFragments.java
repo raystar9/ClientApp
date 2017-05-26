@@ -84,6 +84,9 @@ public class CardFragments extends Fragment {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, DetailsActivity.class);
                     intent.putExtra(DetailsActivity.EXTRA_SERIAL_NUMBER, _itemInfos[getAdapterPosition()].serialNumber);
+                    intent.putExtra("name", _itemInfos[getAdapterPosition()].shoesName);
+                    intent.putExtra("price", _itemInfos[getAdapterPosition()].price);
+                    intent.putExtra("desc", "No Description");
                     context.startActivity(intent);
                 }
             });

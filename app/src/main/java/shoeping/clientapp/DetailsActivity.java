@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class DetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -23,8 +24,14 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
     Spinner spinner;
 
     String serialNumber;
+    String name;
+    String price;
+    String desc;
     String[] blank = {"example", "cancel"};
-    String[] sizeList;
+
+    TextView text_name;
+    TextView text_price;
+    TextView text_desc;
 
     DatabaseManager databaseManager;
 
@@ -38,6 +45,17 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
         Button orderButton = (Button) findViewById(R.id.directOrderBtn);
 
         serialNumber = getIntent().getStringExtra(EXTRA_SERIAL_NUMBER);
+        name = getIntent().getStringExtra("name");
+        price = getIntent().getStringExtra("price");
+        desc = getIntent().getStringExtra("desc");
+
+        text_name = (TextView) findViewById(R.id.detailShoesName);
+        text_price = (TextView) findViewById(R.id.detailShoesPrice);
+        text_desc = (TextView) findViewById(R.id.descriptionTxt);
+
+        text_name.setText(name);
+        text_price.setText(price);
+        text_desc.setText(desc);
 
         spinner = (Spinner) findViewById(R.id.selectSize);
         spinner.setPrompt("사이즈 선택");
