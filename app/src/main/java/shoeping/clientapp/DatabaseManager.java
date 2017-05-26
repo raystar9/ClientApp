@@ -13,8 +13,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static android.R.attr.id;
-
 public class DatabaseManager {
 
     private String myJSONquery;
@@ -99,8 +97,8 @@ public class DatabaseManager {
         getData(firstUrl + secondUrl, "toGetPrices");
     }
 
-    public void requestGetUserInfo() {
-        secondUrl = "my_info.php?id=" + id;
+    public void requestGetUserInfo(String idToken) {
+        secondUrl = "my_info.php?id=" + idToken;
 
         getData(firstUrl + secondUrl, "toGetUserInfo");
     }

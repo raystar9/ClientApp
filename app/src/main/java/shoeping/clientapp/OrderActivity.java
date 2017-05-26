@@ -25,6 +25,7 @@ public class OrderActivity extends AppCompatActivity {
     EditText editText_comment;
     TextView textView_price;
 
+    DatabaseManager priceGetManager;
     DatabaseManager getManager;
     DatabaseManager setManager;
 
@@ -39,6 +40,7 @@ public class OrderActivity extends AppCompatActivity {
 
         ImageView imageView = (ImageView) findViewById(R.id.orderImv);
 
+        priceGetManager = new DatabaseManager();
         getManager = new DatabaseManager();
         setManager = new DatabaseManager();
 
@@ -49,12 +51,23 @@ public class OrderActivity extends AppCompatActivity {
         editText_comment = (EditText) findViewById(R.id.commentEdt);
         Button button_order = (Button) findViewById(R.id.orderBtn);
 
+        priceGetManager.requestGetPrice(serialNumber);
+        priceGetManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
+            @Override
+            public void onLoadComplete() {
+                textView_price.setText(priceGetManager.getShoePrice());
+                getManager.requestGetUserInfo(idToken);
+            }
+
+            @Override
+            public void onLoadFail() {
+
+            }
+        });
         imageView.setImageResource(
                 getResources().getIdentifier(
                         "@drawable/" + serialNumber, "drawable", getPackageName()));
 //        textView_price.setText(getManager.getShoePrice());
-
-        getManager.requestGetUserInfo();
 
         getManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
