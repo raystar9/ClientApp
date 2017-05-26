@@ -32,6 +32,7 @@ public class DatabaseManager {
     private UserInfo _userInfo;
     private ItemInfo[] _mainInfo;
     private String[] _sizeInfo;
+    private String _shoe_price;
 
     public void getData(String url, final String condition) {
         class GetDataJSON extends AsyncTask<String, Void, String> {
@@ -91,15 +92,22 @@ public class DatabaseManager {
         getData(firstUrl + secondUrl, "toGetIdAndPassword");
     }
 
+    public void requestGetPrice(String serialNumber) {
+        secondUrl = "get_all_price.php?"
+                + "value='" + serialNumber + "'";
+
+        getData(firstUrl + secondUrl, "toGetPrices");
+    }
+
     public void requestGetUserInfo() {
-        secondUrl = "my_info.php?id="+id;
+        secondUrl = "my_info.php?id=" + id;
 
         getData(firstUrl + secondUrl, "toGetUserInfo");
     }
 
     public void requestGetMainInfo(String category) {
-        secondUrl = "get_shoes_info_category.php?"+
-                "shoe_species="+category;
+        secondUrl = "get_shoes_info_category.php?" +
+                "shoe_species=" + category;
 
         getData(firstUrl + secondUrl, "toGetCategoryShoes");
         // TODO : 재고번호, 신발명, 가격, 사이즈를 ItemInfo에 담음
@@ -113,8 +121,8 @@ public class DatabaseManager {
     }
 
     public void requestSetToOrder(String id, String serial, String shoe_size, String recv_name, String recv_addr, String recv_phone, String comment) {
-        secondUrl = "get_orders.php?id="+id+"shoe_size="+shoe_size+"serial_num="+serial+
-                "recv_name="+recv_name+"recv_addr="+recv_addr+"recv_phone="+recv_phone+"comment="+comment;
+        secondUrl = "get_orders.php?id=" + id + "shoe_size=" + shoe_size + "serial_num=" + serial +
+                "recv_name=" + recv_name + "recv_addr=" + recv_addr + "recv_phone=" + recv_phone + "comment=" + comment;
 
         getData(firstUrl + secondUrl, "toExecuteMyOrder");
     }
@@ -124,15 +132,23 @@ public class DatabaseManager {
         JSONConverter converter = new JSONConverter();
         switch (condition) {
             case "toGetIdAndPassword":
-                converter.getIdAndPw(json); break;
+                converter.getIdAndPw(json);
+                break;
             case "toGetUserInfo":
-                converter.getMyInfo(json); break;
+                converter.getMyInfo(json);
+                break;
             case "toGetCategoryShoes":
-                converter.getShoeList_category(json); break;
+                converter.getShoeList_category(json);
+                break;
+            case "toGetPrices":
+                converter.getPrice(json);
+                break;
             case "toGetAvailableSizes":
-                converter.getShoeSize(json); break;
+                converter.getShoeSize(json);
+                break;
             case "toExecuteMyOrder":
-                converter.executeMyOrder(); break;
+                converter.executeMyOrder();
+                break;
             default:
                 break;
         }
@@ -183,7 +199,7 @@ public class DatabaseManager {
                     _mainInfo[i].serialNumber = c.getString("serial_num");
                     _mainInfo[i].shoesName = c.getString("shoe_name");
                     _mainInfo[i].price = c.getString("shoe_price");
-                    _mainInfo[i].size = c.getString("min_size")+" - "+c.getString("max_size");
+                    _mainInfo[i].size = c.getString("min_size") + " - " + c.getString("max_size");
                 }
                 _loadCompleteListener.onLoadComplete(true);
             } catch (Exception e) {
@@ -245,8 +261,7 @@ public class DatabaseManager {
 
         protected void getUserInfo() {
             _userInfo = new UserInfo();
-            try
-            {
+            try {
                 JSONObject jsonObj = new JSONObject(myJSONquery);
                 jsArray = jsonObj.getJSONArray("result");
 
@@ -257,12 +272,29 @@ public class DatabaseManager {
                     _userInfo.phoneNo = c.getString("phone");
                 }
                 _loadCompleteListener.onLoadComplete(true);
-            }
-            catch(Exception e)
-            {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
+        protected void getPrice(JSONObject json) {
+            try {
+                jsArray = json.getJSONArray(RESULT);
+                for (int i = 0; i < jsArray.length(); i++) {
+                    JSONObject c = jsArray.getJSONObject(i);
+                    String shoePrice = c.getString("shoe_price");
+                    _shoe_price = shoePrice;
+                }
+                _loadCompleteListener.onLoadComplete(true);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    public String getIdToken() {
+        return _id;
     }
 
     public String[] getSizeInfo()
@@ -270,16 +302,16 @@ public class DatabaseManager {
         return _sizeInfo;
     }
 
-    public String getIdToken(){
-        return _id;
-    }
-
-    public UserInfo getUserInfo(){
+    public UserInfo getUserInfo() {
         return _userInfo;
     }
 
     public ItemInfo[] getMainInfoArray() {
         return _mainInfo;
+    }
+
+    public String getShoe_price() {
+        return _shoe_price;
     }
 
     private LoadCompleteListener _loadCompleteListener;
@@ -288,8 +320,8 @@ public class DatabaseManager {
         void onLoadComplete(boolean isData);
     }
 
-    public void setLoadCompleteListener(LoadCompleteListener loadCompleteListener){
-        if(_loadCompleteListener != loadCompleteListener)
+    public void setLoadCompleteListener(LoadCompleteListener loadCompleteListener) {
+        if (_loadCompleteListener != loadCompleteListener)
             _loadCompleteListener = loadCompleteListener;
     }
 

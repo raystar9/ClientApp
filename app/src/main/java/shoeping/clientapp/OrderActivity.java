@@ -18,19 +18,26 @@ public class OrderActivity extends AppCompatActivity {
     EditText editText_phone;
     EditText editText_comment;
 
-    DatabaseManager databaseManager;
+    DatabaseManager getManager;
+    DatabaseManager setManager;
+
+    String idToken;
+    String serialNumber;
+    String shoeSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
-        String idToken = getIntent().getStringExtra("idToken");
-        String serialNumber = getIntent().getStringExtra("serialNumber");
+        idToken = getIntent().getStringExtra("idToken");
+        serialNumber = getIntent().getStringExtra("serialNumber");
+        shoeSize = getIntent().getStringExtra("shoeSize");
 
         ImageView imageView = (ImageView) findViewById(R.id.orderImv);
 
-        databaseManager = new DatabaseManager();
+        getManager = new DatabaseManager();
+        setManager = new DatabaseManager();
 
         textView_name = (TextView) findViewById(R.id.nameTxv);
         editText_address = (EditText) findViewById(R.id.addressEdt);
@@ -42,12 +49,12 @@ public class OrderActivity extends AppCompatActivity {
                 getResources().getIdentifier(
                         "@drawable/" + serialNumber, "drawable", getPackageName()));
 
-        databaseManager.requestGetUserInfo();
+        getManager.requestGetUserInfo();
 
-        databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
+        getManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
             public void onLoadComplete(boolean isData) {
-                userInfo = databaseManager.getUserInfo();
+                userInfo = getManager.getUserInfo();
             }
         });
 
@@ -55,11 +62,15 @@ public class OrderActivity extends AppCompatActivity {
         button_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                databaseManager.requestSetToOrder(userInfo);
+                setManager.requestSetToOrder(idToken, serialNumber, shoeSize,
+                        textView_name.getText().toString(),
+                        editText_address.getText().toString(),
+                        editText_phone.getText().toString(),
+                        editText_comment.getText().toString());
             }
         });
 
-        databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
+        setManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
             public void onLoadComplete(boolean isData) {
                 Toast.makeText(OrderActivity.this, "주문 완료", Toast.LENGTH_SHORT).show();
