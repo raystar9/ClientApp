@@ -104,8 +104,11 @@ public class DatabaseManager {
         // TODO : 재고번호, 신발명, 가격, 사이즈를 ItemInfo에 담음
     }
 
-    public void requestSetToOrder(UserInfo userInfo) {
-        // TODO : 유저인포를 order 테이블에 씀. 보류
+    public void requestSetToOrder(String id, String serial, String shoe_size, String recv_name, String recv_addr, String recv_phone, String comment) {
+        secondUrl = "get_orders.php?id="+id+"shoe_size="+shoe_size+"serial_num="+serial+
+                "recv_name="+recv_name+"recv_addr="+recv_addr+"recv_phone="+recv_phone+"comment="+comment;
+
+        getData(firstUrl + secondUrl, "toExecuteMyOrder");
     }
 
     private void distributeJSON(JSONObject json, String condition) {
@@ -118,6 +121,8 @@ public class DatabaseManager {
                 converter.getMyInfo(json); break;
             case "toGetCategoryShoes":
                 converter.getShoeList_category(json); break;
+            case "toExecuteMyOrder":
+                converter.executeMyOrder(); break;
             default:
                 break;
         }
@@ -174,6 +179,10 @@ public class DatabaseManager {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+
+        protected void executeMyOrder() {
+            _loadCompleteListener.onLoadComplete(true);
         }
 
         protected void showOrders() {
