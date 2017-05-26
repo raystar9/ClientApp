@@ -24,11 +24,11 @@ public class MainActivity extends AppCompatActivity
     ViewPager viewPager;
     TabLayout tabs;
     //    String loginToken;    // TODO : 로그인토큰 추가 및 Intent로 토큰 교환
-    DatabaseManager.ItemInfo[] dressShoesW;
-    DatabaseManager.ItemInfo[] dressShoesM;
-    DatabaseManager.ItemInfo[] sneakersW;
-    DatabaseManager.ItemInfo[] sneakersM;
-    DatabaseManager.ItemInfo[] slippers;
+    ItemInfo[] dressShoesW;
+    ItemInfo[] dressShoesM;
+    ItemInfo[] sneakersW;
+    ItemInfo[] sneakersM;
+    ItemInfo[] slippers;
     int index;
 
     DatabaseManager databaseManager;
@@ -63,35 +63,34 @@ public class MainActivity extends AppCompatActivity
         databaseManager4 = new DatabaseManager();
         databaseManager5 = new DatabaseManager();
 
-
         databaseManager.requestGetMainInfo("DressShoes(W)");
-        databaseManager2.requestGetMainInfo("Sneakers(w)");
-        databaseManager3.requestGetMainInfo("DressShoes(M)");
-        databaseManager4.requestGetMainInfo("Sneakers(W)");
-        databaseManager5.requestGetMainInfo("Slippers");
 
         databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
             public void onLoadComplete(boolean isData) {
                 dressShoesW = databaseManager.getMainInfoArray();
+                databaseManager2.requestGetMainInfo("Sneakers(w)");
             }
         });
         databaseManager2.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
             public void onLoadComplete(boolean isData) {
                 sneakersW = databaseManager2.getMainInfoArray();
+                databaseManager3.requestGetMainInfo("DressShoes(M)");
             }
         });
         databaseManager3.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
             public void onLoadComplete(boolean isData) {
                 dressShoesM = databaseManager3.getMainInfoArray();
+                databaseManager4.requestGetMainInfo("Sneakers(W)");
             }
         });
         databaseManager4.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
             public void onLoadComplete(boolean isData) {
                 sneakersM = databaseManager4.getMainInfoArray();
+                databaseManager5.requestGetMainInfo("Slippers");
             }
         });
         databaseManager5.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
@@ -144,21 +143,21 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_women) {
             Adapter adapter = new Adapter(getSupportFragmentManager());
-            adapter.addFragment(new CardFragments(R.array.dressShoesWoman), "dressWomen");
-            adapter.addFragment(new CardFragments(R.array.runningShoesWoman), "runningWomen");
+            adapter.addFragment(new CardFragments(R.array.dressShoesWoman, dressShoesW), "dressWomen");
+            adapter.addFragment(new CardFragments(R.array.runningShoesWoman, sneakersW), "runningWomen");
             viewPager.setAdapter(adapter);
             tabs.setupWithViewPager(viewPager);
 
         } else if (id == R.id.nav_men) {
             Adapter adapter = new Adapter(getSupportFragmentManager());
-            adapter.addFragment(new CardFragments(R.array.dressShoesMan), "dressMen");
-            adapter.addFragment(new CardFragments(R.array.runningShoesMan), "runningMen");
+            adapter.addFragment(new CardFragments(R.array.dressShoesMan, dressShoesM), "dressMen");
+            adapter.addFragment(new CardFragments(R.array.runningShoesMan, dressShoesW), "runningMen");
             viewPager.setAdapter(adapter);
             tabs.setupWithViewPager(viewPager);
 
         } else if (id == R.id.nav_slipper) {
             Adapter adapter = new Adapter(getSupportFragmentManager());
-            adapter.addFragment(new CardFragments(R.array.slipper), "slipper");
+            adapter.addFragment(new CardFragments(R.array.slipper, slippers), "slipper");
             viewPager.setAdapter(adapter);
             tabs.setupWithViewPager(viewPager);
         }

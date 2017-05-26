@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class OrderActivity extends AppCompatActivity {
 
-    DatabaseManager.UserInfo userInfo;
+    UserInfo userInfo;
 
     TextView textView_name;
     EditText editText_address;

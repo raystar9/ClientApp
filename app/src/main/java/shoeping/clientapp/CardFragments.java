@@ -23,10 +23,11 @@ public class CardFragments extends Fragment {
 
     int _speciesId;
     DatabaseManager databaseManager;
-    DatabaseManager.ItemInfo[] _itemInfos;
+    ItemInfo[] _itemInfos;
 
-    public CardFragments(int speciesId) {
+    public CardFragments(int speciesId, ItemInfo[] itemInfos) {
         _speciesId = speciesId;
+        _itemInfos = itemInfos;
     }
 
     @Override
@@ -89,7 +90,7 @@ public class CardFragments extends Fragment {
     private class ContentAdapter extends RecyclerView.Adapter<ViewHolder> {
 
 
-        private final Drawable[] drawables;
+        private Drawable[] drawables;
         private String[] nameArray;
         private String[] priceArray;
         private String[] sizeArray;
@@ -98,8 +99,14 @@ public class CardFragments extends Fragment {
             Resources resources = context.getResources();
             TypedArray a = resources.obtainTypedArray(_speciesId);
             drawables = new Drawable[a.length()];
-            for (int i = 0; i < drawables.length; i++) {
+            nameArray = new String[_itemInfos.length];
+            priceArray = new String[_itemInfos.length];
+            sizeArray = new String[_itemInfos.length];
+            for (int i = 0; i < _itemInfos.length; i++) {
                 drawables[i] = a.getDrawable(i);
+                nameArray[i] = _itemInfos[i].shoesName;
+                priceArray[i] = _itemInfos[i].price;
+                sizeArray[i] = _itemInfos[i].size;
             }
             a.recycle();
         }
@@ -112,9 +119,9 @@ public class CardFragments extends Fragment {
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
             holder.picture.setImageDrawable(drawables[position % drawables.length]);
-//            holder.name.setText(nameArray[position % nameArray.length]);
- //           holder.price.setText(priceArray[position % priceArray.length]);
-  //          holder.size.setText(sizeArray[position % sizeArray.length]);
+            holder.name.setText(nameArray[position % nameArray.length]);
+            holder.price.setText(priceArray[position % priceArray.length]);
+            holder.size.setText(sizeArray[position % sizeArray.length]);
         }
 
         @Override

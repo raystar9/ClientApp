@@ -53,9 +53,9 @@ public class HomeFragment extends Fragment {
         public ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.each_shoes, parent, false));
             picture = (ImageView) itemView.findViewById(R.id.pictureImv);
-            name = (TextView) itemView.findViewById(R.id.shoesName);
-            price = (TextView) itemView.findViewById(R.id.shoesPrice);
-            size = (TextView) itemView.findViewById(R.id.shoesSize);
+            name = (TextView) itemView.findViewById(R.id.textView1);
+            price = (TextView) itemView.findViewById(R.id.textView2);
+            size = (TextView) itemView.findViewById(R.id.textView3);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

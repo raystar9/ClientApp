@@ -254,48 +254,18 @@ public class DatabaseManager {
             _loadCompleteListener = loadCompleteListener;
     }
 
-    public class UserInfo {
-        String name;
-        String address;
-        String phoneNo;
-    }
 
-    public static class ItemInfo {
-        String serialNumber;
-        String shoesName;
-        String price;
-        String size;
+}
 
-        public String getSerialNumber() {
-            return serialNumber;
-        }
+class UserInfo {
+    String name;
+    String address;
+    String phoneNo;
+}
 
-        public void setSerialNumber(String serialNumber) {
-            this.serialNumber = serialNumber;
-        }
-
-        public String getShoesName() {
-            return shoesName;
-        }
-
-        public void setShoesName(String shoesName) {
-            this.shoesName = shoesName;
-        }
-
-        public String getPrice() {
-            return price;
-        }
-
-        public void setPrice(String price) {
-            this.price = price;
-        }
-
-        public String getSize() {
-            return size;
-        }
-
-        public void setSize(String size) {
-            this.size = size;
-        }
-    }
+class ItemInfo {
+    String serialNumber;
+    String shoesName;
+    String price;
+    String size;
 }
