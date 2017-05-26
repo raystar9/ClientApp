@@ -20,6 +20,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public final String EXTRA_SERIAL_NUMBER = "serialNumber";
 
     ViewPager viewPager;
     TabLayout tabs;
@@ -67,36 +68,61 @@ public class MainActivity extends AppCompatActivity
 
         databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
-            public void onLoadComplete(boolean isData) {
+            public void onLoadComplete() {
                 dressShoesW = databaseManager.getMainInfoArray();
                 databaseManager2.requestGetMainInfo("Sneakers(W)");
+            }
+
+            @Override
+            public void onLoadFail() {
+
             }
         });
         databaseManager2.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
-            public void onLoadComplete(boolean isData) {
+            public void onLoadComplete() {
                 sneakersW = databaseManager2.getMainInfoArray();
                 databaseManager3.requestGetMainInfo("DressShoes(M)");
+            }
+
+            @Override
+            public void onLoadFail() {
+
             }
         });
         databaseManager3.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
-            public void onLoadComplete(boolean isData) {
+            public void onLoadComplete() {
                 dressShoesM = databaseManager3.getMainInfoArray();
                 databaseManager4.requestGetMainInfo("Sneakers(M)");
+            }
+
+            @Override
+            public void onLoadFail() {
+
             }
         });
         databaseManager4.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
-            public void onLoadComplete(boolean isData) {
+            public void onLoadComplete() {
                 sneakersM = databaseManager4.getMainInfoArray();
                 databaseManager5.requestGetMainInfo("Slippers");
+            }
+
+            @Override
+            public void onLoadFail() {
+
             }
         });
         databaseManager5.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
-            public void onLoadComplete(boolean isData) {
+            public void onLoadComplete() {
                 slippers = databaseManager5.getMainInfoArray();
+            }
+
+            @Override
+            public void onLoadFail() {
+
             }
         });
     }

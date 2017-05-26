@@ -49,7 +49,12 @@ public class CardFragments extends Fragment {
         databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener()
         {
             @Override
-            public void onLoadComplete(boolean isData) {
+            public void onLoadComplete() {
+
+            }
+
+            @Override
+            public void onLoadFail() {
 
             }
         });

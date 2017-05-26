@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static shoeping.clientapp.DetailsActivity.EXTRA_SERIAL_NUMBER;
+
 public class OrderActivity extends AppCompatActivity {
 
     UserInfo userInfo;
@@ -21,7 +23,9 @@ public class OrderActivity extends AppCompatActivity {
     EditText editText_address;
     EditText editText_phone;
     EditText editText_comment;
+    TextView textView_price;
 
+    DatabaseManager priceGetManager;
     DatabaseManager getManager;
     DatabaseManager setManager;
 
@@ -31,33 +35,51 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
 
         idToken = getIntent().getStringExtra("idToken");
-        serialNumber= getIntent().getStringExtra("serialNumber");
+        serialNumber= getIntent().getStringExtra(EXTRA_SERIAL_NUMBER);
         size= getIntent().getStringExtra("size");
 
         ImageView imageView = (ImageView) findViewById(R.id.orderImv);
 
+        priceGetManager = new DatabaseManager();
         getManager = new DatabaseManager();
         setManager = new DatabaseManager();
 
+        textView_price = (TextView) findViewById(R.id.price);
         textView_name = (TextView) findViewById(R.id.nameTxv);
         editText_address = (EditText) findViewById(R.id.addressEdt);
         editText_phone = (EditText) findViewById(R.id.phoneEdt);
         editText_comment = (EditText) findViewById(R.id.commentEdt);
         Button button_order = (Button) findViewById(R.id.orderBtn);
 
+        priceGetManager.requestGetPrice(serialNumber);
+        priceGetManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
+            @Override
+            public void onLoadComplete() {
+                textView_price.setText(priceGetManager.getShoePrice());
+                getManager.requestGetUserInfo(idToken);
+            }
+
+            @Override
+            public void onLoadFail() {
+
+            }
+        });
         imageView.setImageResource(
                 getResources().getIdentifier(
                         "@drawable/" + serialNumber, "drawable", getPackageName()));
-
-        getManager.requestGetUserInfo();
+//        textView_price.setText(getManager.getShoePrice());
 
         getManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
-            public void onLoadComplete(boolean isData) {
+            public void onLoadComplete() {
                 userInfo = getManager.getUserInfo();
                 textView_name.setText(userInfo.name);
                 editText_address.setText(userInfo.address);
                 editText_phone.setText(userInfo.phoneNo);
+            }
+            @Override
+            public void onLoadFail() {
+
             }
         });
 
@@ -74,9 +96,13 @@ public class OrderActivity extends AppCompatActivity {
 
         setManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
             @Override
-            public void onLoadComplete(boolean isData) {
+            public void onLoadComplete() {
                 Toast.makeText(OrderActivity.this, "주문 완료", Toast.LENGTH_SHORT).show();
                 finish();
+            }
+            @Override
+            public void onLoadFail() {
+
             }
         });
     }

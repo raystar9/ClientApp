@@ -13,8 +13,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static android.R.attr.id;
-
 public class DatabaseManager {
 
     private String myJSONquery;
@@ -32,7 +30,7 @@ public class DatabaseManager {
     private UserInfo _userInfo;
     private ItemInfo[] _mainInfo;
     private String[] _sizeInfo;
-    private String _shoe_price;
+    private String _shoePrice;
 
     public void getData(String url, final String condition) {
         class GetDataJSON extends AsyncTask<String, Void, String> {
@@ -55,7 +53,7 @@ public class DatabaseManager {
                     }
                     return sb.toString().trim();
                 } catch (Exception e) {
-                    return null;
+                    return "ERROR";
                 }
             }
 
@@ -99,8 +97,8 @@ public class DatabaseManager {
         getData(firstUrl + secondUrl, "toGetPrices");
     }
 
-    public void requestGetUserInfo() {
-        secondUrl = "my_info.php?id=" + id;
+    public void requestGetUserInfo(String idToken) {
+        secondUrl = "my_info.php?id=" + idToken;
 
         getData(firstUrl + secondUrl, "toGetUserInfo");
     }
@@ -166,7 +164,7 @@ public class DatabaseManager {
                     _id = id;
                     _pw = pw;
                 }
-                _loadCompleteListener.onLoadComplete(true);
+                _loadCompleteListener.onLoadComplete();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -183,9 +181,10 @@ public class DatabaseManager {
                     _userInfo.address = c.getString("addr");
                     _userInfo.phoneNo = c.getString("phone");
                 }
-                _loadCompleteListener.onLoadComplete(true);
+                _loadCompleteListener.onLoadComplete();
             } catch (Exception e) {
                 e.printStackTrace();
+                _loadCompleteListener.onLoadFail();
             }
         }
 
@@ -201,9 +200,10 @@ public class DatabaseManager {
                     _mainInfo[i].price = c.getString("shoe_price");
                     _mainInfo[i].size = c.getString("min_size") + " - " + c.getString("max_size");
                 }
-                _loadCompleteListener.onLoadComplete(true);
+                _loadCompleteListener.onLoadComplete();
             } catch (Exception e) {
                 e.printStackTrace();
+                _loadCompleteListener.onLoadFail();
             }
         }
 
@@ -217,15 +217,15 @@ public class DatabaseManager {
                     _sizeInfo[i] = new String();
                     _sizeInfo[i] = c.getString("size");
                 }
-                _loadCompleteListener.onLoadComplete(true);
+                _loadCompleteListener.onLoadComplete();
             } catch (Exception e) {
                 e.printStackTrace();
-                _loadCompleteListener.onLoadComplete(false);
+                _loadCompleteListener.onLoadFail();
             }
         }
 
         protected void executeMyOrder() {
-            _loadCompleteListener.onLoadComplete(true);
+            _loadCompleteListener.onLoadComplete();
         }
 
         protected void showOrders() {
@@ -258,6 +258,7 @@ public class DatabaseManager {
 
             } catch (JSONException e) {
                 e.printStackTrace();
+                _loadCompleteListener.onLoadFail();
             }
         }
 
@@ -273,9 +274,9 @@ public class DatabaseManager {
                     _userInfo.address = c.getString("addr");
                     _userInfo.phoneNo = c.getString("phone");
                 }
-                _loadCompleteListener.onLoadComplete(true);
+                _loadCompleteListener.onLoadComplete();
             } catch (Exception e) {
-                e.printStackTrace();
+                _loadCompleteListener.onLoadFail();
             }
         }
 
@@ -285,11 +286,11 @@ public class DatabaseManager {
                 for (int i = 0; i < jsArray.length(); i++) {
                     JSONObject c = jsArray.getJSONObject(i);
                     String shoePrice = c.getString("shoe_price");
-                    _shoe_price = shoePrice;
+                    _shoePrice = shoePrice;
                 }
-                _loadCompleteListener.onLoadComplete(true);
+                _loadCompleteListener.onLoadComplete();
             } catch (Exception e) {
-                e.printStackTrace();
+                _loadCompleteListener.onLoadFail();
             }
         }
 
@@ -312,14 +313,15 @@ public class DatabaseManager {
         return _mainInfo;
     }
 
-    public String getShoe_price() {
-        return _shoe_price;
+    public String getShoePrice() {
+        return _shoePrice;
     }
 
     private LoadCompleteListener _loadCompleteListener;
 
     interface LoadCompleteListener {
-        void onLoadComplete(boolean isData);
+        void onLoadComplete();
+        void onLoadFail();
     }
 
     public void setLoadCompleteListener(LoadCompleteListener loadCompleteListener) {
