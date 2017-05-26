@@ -2,8 +2,6 @@ package shoeping.clientapp;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -80,7 +78,7 @@ public class CardFragments extends Fragment {
                 public void onClick(View v) {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, DetailsActivity.class);
-//                    intent.putExtra(DetailsActivity.EXTRA_SERIAL_NUMBER, serialNumber);
+                    intent.putExtra(DetailsActivity.EXTRA_SERIAL_NUMBER, _itemInfos[getAdapterPosition()].serialNumber);
                     context.startActivity(intent);
                 }
             });
@@ -96,19 +94,19 @@ public class CardFragments extends Fragment {
         private String[] sizeArray;
 
         public ContentAdapter(Context context) {
-            Resources resources = context.getResources();
-            TypedArray a = resources.obtainTypedArray(_speciesId);
-            drawables = new Drawable[a.length()];
+            drawables = new Drawable[_itemInfos.length];
             nameArray = new String[_itemInfos.length];
             priceArray = new String[_itemInfos.length];
             sizeArray = new String[_itemInfos.length];
             for (int i = 0; i < _itemInfos.length; i++) {
-                drawables[i] = a.getDrawable(i);
+
+
+                drawables[i] = getResources().getDrawable(getResources().getIdentifier(
+                        "@drawable/" + _itemInfos[i].serialNumber, "drawable", "shoeping.clientapp"));
                 nameArray[i] = _itemInfos[i].shoesName;
                 priceArray[i] = _itemInfos[i].price;
                 sizeArray[i] = _itemInfos[i].size;
             }
-            a.recycle();
         }
 
         @Override

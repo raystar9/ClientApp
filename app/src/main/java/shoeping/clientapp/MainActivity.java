@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_men) {
             Adapter adapter = new Adapter(getSupportFragmentManager());
             adapter.addFragment(new CardFragments(R.array.dressShoesMan, dressShoesM), "dressMen");
-            adapter.addFragment(new CardFragments(R.array.runningShoesMan, dressShoesW), "runningMen");
+            adapter.addFragment(new CardFragments(R.array.runningShoesMan, sneakersM), "runningMen");
             viewPager.setAdapter(adapter);
             tabs.setupWithViewPager(viewPager);
 
