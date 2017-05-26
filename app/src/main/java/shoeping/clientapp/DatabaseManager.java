@@ -32,7 +32,7 @@ public class DatabaseManager {
     private UserInfo _userInfo;
     private ItemInfo[] _mainInfo;
     private String[] _sizeInfo;
-    private String _shoe_price;
+    private String _shoePrice;
 
     public void getData(String url, final String condition) {
         class GetDataJSON extends AsyncTask<String, Void, String> {
@@ -287,7 +287,7 @@ public class DatabaseManager {
                 for (int i = 0; i < jsArray.length(); i++) {
                     JSONObject c = jsArray.getJSONObject(i);
                     String shoePrice = c.getString("shoe_price");
-                    _shoe_price = shoePrice;
+                    _shoePrice = shoePrice;
                 }
                 _loadCompleteListener.onLoadComplete();
             } catch (Exception e) {
@@ -314,8 +314,8 @@ public class DatabaseManager {
         return _mainInfo;
     }
 
-    public String getShoe_price() {
-        return _shoe_price;
+    public String getShoePrice() {
+        return _shoePrice;
     }
 
     private LoadCompleteListener _loadCompleteListener;

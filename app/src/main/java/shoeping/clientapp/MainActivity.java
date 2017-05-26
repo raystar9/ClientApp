@@ -20,6 +20,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    public final String EXTRA_SERIAL_NUMBER = "serialNumber";
 
     ViewPager viewPager;
     TabLayout tabs;

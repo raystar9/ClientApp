@@ -9,18 +9,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import static shoeping.clientapp.DetailsActivity.EXTRA_SERIAL_NUMBER;
+
 public class LoginActivity extends AppCompatActivity {
 
     EditText _editText_id;
     EditText _editText_pw;
     DatabaseManager databaseManager = new DatabaseManager();
+    String serialNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        String productId = getIntent().getStringExtra("productToken");
+        serialNumber = getIntent().getStringExtra(EXTRA_SERIAL_NUMBER);
 
         Button loginButton = (Button) findViewById(R.id.loginBtn);
 
@@ -45,7 +48,9 @@ public class LoginActivity extends AppCompatActivity {
                 else{
                     Context context = getApplicationContext();
                     Intent intent = new Intent(context, OrderActivity.class);
-//                    intent.putExtra(DetailsActivity.EXTRA_SERIAL_NUMBER, serialNumber);
+                    intent.putExtra(EXTRA_SERIAL_NUMBER, serialNumber);
+                    intent.putExtra("idToken", databaseManager.getIdToken());
+//                    intent.putExtra("size",)
                     context.startActivity(intent);
                     finish();
                 }

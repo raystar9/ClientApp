@@ -23,6 +23,7 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
 
     Spinner spinner;
 
+    String serialNumber;
     String[] blank = {"example", "cancel"};
     String[] sizeList;
 
@@ -39,7 +40,7 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
         databaseManager = new DatabaseManager();
         Button orderButton = (Button) findViewById(R.id.directOrderBtn);
 
-        String serialNumber = getIntent().getStringExtra(EXTRA_SERIAL_NUMBER);
+        serialNumber = getIntent().getStringExtra(EXTRA_SERIAL_NUMBER);
 
         spinner = (Spinner) findViewById(R.id.selectSize);
         spinner.setPrompt("사이즈 선택");
@@ -62,6 +63,7 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
                     Context context = v.getContext();
                     Intent intent = new Intent(context, LoginActivity.class);
                     intent.putExtra("size", size);
+                    intent.putExtra(EXTRA_SERIAL_NUMBER, serialNumber);
                     context.startActivity(intent);
                 }
                 else

@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static shoeping.clientapp.DetailsActivity.EXTRA_SERIAL_NUMBER;
+
 public class OrderActivity extends AppCompatActivity {
 
     UserInfo userInfo;
@@ -21,6 +23,7 @@ public class OrderActivity extends AppCompatActivity {
     EditText editText_address;
     EditText editText_phone;
     EditText editText_comment;
+    TextView textView_price;
 
     DatabaseManager getManager;
     DatabaseManager setManager;
@@ -31,7 +34,7 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
 
         idToken = getIntent().getStringExtra("idToken");
-        serialNumber= getIntent().getStringExtra("serialNumber");
+        serialNumber= getIntent().getStringExtra(EXTRA_SERIAL_NUMBER);
         size= getIntent().getStringExtra("size");
 
         ImageView imageView = (ImageView) findViewById(R.id.orderImv);
@@ -39,6 +42,7 @@ public class OrderActivity extends AppCompatActivity {
         getManager = new DatabaseManager();
         setManager = new DatabaseManager();
 
+        textView_price = (TextView) findViewById(R.id.price);
         textView_name = (TextView) findViewById(R.id.nameTxv);
         editText_address = (EditText) findViewById(R.id.addressEdt);
         editText_phone = (EditText) findViewById(R.id.phoneEdt);
@@ -48,6 +52,7 @@ public class OrderActivity extends AppCompatActivity {
         imageView.setImageResource(
                 getResources().getIdentifier(
                         "@drawable/" + serialNumber, "drawable", getPackageName()));
+//        textView_price.setText(getManager.getShoePrice());
 
         getManager.requestGetUserInfo();
 
