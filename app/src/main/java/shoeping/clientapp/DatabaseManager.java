@@ -210,6 +210,7 @@ public class DatabaseManager {
         protected void getShoeSize(JSONObject json) {
             try {
                 jsArray = json.getJSONArray(RESULT);
+                _sizeInfo = null;
                 _sizeInfo = new String[jsArray.length()];
                 for (int i = 0; i < jsArray.length(); i++) {
                     JSONObject c = jsArray.getJSONObject(i);

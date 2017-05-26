@@ -23,8 +23,7 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
 
     Spinner spinner;
 
-    String[] blank = {"example", "cancel"};
-    String[] sizeList;
+    String[] sizeList = {"example", "cancel"};
 
     DatabaseManager databaseManager;
 
@@ -44,7 +43,7 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
         spinner = (Spinner) findViewById(R.id.selectSize);
         spinner.setPrompt("사이즈 선택");
 
-        list = new ArrayAdapter<String> (this, android.R.layout.simple_spinner_item, blank);
+        list = new ArrayAdapter<String> (this, android.R.layout.simple_spinner_item, sizeList);
         spinner.setAdapter(list);
         spinner.setOnItemSelectedListener(this);
 
@@ -87,10 +86,10 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
 
     public void newAdapter()
     {
-        blank = null;
-        blank = new String[databaseManager.getSizeInfo().length];
-        blank = databaseManager.getSizeInfo();
-        list = new ArrayAdapter<String> (this, android.R.layout.simple_spinner_item, blank);
+        sizeList = null;
+        sizeList = new String[databaseManager.getSizeInfo().length];
+        sizeList = databaseManager.getSizeInfo();
+        list = new ArrayAdapter<String> (this, android.R.layout.simple_spinner_item, sizeList);
         spinner.setAdapter(list);
     }
 
@@ -102,11 +101,16 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        TextView tv = (TextView)view;
-        TextView bb = (TextView)findViewById(R.id.chosenSize);
-        bb.setText(tv.getText());
-        size = tv.getText().toString();
-        Toast.makeText(getApplicationContext(), "size : "+size, Toast.LENGTH_SHORT);
+        try
+        {
+            TextView tv = (TextView)view;
+            size = tv.getText().toString();
+        }
+        catch(Exception e)
+        {
+            size = "";
+            e.printStackTrace();
+        }
     }
 
     @Override
