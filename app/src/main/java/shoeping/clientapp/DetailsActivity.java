@@ -43,6 +43,7 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
         Resources resources = getResources();
         databaseManager = new DatabaseManager();
         Button orderButton = (Button) findViewById(R.id.directOrderBtn);
+        Button cartButton = (Button) findViewById(R.id.addToCartBtn);
 
         serialNumber = getIntent().getStringExtra(EXTRA_SERIAL_NUMBER);
         name = getIntent().getStringExtra("name");
@@ -85,6 +86,13 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
                 {
                     Toast.makeText(getApplicationContext(), "사이즈 미지정 오류", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        cartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),"미구현입니다.", Toast.LENGTH_SHORT).show();
             }
         });
 
