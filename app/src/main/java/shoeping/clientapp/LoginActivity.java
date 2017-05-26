@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(context, OrderActivity.class);
                     intent.putExtra(EXTRA_SERIAL_NUMBER, serialNumber);
                     intent.putExtra("idToken", databaseManager.getIdToken());
-//                    intent.putExtra("size",)
+                    intent.putExtra("size", getIntent().getStringExtra("size"));
                     context.startActivity(intent);
                     finish();
                 }

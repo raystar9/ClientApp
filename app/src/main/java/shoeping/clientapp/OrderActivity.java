@@ -64,6 +64,7 @@ public class OrderActivity extends AppCompatActivity {
 
             }
         });
+
         imageView.setImageResource(
                 getResources().getIdentifier(
                         "@drawable/" + serialNumber, "drawable", getPackageName()));

@@ -76,6 +76,7 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
                 {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, LoginActivity.class);
+                    Toast.makeText(getApplicationContext(), size, Toast.LENGTH_LONG).show();
                     intent.putExtra("size", size);
                     intent.putExtra(EXTRA_SERIAL_NUMBER, serialNumber);
                     context.startActivity(intent);

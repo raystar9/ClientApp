@@ -59,9 +59,6 @@ public class CardFragments extends Fragment {
             }
         });
 
-
-
-
         return recyclerView;
     }
 
