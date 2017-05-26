@@ -24,6 +24,7 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
     Spinner spinner;
 
     String[] blank = {"example", "cancel"};
+    String[] sizeList;
 
     DatabaseManager databaseManager;
 
@@ -47,6 +48,8 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
         spinner.setAdapter(list);
         spinner.setOnItemSelectedListener(this);
 
+        size = null;
+
         databaseManager.requestGetAvailableSize(serialNumber);
 
         //TODO: 여기에 Spinner와, 그 값을 받아서 넘기는 코드 추가.
@@ -54,9 +57,17 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
         orderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, LoginActivity.class);
-                context.startActivity(intent);
+                if(size!=null)
+                {
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    intent.putExtra("size", size);
+                    context.startActivity(intent);
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "사이즈 미지정 오류", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -64,10 +75,7 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
             @Override
             public void onLoadComplete(boolean isData) {
                 // TODO: list에 넣을 값을 DBManager로 받아옴
-
-                blank = null;
-                blank = new String[databaseManager.getSizeInfo().length];
-                blank = databaseManager.getSizeInfo();
+                newAdapter();
             }
         });
 
@@ -75,6 +83,15 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
                 "@drawable/" + serialNumber, "drawable", getPackageName());
         ImageView placePicutre = (ImageView) findViewById(R.id.detailImg);
         placePicutre.setImageResource(picture);
+    }
+
+    public void newAdapter()
+    {
+        blank = null;
+        blank = new String[databaseManager.getSizeInfo().length];
+        blank = databaseManager.getSizeInfo();
+        list = new ArrayAdapter<String> (this, android.R.layout.simple_spinner_item, blank);
+        spinner.setAdapter(list);
     }
 
     @Override

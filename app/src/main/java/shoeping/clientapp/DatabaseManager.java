@@ -213,6 +213,7 @@ public class DatabaseManager {
                 _sizeInfo = new String[jsArray.length()];
                 for (int i = 0; i < jsArray.length(); i++) {
                     JSONObject c = jsArray.getJSONObject(i);
+                    _sizeInfo[i] = new String();
                     _sizeInfo[i] = c.getString("size");
                 }
                 _loadCompleteListener.onLoadComplete(true);

@@ -13,6 +13,10 @@ public class OrderActivity extends AppCompatActivity {
 
     UserInfo userInfo;
 
+    String idToken;
+    String serialNumber;
+    String size;
+
     TextView textView_name;
     EditText editText_address;
     EditText editText_phone;
@@ -21,18 +25,14 @@ public class OrderActivity extends AppCompatActivity {
     DatabaseManager getManager;
     DatabaseManager setManager;
 
-    String idToken;
-    String serialNumber;
-    String shoeSize;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
         idToken = getIntent().getStringExtra("idToken");
-        serialNumber = getIntent().getStringExtra("serialNumber");
-        shoeSize = getIntent().getStringExtra("shoeSize");
+        serialNumber= getIntent().getStringExtra("serialNumber");
+        size= getIntent().getStringExtra("size");
 
         ImageView imageView = (ImageView) findViewById(R.id.orderImv);
 
@@ -62,7 +62,7 @@ public class OrderActivity extends AppCompatActivity {
         button_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setManager.requestSetToOrder(idToken, serialNumber, shoeSize,
+                setManager.requestSetToOrder(idToken, serialNumber, size,
                         textView_name.getText().toString(),
                         editText_address.getText().toString(),
                         editText_phone.getText().toString(),
