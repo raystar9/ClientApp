@@ -124,7 +124,7 @@ public class CardFragments extends Fragment {
 
         @Override
         public int getItemCount() {
-            return drawables.length;
+            return _itemInfos.length;
         }
 
     }
