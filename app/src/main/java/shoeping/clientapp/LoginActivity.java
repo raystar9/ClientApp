@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import static shoeping.clientapp.DetailsActivity.EXTRA_SERIAL_NUMBER;
+import static shoeping.clientapp.ExtraHolder.*;
 
 public class LoginActivity extends AppCompatActivity {
 

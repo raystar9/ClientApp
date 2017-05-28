@@ -13,6 +13,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import shoeping.clientapp.typeDefine.ItemInfo;
+
+import static shoeping.clientapp.ExtraHolder.*;
+
 /**
  * Created by test on 2017-05-24.
  */
@@ -80,10 +84,10 @@ public class CardFragments extends Fragment {
                 public void onClick(View v) {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, DetailsActivity.class);
-                    intent.putExtra(DetailsActivity.EXTRA_SERIAL_NUMBER, _itemInfos[getAdapterPosition()].serialNumber);
-                    intent.putExtra("name", _itemInfos[getAdapterPosition()].shoesName);
-                    intent.putExtra("price", _itemInfos[getAdapterPosition()].price);
-                    intent.putExtra("desc", "No Description");
+                    intent.putExtra(EXTRA_SERIAL_NUMBER, _itemInfos[getAdapterPosition()].serialNumber);
+//                    intent.putExtra(EXTRA_NAME, _itemInfos[getAdapterPosition()].shoesName);
+//                    intent.putExtra(EXTRA_PRICE, _itemInfos[getAdapterPosition()].price);
+//                    intent.putExtra(EXTRA_DESCRIPTION, "No Description");
                     context.startActivity(intent);
                 }
             });
@@ -97,6 +101,7 @@ public class CardFragments extends Fragment {
         private String[] nameArray;
         private String[] priceArray;
         private String[] sizeArray;
+        int drawableId;
 
         public ContentAdapter(Context context) {
             drawables = new Drawable[_itemInfos.length];
@@ -104,10 +109,9 @@ public class CardFragments extends Fragment {
             priceArray = new String[_itemInfos.length];
             sizeArray = new String[_itemInfos.length];
             for (int i = 0; i < _itemInfos.length; i++) {
-
-
-                drawables[i] = getResources().getDrawable(getResources().getIdentifier(
-                        "@drawable/" + _itemInfos[i].serialNumber, "drawable", "shoeping.clientapp"));
+                drawableId = getResources().getIdentifier(
+                        "@drawable/" + _itemInfos[i].serialNumber, "drawable", "shoeping.clientapp");
+                drawables[i] = getResources().getDrawable(drawableId);
                 nameArray[i] = _itemInfos[i].shoesName;
                 priceArray[i] = _itemInfos[i].price;
                 sizeArray[i] = _itemInfos[i].size;

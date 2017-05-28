@@ -18,9 +18,12 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import shoeping.clientapp.DatabaseManager.LoadCompleteListener;
+import shoeping.clientapp.typeDefine.ItemInfo;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    public final String EXTRA_SERIAL_NUMBER = "serialNumber";
+
 
     ViewPager viewPager;
     TabLayout tabs;
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity
 
         databaseManager.requestGetMainInfo("DressShoes(W)");
 
-        databaseManager.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
+        databaseManager.setLoadCompleteListener(new LoadCompleteListener() {
             @Override
             public void onLoadComplete() {
                 dressShoesW = databaseManager.getMainInfoArray();
@@ -78,48 +81,44 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
-        databaseManager2.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
+        databaseManager2.setLoadCompleteListener(new LoadCompleteListener() {
             @Override
             public void onLoadComplete() {
                 sneakersW = databaseManager2.getMainInfoArray();
                 databaseManager3.requestGetMainInfo("DressShoes(M)");
             }
-
             @Override
             public void onLoadFail() {
 
             }
         });
-        databaseManager3.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
+        databaseManager3.setLoadCompleteListener(new LoadCompleteListener() {
             @Override
             public void onLoadComplete() {
                 dressShoesM = databaseManager3.getMainInfoArray();
                 databaseManager4.requestGetMainInfo("Sneakers(M)");
             }
-
             @Override
             public void onLoadFail() {
 
             }
         });
-        databaseManager4.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
+        databaseManager4.setLoadCompleteListener(new LoadCompleteListener() {
             @Override
             public void onLoadComplete() {
                 sneakersM = databaseManager4.getMainInfoArray();
                 databaseManager5.requestGetMainInfo("Slippers");
             }
-
             @Override
             public void onLoadFail() {
 
             }
         });
-        databaseManager5.setLoadCompleteListener(new DatabaseManager.LoadCompleteListener() {
+        databaseManager5.setLoadCompleteListener(new LoadCompleteListener() {
             @Override
             public void onLoadComplete() {
                 slippers = databaseManager5.getMainInfoArray();
             }
-
             @Override
             public void onLoadFail() {
 
@@ -170,14 +169,14 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_women) {
             Adapter adapter = new Adapter(getSupportFragmentManager());
             adapter.addFragment(new CardFragments(R.array.dressShoesWoman, dressShoesW), "dressWomen");
-            adapter.addFragment(new CardFragments(R.array.runningShoesWoman, sneakersW), "runningWomen");
+            adapter.addFragment(new CardFragments(R.array.sneakersWoman, sneakersW), "runningWomen");
             viewPager.setAdapter(adapter);
             tabs.setupWithViewPager(viewPager);
 
         } else if (id == R.id.nav_men) {
             Adapter adapter = new Adapter(getSupportFragmentManager());
             adapter.addFragment(new CardFragments(R.array.dressShoesMan, dressShoesM), "dressMen");
-            adapter.addFragment(new CardFragments(R.array.runningShoesMan, sneakersM), "runningMen");
+            adapter.addFragment(new CardFragments(R.array.sneakersMan, sneakersM), "runningMen");
             viewPager.setAdapter(adapter);
             tabs.setupWithViewPager(viewPager);
 

@@ -9,7 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static shoeping.clientapp.DetailsActivity.EXTRA_SERIAL_NUMBER;
+import shoeping.clientapp.typeDefine.UserInfo;
+
+import static shoeping.clientapp.ExtraHolder.*;
 
 public class OrderActivity extends AppCompatActivity {
 

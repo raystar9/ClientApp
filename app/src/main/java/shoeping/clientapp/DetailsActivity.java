@@ -15,9 +15,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+import static shoeping.clientapp.ExtraHolder.*;
 
-    public static final String EXTRA_SERIAL_NUMBER = "serialNumber";
+
+public class DetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     ArrayAdapter<String> list;
 
@@ -46,9 +47,9 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
         Button cartButton = (Button) findViewById(R.id.addToCartBtn);
 
         serialNumber = getIntent().getStringExtra(EXTRA_SERIAL_NUMBER);
-        name = getIntent().getStringExtra("name");
-        price = getIntent().getStringExtra("price");
-        desc = getIntent().getStringExtra("desc");
+//        name = getIntent().getStringExtra("name");
+//        price = getIntent().getStringExtra("price");
+//        desc = getIntent().getStringExtra("desc");
 
         text_name = (TextView) findViewById(R.id.detailShoesName);
         text_price = (TextView) findViewById(R.id.detailShoesPrice);
@@ -78,7 +79,7 @@ public class DetailsActivity extends AppCompatActivity implements AdapterView.On
                     Context context = v.getContext();
                     Intent intent = new Intent(context, LoginActivity.class);
                     Toast.makeText(getApplicationContext(), size, Toast.LENGTH_LONG).show();
-                    intent.putExtra("size", size);
+                    intent.putExtra(EXTRA_SIZE, size);
                     intent.putExtra(EXTRA_SERIAL_NUMBER, serialNumber);
                     context.startActivity(intent);
                 }

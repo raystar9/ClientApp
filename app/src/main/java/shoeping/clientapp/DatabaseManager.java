@@ -13,6 +13,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import shoeping.clientapp.typeDefine.UserInfo;
+import shoeping.clientapp.typeDefine.ItemInfo;
+
 public class DatabaseManager {
 
     private String myJSONquery;
@@ -73,6 +76,10 @@ public class DatabaseManager {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public class Requester{
+
     }
 
     public void requestGetId(String id, String pw) {
@@ -332,15 +339,3 @@ public class DatabaseManager {
 
 }
 
-class UserInfo {
-    String name;
-    String address;
-    String phoneNo;
-}
-
-class ItemInfo {
-    String serialNumber;
-    String shoesName;
-    String price;
-    String size;
-}

@@ -37,9 +37,8 @@
         <item>@drawable/v1413v_210</item>
 
     </array>
-    <array name="runningShoesMan">
+    <array name="sneakersMan">
         <item>@drawable/bb8326</item>
-        <item>@drawable/bb1190</item>
         <item>@drawable/m20324</item>
         <item>@drawable/w574</item>
         <item>@drawable/n880845</item>
@@ -48,9 +47,10 @@
         <item>@drawable/n511881</item>
         <item>@drawable/promr17s302</item>
         <item>@drawable/vn000d3hy281</item>
+        <item>@drawable/bb1190</item>
 
     </array>
-    <array name="runningShoesWoman">
+    <array name="sneakersWoman">
         <item>@drawable/bb2121</item>
         <item>@drawable/bb1107</item>
         <item>@drawable/bb0134</item>
@@ -61,7 +61,6 @@
         <item>@drawable/n904651</item>
         <item>@drawable/prour17s101</item>
         <item>@drawable/vn00ee3</item>
-
     </array>
 
 </resources>
